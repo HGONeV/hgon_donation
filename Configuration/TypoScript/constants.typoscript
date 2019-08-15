@@ -1,0 +1,34 @@
+
+plugin.tx_hgondonation {
+	view {
+		# cat=plugin.tx_hgondonation/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:hgon_donation/Resources/Private/Templates/
+		# cat=plugin.tx_hgondonation/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:hgon_donation/Resources/Private/Partials/
+		# cat=plugin.tx_hgondonation/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:hgon_donation/Resources/Private/Layouts/
+	}
+	persistence {
+		# cat=plugin.tx_hgondonation//a; type=string; label=Default storage PID
+		storagePid =
+	}
+    settings {
+        # cat=plugin.tx_hgondonation//a; type=int; label=Ajax TypeNum
+        ajaxTypeNum = 1560941246
+        # cat=plugin.tx_hgondonation//a; type=int; label=PID of detail page
+        showPid =
+        # cat=plugin.tx_hgondonation//a; type=int; label=items per page
+        itemsPerPage = 3
+        # cat=plugin.tx_hgondonation//a; type=int; label=maximum shown results
+        maximumShownResults = 9999
+
+        bankAccount {
+            # cat=plugin.tx_hgondonation//a; type=string; label=IBAN
+            iban =
+            # cat=plugin.tx_hgondonation//a; type=string; label=BIC
+            bic =
+            # cat=plugin.tx_hgondonation//a; type=string; label=bank name
+            bank =
+        }
+    }
+}

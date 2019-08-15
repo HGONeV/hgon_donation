@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-08-13T10:28:28Z" product-name="hgondonation">
+		<header/>
+		<body>
+			<trans-unit id="tx_hgondonation_domain_model_donate">
+				<source>donate</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donate.description">
+				<source>Donation extension of HGON</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donation">
+				<source>Donation Type</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donation.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donation.short_description">
+				<source>Short Description</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donation.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donation.image">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donation.link">
+				<source>Link</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donation.donation_type_time">
+				<source>Donation Type Time</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donation.donation_type_money">
+				<source>Donation Type Money</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donation.typolink">
+                <source>Typolink (Project)</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_donation.pages">
+                <source>Pages (Project)</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_donation.time_range_start">
+                <source>Time Range Start</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_donation.time_range_end">
+                <source>Time Range End</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_donation.tx_rkwproject_project">
+                <source>Project</source>
+            </trans-unit>
+
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime">
+				<source>Donation Type Time</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.short_description">
+				<source>Short Description</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.type">
+				<source>Type</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.time_requirement">
+				<source>Time Requirement</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.time_range_start">
+				<source>Time Range Start</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.time_range_end">
+				<source>Time Range End</source>
+			</trans-unit>
+
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.recurring">
+				<source>Recurring</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.image">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.contact_person">
+				<source>Contact Person</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.finished">
+				<source>Finished</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.helpers_feedback">
+				<source>Helpers Feedback</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.helpers_image">
+				<source>Helpers Image</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.donation_place">
+				<source>Donation Place</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.pages">
+                <source>Project page</source>
+            </trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypemoney">
+				<source>Donation Type Money</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypemoney.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypemoney.short_description">
+				<source>Short Description</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypemoney.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypemoney.image">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypemoney.donation_goal">
+				<source>Donation Goal</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypemoney.donation_amount_current">
+				<source>Donation Amount Current</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypemoney.donator_count">
+				<source>Donator Count</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypemoney.frontend_user">
+				<source>Frontend User</source>
+			</trans-unit>
+
+			<trans-unit id="tx_hgondonation_domain_model_donationplace">
+				<source>Donation Place</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationplace.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationplace.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationplace.address">
+				<source>Address</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationplace.zip">
+				<source>Zip</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationplace.city">
+				<source>City</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationplace.longitude">
+				<source>Longitude</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypeplace.latitude">
+				<source>Latitude</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationplace.country">
+				<source>Country</source>
+			</trans-unit>
+
+
+			<!-- ############################## -->
+            <!-- TEMPLATES -->
+            <!-- ############################## -->
+
+            <trans-unit id="tx_hgondonation_templates_donation_supportOptions_button.becomeMember">
+                <source>Become member</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_templates_donation_supportOptions_button.donateMoney">
+                <source>Donate money</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_templates_donation_supportOptions_button.donateTime">
+                <source>Donate time</source>
+            </trans-unit>
+
+            <trans-unit id="tx_hgondonation_templates_donation_button.readMore">
+                <source>Read more</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_templates_donation_button.moreInformation">
+                <source>More information</source>
+            </trans-unit>
+		</body>
+	</file>
+</xliff>

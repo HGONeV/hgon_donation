@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-08-13T10:28:28Z" product-name="hgon_donation">
+		<header/>
+		<body>
+			<trans-unit id="tx_hgondonation_domain_model_donate">
+				<source>donate</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donate.description">
+				<source>Donation extension of HGON</source>
+			</trans-unit>
+			<trans-unit id="type.description">
+				<source>type</source>
+			</trans-unit>
+			<trans-unit id="title.description">
+				<source>title</source>
+			</trans-unit>
+			<trans-unit id="short_description.description">
+				<source>shortDescription</source>
+			</trans-unit>
+			<trans-unit id="description.description">
+				<source>description</source>
+			</trans-unit>
+			<trans-unit id="image.description">
+				<source>image</source>
+			</trans-unit>
+			<trans-unit id="link.description">
+				<source>link</source>
+			</trans-unit>
+			<trans-unit id="donation_type_time.description">
+				<source>donationTypeTime</source>
+			</trans-unit>
+			<trans-unit id="donation_type_money.description">
+				<source>donationTypeMoney</source>
+			</trans-unit>
+			<trans-unit id="typolink.description">
+                <source>Typolink (Project)</source>
+            </trans-unit>
+            <trans-unit id="pages.description">
+                <source>Pages</source>
+            </trans-unit>
+			<trans-unit id="time_range_start.description">
+                <source>timeRangeStart</source>
+            </trans-unit>
+            <trans-unit id="time_range_end.description">
+                <source>timeRangeEnd</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwproject_project.description">
+                <source>Project</source>
+            </trans-unit>
+		</body>
+	</file>
+</xliff>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-08-13T10:28:28Z" product-name="hgon_donation">
+		<header/>
+		<body>
+			<trans-unit id="tx_hgondonation_domain_model_donate">
+				<source>donate</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donate.description">
+				<source>Donation extension of HGON</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donation">
+				<source>Donation</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donation.type">
+				<source>Type</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donation.type.select">
+				<source>Choose</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donation.type.time">
+				<source>Time</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donation.type.money">
+				<source>Money</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donation.type.link">
+				<source>Link to page (e.g. for membership)</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donation.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donation.short_description">
+				<source>Short Description</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donation.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donation.image">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donation.link">
+				<source>Link</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donation.donation_type_time">
+				<source>Donation Type Time</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donation.donation_type_money">
+				<source>Donation Type Money</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donation.typolink">
+                <source>Typolink (Project)</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_donation.pages">
+                <source>Pages (Project)</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_donation.time_range_start">
+                <source>Time Range Start</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_donation.time_range_end">
+                <source>Time Range End</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_donation.tx_rkwproject_project">
+                <source>Project</source>
+            </trans-unit>
+
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime">
+				<source>Donation Time</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.short_description">
+				<source>Short Description</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.type">
+				<source>Type</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.time_requirement">
+				<source>Time Requirement</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.recurring">
+				<source>Recurring</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.image">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.contact_person">
+				<source>Contact Person</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.finished">
+				<source>Finished</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.helpers_feedback">
+				<source>Helpers Feedback</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.helpers_image">
+				<source>Helpers Image</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.donation_place">
+				<source>Donation Place</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.frontend_user">
+				<source>FrontendUser</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.max_num_frontend_user">
+				<source>Maximum number of FrontendUser</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.pages">
+                <source>Project page</source>
+            </trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypemoney">
+				<source>Donation Money</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypemoney.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypemoney.short_description">
+				<source>Short Description</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypemoney.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypemoney.image">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypemoney.donation_goal">
+				<source>Donation Goal</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypemoney.donation_amount_current">
+				<source>Donation Amount Current</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypemoney.donator_count">
+				<source>Donator Count</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationtypemoney.frontend_user_to_inform">
+				<source>Frontend User to inform</source>
+			</trans-unit>
+
+			<trans-unit id="tx_hgondonation_domain_model_donationplace">
+				<source>Donation Place</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationplace.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationplace.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationplace.address">
+				<source>Address</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationplace.zip">
+				<source>Zip</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationplace.city">
+				<source>City</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationplace.longitude">
+				<source>Longitude</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationplace.latitude">
+				<source>Latitude</source>
+			</trans-unit>
+			<trans-unit id="tx_hgondonation_domain_model_donationplace.country">
+				<source>Country</source>
+			</trans-unit>
+
+
+			<!-- FLEXFORM -->
+            <trans-unit id="flexform.supportOptions.sheetTitle">
+                <source>Support Options</source>
+            </trans-unit>
+            <trans-unit id="flexform.supportOptions.preHeader">
+                <source>Pre header</source>
+            </trans-unit>
+            <trans-unit id="flexform.supportOptions.header">
+                <source>Header</source>
+            </trans-unit>
+            <trans-unit id="flexform.supportOptions.text">
+                <source>Text</source>
+            </trans-unit>
+            <trans-unit id="flexform.supportOptions.showBecomeMember">
+                <source>Show: Become Member</source>
+            </trans-unit>
+            <trans-unit id="flexform.supportOptions.showDonateMoney">
+                <source>Show: Donate money</source>
+            </trans-unit>
+            <trans-unit id="flexform.supportOptions.showDonateTime">
+                <source>Show: Donate time</source>
+            </trans-unit>
+            <trans-unit id="flexform.supportOptions.image">
+                <source>Image</source>
+            </trans-unit>
+            <trans-unit id="flexform.supportOptions.sheetTitle.becomeMember">
+                <source>Options: Become member</source>
+            </trans-unit>
+            <trans-unit id="flexform.supportOptions.sheetTitle.donateMoney">
+                <source>Options: Donate money</source>
+            </trans-unit>
+            <trans-unit id="flexform.supportOptions.sheetTitle.donateTime">
+                <source>Options: Donate time</source>
+            </trans-unit>
+		</body>
+	</file>
+</xliff>

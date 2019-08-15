@@ -1,0 +1,11 @@
+<h3 class="title">
+	{donationType.title}
+</h3>
+<p class="shortDescription">
+	{donationType.shortDescription}
+</p>
+<p>
+	<f:if condition="{donationType.image}">
+		<f:image class="image" width="100" src="{donationType.image.uid}" alt="{donationType.image.originalResource.name}" treatIdAsReference="1" />
+	</f:if>
+</p>

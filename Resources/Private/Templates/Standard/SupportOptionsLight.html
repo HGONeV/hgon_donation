@@ -1,0 +1,54 @@
+
+
+<section class="section">
+    <div class="flex-container space-between gutter valign-stretch">
+        <div class="flex-item c-6">
+            <article class="card card--shadow card--primary">
+                <f:if condition="{settings.supportOptions.becomeMember.image}">
+                    <picture class="card__image">
+                        <f:image class="image-embed-item" treatIdAsReference="1" src="{settings.supportOptions.becomeMember.image}" width="595px" height="300px" />
+                    </picture>
+                </f:if>
+                <div class="card__inner card__inner--light">
+                    <header class="card__header">
+                        <h3 class="headline">{settings.supportOptions.becomeMember.header}</h3>
+                    </header>
+                    <div class="card__content">
+                        <p>
+                            {settings.supportOptions.becomeMember.text}
+                        </p>
+                    </div>
+                    <footer class="card__footer">
+                        <a data-featherlight="#mitgliedsformular" href="#" class="btn btn--white btn--rounded">
+                            Mitglied werden
+                        </a>
+                    </footer>
+                </div>
+            </article>
+        </div>
+        <div class="flex-item c-6">
+            <article class="card card--shadow card--primary">
+                <f:if condition="{settings.supportOptions.donateMoney.image}">
+                    <picture class="card__image">
+                        <f:image class="image-embed-item" treatIdAsReference="1" src="{settings.supportOptions.donateMoney.image}" width="595px" height="300px" />
+                    </picture>
+                </f:if>
+                <div class="card__inner card__inner--light">
+                    <header class="card__header">
+                        <h3 class="headline">{settings.supportOptions.donateMoney.header}</h3>
+                    </header>
+                    <div class="card__content">
+                        <p>
+                            {settings.supportOptions.donateMoney.text}
+                        </p>
+                    </div>
+                    <footer class="card__footer">
+                        <a data-featherlight="#hgon-paypal" href="#" class="btn btn--white btn--rounded">
+                            Jetzt spenden
+                        </a>
+                    </footer>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>

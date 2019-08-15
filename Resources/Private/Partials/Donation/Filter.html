@@ -1,0 +1,29 @@
+<f:form noCacheHash="true" class="main__nav main__nav--inline ajax" action="list" controller="Donation" extensionName="HgonDonation" pluginName="Listing" additionalAttributes="{data-page-type: '{settingsArray.ajaxTypeNum}'}">
+    <ul class="menu menu-sub menu--filter">
+        <li>
+            <label>
+                <f:form.radio name="filter[type]" value="0" />
+                Alle
+            </label>
+        </li>
+        <li>
+            <label>
+                <f:form.radio name="filter[type]" value="1" />
+                Zeitlich
+            </label>
+        </li>
+        <li>
+            <label>
+                <f:form.radio name="filter[type]" value="2" />
+                Finanziell
+            </label>
+        </li>
+        <li>
+            <span class="select-box">
+                <f:form.select id="time-select" name="filter[time]" options="{filterDateTimeArray}" prependOptionLabel="Zeitraum" prependOptionValue="0" />
+            </span>
+        </li>
+    </ul>
+    <!-- Override typeNum for AJAX -->
+    <input type="hidden" name="type" value="{settingsArray.ajaxTypeNum}">
+</f:form>

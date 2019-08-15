@@ -1,0 +1,94 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+
+This Template is responsible for creating a table of domain objects.
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Templates:
+        List.html: keep
+
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+<f:section name="main">
+    <section class="section / js-tabs-container" id="zeitspenden">
+
+        <header class="section__header">
+            <div class="flex-container space-between">
+                <h2>Projekt unterstützen</h2>
+            </div>
+        </header>
+
+
+        <div class="section__content / no-padding-top">
+            <div class="flex-container space-between gutter">
+                <div class="flex-item c-12">
+                    <nav class="nav nav--tab js-tab-nav / align-right">
+                        <ul>
+                            <li class="active"><a class="js-tab-link" href="#tab-01" data-index="0">Zeitlich</a></li>
+                            <li class=""><a class="js-tab-link" href="#tab-02" data-index="1">Finanziell</a></li>
+                        </ul>
+                    </nav>
+                    <div class="tabs js-tabs">
+                        <f:comment><!-- donation time --></f:comment>
+                        <div class="tab__item js-tab-item">
+                            <table class="table table--support-tasks tab__item-content">
+                                <thead>
+                                    <tr>
+                                        <th>Tätigkeit</th>
+                                        <th>Ort</th>
+                                        <th>Zeitaufwand</th>
+                                        <th>Zeitraum</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="donation-listing-time">
+                                    <f:render partial="Donation/List" arguments="{donationList: donationTypeTimeList}" />
+                                </tbody>
+                            </table>
+
+                            <div class="section__footer / align-center" id="donation-more-link-container-time">
+                                <f:if condition="{showMoreLinkDonationTime}">
+                                    <br/>
+                                    <br/>
+                                    <f:render partial="Donation/MoreLink" section="time" arguments="{_all}" />
+                                </f:if>
+                            </div>
+                        </div>
+
+                        <f:comment><!-- donation money --></f:comment>
+                        <div class="tab__item js-tab-item">
+                            <table class="table table--support-tasks tab__item-content">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">Projekt</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="donation-listing-money">
+                                    <f:render partial="Donation/List" arguments="{donationList: donationTypeMoneyList}" />
+                                </tbody>
+                            </table>
+
+                            <div class="section__footer / align-center" id="donation-more-link-container-money">
+                                <f:if condition="{showMoreLinkDonationMoney}">
+                                    <br/>
+                                    <br/>
+                                    <f:render partial="Donation/MoreLink" section="money" arguments="{_all}" />
+                                </f:if>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </section>
+
+</f:section>
+
+</html>

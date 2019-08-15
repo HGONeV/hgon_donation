@@ -1,0 +1,12 @@
+<f:form id="hgon-donation-project-search-form" noCacheHash="true" class="form" action="newDonationTime" controller="Standard" extensionName="HgonDonation" pluginName="Donate" additionalAttributes="{data-page-type: '{ajaxTypeNum}'}" >
+    <f:form.select class="form__field" name="donationTypeTime" options="{donationTypeTimeList}" optionValueField="uid" optionLabelField="title" prependOptionLabel="--- Zeitspende auswählen ---" prependOptionValue="0"  />
+
+
+    <f:comment>
+        <f:form.submit value="Anzeigen" class="btn btn--primary btn--rounded" />
+    </f:comment>
+
+
+    <!-- Override typeNum for AJAX -->
+    <input type="hidden" name="type" value="{ajaxTypeNum}">
+</f:form>

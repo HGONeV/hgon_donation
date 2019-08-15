@@ -1,0 +1,116 @@
+config.tx_extbase{
+    persistence{
+        classes{
+            HGON\HgonDonation\Domain\Model\Pages {
+                mapping {
+                    tableName = pages
+
+                    # on pages tables it's the doktype
+                    # if we set an value, we filter by it
+                    # if we do not set anything, all pages are found
+                    recordType =
+
+                    # mapping to properties of class
+                    columns {
+                        uid.mapOnProperty = uid
+                        pid.mapOnProperty = pid
+                        sorting.mapOnProperty = sorting
+                        title.mapOnProperty = title
+                        subtitle.mapOnProperty = subtitle
+                        no_search.mapOnProperty = noSearch
+                        crdate.mapOnProperty = crdate
+                        tstamp.mapOnProperty = tstamp
+                        hidden.mapOnProperty = hidden
+                        deleted.mapOnProperty = deleted
+                        lastUpdated.mapOnProperty = lastUpdated
+                        //tx_rkwprojects_project_uid.mapOnProperty = txRkwprojectsProject
+                    }
+                }
+            }
+        }
+    }
+}
+
+plugin.tx_hgondonation {
+	view {
+		templateRootPaths.0 = EXT:hgon_donation/Resources/Private/Templates/
+		templateRootPaths.1 = {$plugin.tx_hgondonation.view.templateRootPath}
+		partialRootPaths.0 = EXT:hgon_donation/Resources/Private/Partials/
+		partialRootPaths.1 = {$plugin.tx_hgondonation.view.partialRootPath}
+		layoutRootPaths.0 = EXT:hgon_donation/Resources/Private/Layouts/
+		layoutRootPaths.1 = {$plugin.tx_hgondonation.view.layoutRootPath}
+	}
+	persistence {
+		storagePid = {$plugin.tx_hgondonation.persistence.storagePid}
+		#recursive = 1
+	}
+	features {
+		#skipDefaultArguments = 1
+	}
+	mvc {
+		#callDefaultActionIfActionCantBeResolved = 1
+	}
+    settings {
+        ajaxTypeNum = {$plugin.tx_hgondonation.settings.ajaxTypeNum}
+        showPid = {$plugin.tx_hgondonation.settings.showPid}
+        itemsPerPage = {$plugin.tx_hgondonation.settings.itemsPerPage}
+        maximumShownResults = {$plugin.tx_hgondonation.settings.maximumShownResults}
+        bankAccount {
+            iban = {$plugin.tx_hgondonation.settings.bankAccount.iban}
+            bic = {$plugin.tx_hgondonation.settings.bankAccount.bic}
+            bank = {$plugin.tx_hgondonation.settings.bankAccount.bank}
+        }
+    }
+}
+
+
+plugin.tx_hgondonation_listing < plugin.tx_hgondonation
+plugin.tx_hgondonation_donate < plugin.tx_hgondonation
+
+
+page.includeJSFooter.txHgonDonation  = EXT:hgon_donation/Resources/Public/Scripts/hgondonation.js
+
+
+#===============================================================
+# Ajax
+#===============================================================
+txHgondonationAjax = PAGE
+txHgondonationAjax {
+
+    typeNum = {$plugin.tx_hgondonation.settings.ajaxTypeNum}
+
+    config {
+        disableAllHeaderCode = 1
+        xhtml_cleaning = 0
+        admPanel = 0
+        additionalHeaders = Content-type: text/plain
+        no_cache = 0
+    }
+
+    10 = USER_INT
+    10 {
+        userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+        extensionName = HgonDonation
+        pluginName = Listing
+        vendorName = HGON
+        switchableControllerActions {
+
+            # Again: Controller-Name and Action
+            Donation {
+                10 = list
+            }
+
+            /*
+            Standard {
+                10 = newDonationTime
+                20 = listDonationTime
+                30 = createDonationTime
+            }
+            */
+        }
+
+        view < plugin.tx_hgondonation.view
+        persistence < plugin.tx_hgondonation.persistence
+        settings < plugin.tx_hgondonation.settings
+    }
+}

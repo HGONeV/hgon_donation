@@ -1,0 +1,32 @@
+<f:if condition="<f:count>{donationList}</f:count>">
+    <aside class="aside aside--border aside-helpactivities color-bg-white">
+        <header class="aside__header">
+            <h6>Jetzt helfen!</h6>
+        </header>
+        <div class="aside__content">
+            <ul>
+                <f:for each="{donationList}" as="donation">
+                    <f:if condition="{donation.type}">
+                        <li>
+                            <p>
+                                <strong>{donation.title}</strong><br>
+                            </p>
+                            <p>
+                                <a href="#">Unterstützen</a>
+                            </p>
+                        </li>
+                    </f:if>
+                </f:for>
+            </ul>
+        </div>
+    </aside>
+</f:if>
+
+<aside class="aside / no-padding">
+    <div class="aside__content">
+        <a class="btn btn--cta btn--rounded" href="#">
+            Projekt unterstützen
+            <svg class="icon icon--btn-left" width="16" height="16"><use xlink:href="#ui-next"></use></svg>
+        </a>
+    </div>
+</aside>

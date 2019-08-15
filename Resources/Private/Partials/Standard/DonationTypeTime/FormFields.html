@@ -1,0 +1,18 @@
+<f:form id="donation-time-form" name="formFields" noCacheHash="true" class="form" action="createDonationTime" controller="Standard" extensionName="HgonDonation" pluginName="Donate" additionalAttributes="{data-page-type: '{ajaxTypeNum}'}">
+	<f:form.hidden property="donationTypeTime" value="{donationTypeTime}" />
+
+	<f:form.select property="gender" prependOptionLabel="Geschlecht" />
+
+	<f:form.textfield property="firstName" placeholder="Vorname" />
+
+	<f:form.textfield property="lastName" placeholder="Nachname" />
+
+	<f:form.textfield property="email" placeholder="E-Mail" />
+
+	<f:form.textarea property="remark" placeholder="Anmerkung" />
+
+    <f:form.submit value="absenden" />
+
+    <!-- Override typeNum for AJAX -->
+    <input type="hidden" name="type" value="{ajaxTypeNum}">
+</f:form>

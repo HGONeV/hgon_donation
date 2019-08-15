@@ -1,0 +1,85 @@
+<f:if condition="<f:count>{donationList}</f:count>">
+    <f:then>
+        <f:for each="{donationList}" as="donation">
+        <tr>
+            <f:render section="inner" arguments="{donation: donation}" />
+        </tr>
+        </f:for>
+    </f:then>
+    <f:else>
+        <div class="flex-item c-12">
+            <article class="card card-plainfull">
+                <div class="card__inner">
+                    <div class="flex-container">
+                        <div class="flex-item c-4">
+                            <header class="card__header">
+                                <h3 class="headline">Uuups!</h3>
+                            </header>
+                        </div>
+                        <div class="flex-item c-7">
+                            <div class="card__content">
+                                Aktuell bieten wir keine passende Spende an, die diesen Kriterien entspricht. Aber das wird sich sicherlich bald wieder ändern :)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </f:else>
+</f:if>
+
+<f:section name="inner">
+
+
+    <td>
+        <h4>{donation.title}</h4>
+        <p>{donation.shortDescription}</p>
+    </td>
+
+    <f:if condition="{donation.type} == 1">
+        <f:then>
+            <td>
+                <strong class="th">Ort: </strong>
+            </td>
+            <td>
+                <strong class="th">Aufwand: </strong></td>
+            <td>
+                <strong class="th">Zeitraum: </strong>April 2019
+            </td>
+            <td class="align-right"><a href="#" class="btn btn--primary-outline btn--rounded">Unterstützen</a></td>
+        </f:then>
+        <f:else>
+            <td class="align-right"><a href="#" class="btn btn--primary-outline btn--rounded">Spenden</a></td>
+        </f:else>
+    </f:if>
+
+
+
+
+
+    <f:comment>
+        <div class="flex-item {type}">
+            <f:comment><!-- use project (optional selected page) image as fallback --></f:comment>
+            <f:if condition="{donation.image}">
+                <f:then>
+                    <f:render partial="FlexItem/01-HeaderArea" arguments="{type: type, image: donation.image}" />
+                </f:then>
+                <f:else>
+                    <f:render partial="FlexItem/01-HeaderArea" arguments="{type: type, image: donation.pages.txRkwbasicsTeaserImage}" />
+                </f:else>
+            </f:if>
+
+            <div class="card__inner">
+                <f:render partial="FlexItem/02-BodyArea" arguments="{title: donation.title, text: donation.shortDescription}" />
+
+                <footer class="card__footer">
+                    <f:link.action class="btn btn--rounded btn--tertiary" action="show" controller="Donation" pluginName="Detail" extensionName="HgonDonation" pageUid="{settingsArray.showPid}" arguments="{donation : donation}">
+                        Mehr erfahren
+                    </f:link.action>
+                </footer>
+            </div>
+
+            <f:render partial="FlexItem/03-ClosingTag" />
+        </div>
+    </f:comment>
+</f:section>
