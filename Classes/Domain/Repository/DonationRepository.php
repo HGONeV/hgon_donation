@@ -92,7 +92,31 @@ class DonationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
         return $query->execute();
         //===
+    }
 
+
+
+    /**
+     * Find by TxRkwprojectProject
+     *
+     * @param \HGON\HgonDonation\Domain\Model\Donation $donation
+     * @param boolean $excludeGiven
+     * @return array
+     */
+    public function findByTxRkwprojectProject($donation, $excludeGiven = false)
+    {
+        $query = $this->createQuery();
+
+        $constraints[] = $query->equals('txRkwprojectProject', $donation->getTxRkwprojectProject());
+
+        if ($excludeGiven) {
+            $constraints[] = $query->logicalNot($query->equals('uid', $donation));
+        }
+
+        $query->matching($query->logicalAnd($constraints));
+
+        return $query->execute();
+        //===
     }
 
 }

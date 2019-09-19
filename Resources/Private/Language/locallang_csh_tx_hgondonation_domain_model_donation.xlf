@@ -48,6 +48,12 @@
             <trans-unit id="tx_rkwproject_project.description">
                 <source>Project</source>
             </trans-unit>
+            <trans-unit id="time_requirement.description">
+                <source>timeRequirement</source>
+            </trans-unit>
+            <trans-unit id="donation_place.description">
+                <source>donationPlace</source>
+            </trans-unit>
 		</body>
 	</file>
 </xliff>

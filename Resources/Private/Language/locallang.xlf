@@ -48,6 +48,12 @@
             <trans-unit id="tx_hgondonation_domain_model_donation.tx_rkwproject_project">
                 <source>Project</source>
             </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_donation.time_requirement">
+                <source>Time Requirement</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_donation.donation_place">
+                <source>Donation Place</source>
+            </trans-unit>
 
 			<trans-unit id="tx_hgondonation_domain_model_donationtypetime">
 				<source>Donation Type Time</source>

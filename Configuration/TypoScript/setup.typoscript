@@ -52,6 +52,8 @@ plugin.tx_hgondonation {
 	}
     settings {
         ajaxTypeNum = {$plugin.tx_hgondonation.settings.ajaxTypeNum}
+        typeNumClearPage = {$plugin.tx_hgondonation.settings.typeNumClearPage}
+        listPid = {$plugin.tx_hgondonation.settings.listPid}
         showPid = {$plugin.tx_hgondonation.settings.showPid}
         itemsPerPage = {$plugin.tx_hgondonation.settings.itemsPerPage}
         maximumShownResults = {$plugin.tx_hgondonation.settings.maximumShownResults}
@@ -112,5 +114,21 @@ txHgondonationAjax {
         view < plugin.tx_hgondonation.view
         persistence < plugin.tx_hgondonation.persistence
         settings < plugin.tx_hgondonation.settings
+    }
+}
+
+
+
+txHgondonationBecomeMemberForm = PAGE
+txHgondonationBecomeMemberForm {
+
+    typeNum = {$plugin.tx_hgondonation.settings.typeNumClearPage}
+
+    config {
+        disableAllHeaderCode = 1
+        xhtml_cleaning = 0
+        admPanel = 0
+        additionalHeaders = Content-type: text/plain
+        no_cache = 0
     }
 }

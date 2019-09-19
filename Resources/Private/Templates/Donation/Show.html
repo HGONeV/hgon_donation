@@ -1,3 +1,86 @@
-<f:format.raw>
-    {donation.description}
-</f:format.raw>
+{namespace hgon=HGON\HgonTemplate\ViewHelpers}
+
+<div class="content">
+    <div class="article">
+        <div class="article__content">
+            <h2>{donation.title}</h2>
+            <f:format.raw>
+                {donation.description}
+            </f:format.raw>
+        </div>
+    </div>
+    <f:comment><!-- SIDEBAR --></f:comment>
+    <div class="sidebar color-bg-light">
+
+        <f:link.page class="link link--icon / float-right" pageUid="{settings.listPid}" title="Mitmachen"  section="zeitspenden">
+            <svg class="icon icon--btn-left" width="18" height="18"><use xlink:href="#ui-arrow-left"></use></svg>
+            Zurück zur Übersicht
+        </f:link.page>
+
+        <f:if condition="<f:count>{similarDonationList}</f:count>">
+            <f:render section="furtherDonationOptions" arguments="{similarDonationList: similarDonationList}" />
+        </f:if>
+
+        <f:if condition="{donation.txRkwprojectProject.projectManager}">
+            <f:render section="contactPerson" arguments="{author: donation.txRkwprojectProject.projectManager}" />
+        </f:if>
+
+
+    </div>
+</div>
+
+<f:section name="furtherDonationOptions">
+    <aside class="aside aside--border aside-helpactivities color-bg-white">
+        <header class="aside__header">
+            <h6>Ähnliche Zeitspenden</h6>
+        </header>
+        <div class="aside__content">
+            <ul>
+                <f:for each="{similarDonationList}" as="similarDonation">
+                    <li>
+                        <p>
+                            <strong>{similarDonation.title}</strong><br>
+                        </p>
+                        <p>
+                            <f:link.action action="show" additionalParams="{tx_hgondonation_detail:{donation: similarDonation}}">Mehr erfahren</f:link.action>
+                        </p>
+                    </li>
+                </f:for>
+            </ul>
+        </div>
+    </aside>
+</f:section>
+
+<f:section name="contactPerson">
+    <aside class="aside color-bg-tertiary">
+        <header class="aside__header">
+            <h6>
+                Ansprechpartner
+            </h6>
+        </header>
+        <div class="aside__content">
+            <p class="cf">
+                <f:if condition="{author.imageBoxes}" >
+                    <f:image class="img-left" image="{author.imageBoxes}" alt="{author.imageBoxes.title}" width="100" height="100" />
+                </f:if>
+            </p>
+            <p>
+                <strong>{author.firstName} {author.lastName}</strong>
+                <br/>
+                {author.functionTitle}
+                <br/>
+            </p>
+            <p>
+                <a href="tel:<hgon:php.pregReplace pattern='[^+0-9]' replacement='' subject='{author.phone} {author.phone2}' />">
+                    <svg class="icon icon--btn-left color-font-primary" width="16" height="16"><use xlink:href="#ui-phone"></use></svg>
+                    <f:format.stripTags>{author.phone} {author.phone2}</f:format.stripTags>
+                </a>
+                <br>
+                <a href="mailto:<f:format.stripTags><f:format.html>{author.email}</f:format.html></f:format.stripTags>">
+                    <svg class="icon icon--btn-left color-font-primary" width="16" height="16"><use xlink:href="#ui-mail"></use></svg>
+                    {author.email}
+                </a>
+            </p>
+        </div>
+    </aside>
+</f:section>

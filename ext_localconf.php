@@ -91,11 +91,24 @@ call_user_func(
             ]
         );
 
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            'HGON.HgonDonation',
+            'BecomeMemberForm',
+            [
+                'Form' => 'becomeMember'
+            ],
+            // non-cacheable actions
+            [
+                'Form' => 'becomeMember'
+            ]
+        );
+
 
 
         // Hook for Geodata and reservation cleanup on copy
         $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][$extKey] = 'HGON\\HgonDonation\\Hooks\\TceMainHooks';
 
+        /*
         // add to InstallTool options (otherwise the ajax calls will not work)
         $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'tx_hgondonation_donate[action]';
         $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'tx_hgondonation_donate[controller]';
@@ -105,6 +118,7 @@ call_user_func(
         $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'tx_hgondonation_listing[controller]';
         $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'tx_hgondonation_listing[filter][type]';
         $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'tx_hgondonation_listing[filter][time]';
+        */
 	},
 	$_EXTKEY
 );

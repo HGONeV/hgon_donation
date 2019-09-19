@@ -20,9 +20,13 @@ class Donation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * type
 	 *
+     * Comment: We do not have several types anymore. Because every RkwProject dataset is a potential money donation type
+     * -> So we set generally all to type = 1 (donation time). So we are flexible for changes in future
+     * (otherwise we could remove a lot of stuff)
+     *
 	 * @var integer
 	 */
-	protected $type = 0;
+	protected $type = 1;
 
 	/**
 	 * title
@@ -59,6 +63,13 @@ class Donation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 * @var string
 	 */
 	protected $link = '';
+
+    /**
+     * timeRequirement
+     *
+     * @var string
+     */
+    protected $timeRequirement = '';
 
 	/**
 	 * donationTypeTime
@@ -113,6 +124,13 @@ class Donation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected $txRkwprojectProject = null;
 
+    /**
+     * donationPlace
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\HGON\HgonDonation\Domain\Model\DonationPlace>
+     */
+    protected $donationPlace = null;
+
 	/**
 	 * __construct
 	 */
@@ -133,6 +151,7 @@ class Donation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		$this->donationTypeTime = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->donationTypeMoney = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->pages = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->donationPlace = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
 	/**
@@ -260,6 +279,27 @@ class Donation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	{
 		$this->link = $link;
 	}
+
+    /**
+     * Returns the timeRequirement
+     *
+     * @return string $timeRequirement
+     */
+    public function getTimeRequirement()
+    {
+        return $this->timeRequirement;
+    }
+
+    /**
+     * Sets the timeRequirement
+     *
+     * @param string $timeRequirement
+     * @return void
+     */
+    public function setTimeRequirement($timeRequirement)
+    {
+        $this->timeRequirement = $timeRequirement;
+    }
 
 	/**
 	 * Returns the donationTypeTime
@@ -446,5 +486,46 @@ class Donation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setTxRkwprojectProject(\HGON\HgonTemplate\Domain\Model\Projects $txRkwprojectProject)
     {
         $this->txRkwprojectProject = $txRkwprojectProject;
+    }
+
+    /**
+     * Returns the donationPlace
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\HGON\HgonDonation\Domain\Model\DonationPlace> $donationPlace
+     */
+    public function getDonationPlace()
+    {
+        return $this->donationPlace;
+    }
+
+    /**
+     * Sets the donationPlace
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\HGON\HgonDonation\Domain\Model\DonationPlace> $donationPlace
+     * @return void
+     */
+    public function setDonationPlace(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $donationPlace)
+    {
+        $this->donationPlace = $donationPlace;
+    }
+
+    /**
+     * Adds a donationPlace
+     *
+     * @param \HGON\HgonDonation\Domain\Model\DonationPlace $donationPlace
+     * @return void
+     */
+    public function addDonationPlace(\HGON\HgonDonation\Domain\Model\DonationPlace $donationPlace) {
+        $this->donationPlace->attach($donationPlace);
+    }
+
+    /**
+     * Removes a donationPlace
+     *
+     * @param \HGON\HgonDonation\Domain\Model\DonationPlace $donationPlaceToRemove The donationPlace to be removed
+     * @return void
+     */
+    public function removeDonationPlace(\HGON\HgonDonation\Domain\Model\DonationPlace $donationPlaceToRemove) {
+        $this->donationPlace->detach($donationPlaceToRemove);
     }
 }

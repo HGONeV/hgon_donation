@@ -64,6 +64,14 @@
                 <source>Project</source>
                 <target>Projekt</target>
             </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_donation.time_requirement">
+                <source>Time Requirement</source>
+                <target>Zeitaufwand (gesamt)</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_donation.donation_place">
+                <source>Donation Place</source>
+                <target>Ort</target>
+            </trans-unit>
 
             <trans-unit id="tx_hgondonation_domain_model_donationtypetime">
                 <source>Donation Type Time</source>

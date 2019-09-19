@@ -4,13 +4,13 @@
 <section class="section">
     <header class="section__header / pb-2">
         <div class="wrap wrap--text / align-center">
-                    <span class="badge badge--secondary">
-                        {settings.supportOptions.preHeader}
-                        <span class="is-hidden">: </span>
-                    </span>
+            <span class="badge badge--secondary">
+                {settings.supportOptions.preHeader}
+                <span class="is-hidden">: </span>
+            </span>
             <span class="h1 headline">
-                        {settings.supportOptions.header}
-                    </span>
+                {settings.supportOptions.header}
+            </span>
             <p>
                 {settings.supportOptions.text}
             </p>
@@ -38,7 +38,7 @@
         <article class="card card--shadow">
             <f:if condition="{settings.supportOptions.{itemType}.image}">
                 <picture class="card__image">
-                        <f:image class="image-embed-item" treatIdAsReference="1" src="{settings.supportOptions.{itemType}.image}" alt="Test" width="395" height="300" />
+                    <f:image class="image-embed-item" treatIdAsReference="1" src="{settings.supportOptions.{itemType}.image}" alt="Test" width="395" height="300"/>
                 </picture>
             </f:if>
             <div class="card__inner">
@@ -53,13 +53,20 @@
                 <footer class="card__footer">
 
                     <f:if condition="{itemType} == 'becomeMember'">
-                        <a data-featherlight="#mitgliedsformular" href="#" class="btn btn--rounded btn--tertiary">
-                            <f:translate key="tx_hgondonation_templates_donation_supportOptions_button.{itemType}" />
-                        </a>
+                        <f:comment>
+                            <a data-featherlight="#mitgliedsformular" href="#">
+                                <f:translate key="tx_hgondonation_templates_donation_supportOptions_button.{itemType}"/>
+                            </a>
+                        </f:comment>
+
+                        <f:link.page class="btn btn--rounded btn--tertiary" noCache="true" pageUid="78" pageType="{settings.typeNumClearPage}" additionalAttributes="{data-featherlight: 'iframe', data-featherlight-iframe-height: '800', data-featherlight-iframe-width: '600'}">
+                            <f:translate key="tx_hgondonation_templates_donation_supportOptions_button.{itemType}"/>
+                        </f:link.page>
+
                     </f:if>
                     <f:if condition="{itemType} == 'donateMoney'">
                         <a data-featherlight="#hgon-paypal" href="#" class="btn btn--rounded btn--tertiary">
-                            <f:translate key="tx_hgondonation_templates_donation_supportOptions_button.{itemType}" />
+                            <f:translate key="tx_hgondonation_templates_donation_supportOptions_button.{itemType}"/>
                         </a>
                     </f:if>
                     <f:if condition="{itemType} == 'donateTime'">
@@ -67,7 +74,7 @@
                         <a data-featherlight="#hgon-donate-time-plugin" href="#" class="btn btn--rounded btn--tertiary">
                         -->
                         <f:link.page pageUid="11" section="zeitspenden" class="btn btn--rounded btn--tertiary">
-                            <f:translate key="tx_hgondonation_templates_donation_supportOptions_button.{itemType}" />
+                            <f:translate key="tx_hgondonation_templates_donation_supportOptions_button.{itemType}"/>
                         </f:link.page>
                     </f:if>
 
@@ -80,19 +87,19 @@
 </f:section>
 
 <div class="featherlight-form-container mitgliedsformular" style="display: none;">
-    <f:render partial="Standard/FormFramework/BecomeMember" />
+    <f:render partial="Standard/FormFramework/BecomeMember"/>
 </div>
 
 <div class="featherlight-form-container hgon-donate-time-plugin" style="display: none;">
-    <f:cObject typoscriptObjectPath="page.10.variables.hgonDonateTime" />
+    <f:cObject typoscriptObjectPath="page.10.variables.hgonDonateTime"/>
 </div>
 
 <div class="featherlight-form-container hgon-paypal" style="display: none;">
     <form id="hgon-paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
         <h2>Unterstützen Sie uns jetzt!</h2>
-        <input type="hidden" name="cmd" value="_s-xclick" />
-        <input type="hidden" name="hosted_button_id" value="Z2WGTP8CTH5DN" />
-        <input type="image" src="https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-        <img alt="" border="0" src="https://www.paypal.com/de_DE/i/scr/pixel.gif" width="1" height="1" />
+        <input type="hidden" name="cmd" value="_s-xclick"/>
+        <input type="hidden" name="hosted_button_id" value="Z2WGTP8CTH5DN"/>
+        <input type="image" src="https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button"/>
+        <img alt="" border="0" src="https://www.paypal.com/de_DE/i/scr/pixel.gif" width="1" height="1"/>
     </form>
 </div>

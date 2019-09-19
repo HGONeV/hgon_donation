@@ -90,7 +90,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         }
 
 
-        // donation time
+        // donation money
         if (
             !$filter['type']
             || $filter['type'] == 2
@@ -169,7 +169,11 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             $this->view->assign('pages', $this->pagesRepository->findByIdentifier(intval(end($explodedLink))));
         }
         */
+
+    //    DebuggerUtility::var_dump($this->donationRepository->findByTxRkwprojectProject($donation, true)); exit;
+
         $this->view->assign('donation', $donation);
+        $this->view->assign('similarDonationList', $this->donationRepository->findByTxRkwprojectProject($donation, true));
     }
 
 
