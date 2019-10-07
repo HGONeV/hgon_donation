@@ -52,6 +52,7 @@ plugin.tx_hgondonation {
 	}
     settings {
         ajaxTypeNum = {$plugin.tx_hgondonation.settings.ajaxTypeNum}
+        ajaxTypeNumDonationMoney = {$plugin.tx_hgondonation.settings.ajaxTypeNumDonationMoney}
         typeNumClearPage = {$plugin.tx_hgondonation.settings.typeNumClearPage}
         listPid = {$plugin.tx_hgondonation.settings.listPid}
         showPid = {$plugin.tx_hgondonation.settings.showPid}
@@ -119,8 +120,10 @@ txHgondonationAjax {
 
 
 
-txHgondonationBecomeMemberForm = PAGE
-txHgondonationBecomeMemberForm {
+txHgondonationDonateMoney = PAGE
+txHgondonationDonateMoney {
+
+    #includeJSFooterlibs.file35 = https://www.paypalobjects.com/webstatic/ppplus/ppplus.min.js
 
     typeNum = {$plugin.tx_hgondonation.settings.typeNumClearPage}
 
@@ -130,5 +133,26 @@ txHgondonationBecomeMemberForm {
         admPanel = 0
         additionalHeaders = Content-type: text/plain
         no_cache = 0
+    }
+
+    10 = USER_INT
+    10 {
+        userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+        extensionName = HgonDonation
+        pluginName = Listing
+        vendorName = HGON
+        switchableControllerActions {
+
+            # Again: Controller-Name and Action
+            Donation {
+                10 = newMoney
+                20 = createMoney
+            }
+
+        }
+
+        view < plugin.tx_hgondonation.view
+        persistence < plugin.tx_hgondonation.persistence
+        settings < plugin.tx_hgondonation.settings
     }
 }

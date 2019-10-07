@@ -8,12 +8,11 @@ call_user_func(
             'HGON.HgonDonation',
             'Listing',
             [
-                'Donation' => 'list'
-                //'Donation' => 'list, show, new, create, edit, update, delete'
+                'Donation' => 'list, newMoney, createMoney'
             ],
             // non-cacheable actions
             [
-                'Donation' => 'list'
+                'Donation' => 'list, newMoney, createMoney'
             ]
         );
 

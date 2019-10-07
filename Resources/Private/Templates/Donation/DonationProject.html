@@ -12,7 +12,7 @@
                                 <strong>{donation.title}</strong><br>
                             </p>
                             <p>
-                                <a>Unterstützen</a>
+                                <f:link.action action="show" controller="Donation" pageUid="{settings.showPid}" additionalParams="{tx_hgondonation_detail:{donation: donation}}">Mehr erfahren</f:link.action>
                             </p>
                         </li>
                     </f:if>

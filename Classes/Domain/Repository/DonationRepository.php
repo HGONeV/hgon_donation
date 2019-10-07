@@ -97,13 +97,13 @@ class DonationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
 
     /**
-     * Find by TxRkwprojectProject
+     * Find by DonationTxRkwprojectProject
      *
      * @param \HGON\HgonDonation\Domain\Model\Donation $donation
      * @param boolean $excludeGiven
      * @return array
      */
-    public function findByTxRkwprojectProject($donation, $excludeGiven = false)
+    public function findByDonationTxRkwprojectProject($donation, $excludeGiven = false)
     {
         $query = $this->createQuery();
 

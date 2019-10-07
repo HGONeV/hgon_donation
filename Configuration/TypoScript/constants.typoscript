@@ -15,6 +15,8 @@ plugin.tx_hgondonation {
     settings {
         # cat=plugin.tx_hgondonation//a; type=int; label=Ajax TypeNum
         ajaxTypeNum = 1560941246
+        # cat=plugin.tx_hgondonation//a; type=int; label=Ajax TypeNum
+        ajaxTypeNumDonationMoney = 1570023206
         # cat=plugin.tx_hgondonation//a; type=int; label=TypeNum clear page (forms e.g.)
         typeNumClearPage = 1568798050
         # cat=plugin.tx_hgondonation//a; type=int; label=PID of list page

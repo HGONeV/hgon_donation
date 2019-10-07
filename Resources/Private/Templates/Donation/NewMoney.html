@@ -1,0 +1,38 @@
+<h2>Geldspende</h2>
+<p>Unterstützen sie das Projekt <strong>{project.name}</strong> mit ihrem Beitrag!</p>
+<f:comment><i>{project.description}</i></f:comment>
+<div>
+    <div id="payment-container" class="flex-container space-between gutter">
+        <div class="flex-item c-6">
+            <p><strong>Einfach unkompliziert</strong> mit PayPal</p>
+            <br/>
+            <div class="badge badge--circle">
+                <span class="is-centered">5€</span>
+            </div>
+            <div class="badge badge--circle">
+                <span class="is-centered">10€</span>
+            </div>
+            <div class="badge badge--circle">
+                <span class="is-centered">20€</span>
+            </div>
+            <div class="badge badge--circle">
+                <span class="is-centered">50€</span>
+            </div>
+            <f:form class="ajax" action="createMoney" enctype="multipart/form-data" id="moneyAmount" name="moneyAmount" object="{moneyAmount}" arguments="{project: project}">
+                <!-- Override typeNum for AJAX -->
+                <input type="hidden" name="type" value="{typeNumClearPage}">
+                <p>Individueller Wunschbetrag in <strong>€</strong></p>
+                <f:form.textfield property="amount" placeholder="€" value="100" style="width: 150px" type="number" additionalAttributes="{pattern: '[0-9]{1,10}'}"/>
+                <f:form.submit class="btn btn--primary-outline btn--rounded" value="Spenden!" />
+            </f:form>
+        </div>
+        <div class="flex-item c-6">
+            <p>Oder <strong>einfach überweisen</strong></p>
+            <f:cObject typoscriptObjectPath="page.10.variables.bankAccountSidebar"/>
+        </div>
+    </div>
+</div>
+
+
+
+

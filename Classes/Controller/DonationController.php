@@ -37,6 +37,14 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     protected $pagesRepository = null;
 
     /**
+     * projectsRepository
+     *
+     * @var \HGON\HgonTemplate\Domain\Repository\ProjectsRepository
+     * @inject
+     */
+    protected $projectsRepository = null;
+
+    /**
      * action list
      * (alternative list for donation time popup in footer)
      *
@@ -97,7 +105,8 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         ) {
             // set filter, if not set (to get only donation time data sets)
             $filter['type'] = 2;
-            $donationListTotal = $this->donationRepository->findByFilter($filter, 1, PHP_INT_MAX)->count();
+            //$donationListTotal = $this->donationRepository->findByFilter($filter, 1, PHP_INT_MAX)->count();
+            $donationListTotal = $this->projectsRepository->findByFilter(1, PHP_INT_MAX);
             $maximumReached = ($page * $this->settings['itemsPerPage']) < intval($this->settings['maximumShownResults']) ? false : true;
             if (
                 ($page * $this->settings['itemsPerPage']) < $donationListTotal
@@ -105,7 +114,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             ) {
                 $replacements['showMoreLinkDonationMoney'] = true;
             }
-            $replacements['donationTypeMoneyList'] = $this->donationRepository->findByFilter($filter, $page, intval($this->settings['itemsPerPage']));
+            $replacements['donationTypeMoneyList'] = $this->projectsRepository->findByFilter($page, intval($this->settings['itemsPerPage']));
         }
 
         $replacements['page'] = $page;
@@ -170,10 +179,10 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         }
         */
 
-    //    DebuggerUtility::var_dump($this->donationRepository->findByTxRkwprojectProject($donation, true)); exit;
+    //    DebuggerUtility::var_dump($this->donationRepository->findByDonationTxRkwprojectProject($donation, true)); exit;
 
         $this->view->assign('donation', $donation);
-        $this->view->assign('similarDonationList', $this->donationRepository->findByTxRkwprojectProject($donation, true));
+        $this->view->assign('similarDonationList', $this->donationRepository->findByDonationTxRkwprojectProject($donation, true));
     }
 
 
@@ -188,6 +197,72 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     public function newAction(\HGON\HgonDonation\Domain\Model\DonationTypeTime $donationTypeTime)
     {
 
+    }
+
+
+
+    /**
+     * action newMoney
+     * action for donation money (PayPal)
+     *
+     * @param \HGON\HgonTemplate\Domain\Model\Projects $project
+     * @return void
+     */
+    public function newMoneyAction(\HGON\HgonTemplate\Domain\Model\Projects $project)
+    {
+        $this->view->assign('project', $project);
+    }
+
+
+
+    /**
+     * action createMoney
+     * action for donation money (PayPal)
+     *
+     * @param \HGON\HgonTemplate\Domain\Model\Projects $project
+     * @param array $moneyAmount
+     * @return void
+     */
+    public function createMoneyAction(\HGON\HgonTemplate\Domain\Model\Projects $project, $moneyAmount)
+    {
+        /** @var \HGON\HgonPayment\Domain\Model\Basket $basket */
+        $basket = $this->objectManager->get('HGON\\HgonPayment\\Domain\\Model\\Basket');
+
+        /** @var \HGON\HgonPayment\Domain\Model\Article $article */
+        $article = $this->objectManager->get('HGON\\HgonPayment\\Domain\\Model\\Article');
+        $article->setDescription("Mein Beitrag für den Umweltschutz!");
+        $article->setName($project->getName());
+        $article->setPrice(floatval($moneyAmount['amount']));
+        $article->setSku($project->getInternalName());
+        $basket->addArticle($article);
+
+        /** @var \HGON\HgonPayment\Api\PayPalApi $payPalApi */
+        $payPalApi = $this->objectManager->get('HGON\\HgonPayment\\Api\\PayPalApi');
+
+        $result = $payPalApi->createPayment($basket);
+        //    DebuggerUtility::var_dump($result); exit;
+        // extract approval_url
+        $approvalUrl = $result->links;
+        //$this->view->assign('approvalUrl', $approvalUrl[1]->href);
+
+        // get JSON helper
+        /** @var \RKW\RkwBasics\Helper\Json $jsonHelper */
+        $jsonHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('RKW\\RkwBasics\\Helper\\Json');
+        // get new list
+        $replacements = array (
+            'approvalUrl' => $approvalUrl[1]->href
+        );
+
+        $jsonHelper->setHtml(
+            'payment-container',
+            $replacements,
+            'replace',
+            'Ajax/Donation/CreateMoney.html'
+        );
+
+        print (string) $jsonHelper;
+        exit();
+        //===
     }
 
 
