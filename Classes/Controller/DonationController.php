@@ -236,11 +236,14 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $article->setSku($project->getInternalName());
         $basket->addArticle($article);
 
+        $GLOBALS['TSFE']->fe_user->setKey('ses', 'hgon_payment_basket', $basket);
+        $GLOBALS['TSFE']->storeSessionData();
+
         /** @var \HGON\HgonPayment\Api\PayPalApi $payPalApi */
         $payPalApi = $this->objectManager->get('HGON\\HgonPayment\\Api\\PayPalApi');
 
         $result = $payPalApi->createPayment($basket);
-        //    DebuggerUtility::var_dump($result); exit;
+
         // extract approval_url
         $approvalUrl = $result->links;
         //$this->view->assign('approvalUrl', $approvalUrl[1]->href);
@@ -263,6 +266,53 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         print (string) $jsonHelper;
         exit();
         //===
+    }
+
+
+
+    /**
+     * action preparePaymentAction
+     * coming back from paypal with payment authorization
+     *
+     * @return void
+     */
+    public function preparePaymentAction()
+    {
+        /** @var \HGON\HgonPayment\Domain\Model\Basket $basket */
+        $basket = $GLOBALS['TSFE']->fe_user->getKey('ses','hgon_payment_basket');
+        $basket->setPaymentData([
+            'paymentId' =>  preg_replace('/[^A-Z0-9-]/', '', \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('paymentId')),
+            'token' =>  preg_replace('/[^A-Z0-9-]/', '', \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('token')),
+            'payerId' =>  preg_replace('/[^A-Z0-9-]/', '', \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('PayerID'))
+        ]);
+
+        $GLOBALS['TSFE']->fe_user->setKey('ses', 'hgon_payment_basket', $basket);
+        $GLOBALS['TSFE']->storeSessionData();
+
+        $this->view->assign('basket', $basket);
+    }
+
+
+
+    /**
+     * action executePaymentAction
+     * action for executing donation money (PayPal)
+     *
+     * @return void
+     */
+    public function executePaymentAction()
+    {
+        $paymentId = preg_replace('/[^A-Z0-9-]/', '', \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('paymentId'));
+        $token = preg_replace('/[^A-Z0-9-]/', '', \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('token'));
+        $payerId = preg_replace('/[^A-Z0-9-]/', '', \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('PayerID'));
+
+        /** @var \HGON\HgonPayment\Api\PayPalApi $payPalApi */
+        $payPalApi = $this->objectManager->get('HGON\\HgonPayment\\Api\\PayPalApi');
+        $result = $payPalApi->executePayment($paymentId, $token, $payerId);
+
+
+        DebuggerUtility::var_dump($result);
+        exit;
     }
 
 
