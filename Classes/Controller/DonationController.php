@@ -242,12 +242,16 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         /** @var \HGON\HgonPayment\Api\PayPalApi $payPalApi */
         $payPalApi = $this->objectManager->get('HGON\\HgonPayment\\Api\\PayPalApi');
 
-        // testing start
-    //    $result = $payPalApi->createPlan($article);
-    //    DebuggerUtility::var_dump($result); exit;
-        // testing end
-
-        $result = $payPalApi->createPayment($basket);
+        $isPayPalPlus = true;
+        // create subscription
+        if ($moneyAmount['permanent']) {
+            // Subscription with PayPal (PayPalPlus does not support recurring payments)
+            $result = $payPalApi->createSubscription($article);
+            $isPayPalPlus = false;
+        } else {
+            // one time payment mit PayPalPlus
+            $result = $payPalApi->createPayment($basket);
+        }
 
         // extract approval_url
         $approvalUrl = $result->links;
@@ -258,7 +262,8 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $jsonHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('RKW\\RkwBasics\\Helper\\Json');
         // get new list
         $replacements = array (
-            'approvalUrl' => $approvalUrl[1]->href
+            'approvalUrl' => $isPayPalPlus ? $approvalUrl[1]->href : $approvalUrl[0]->href,
+            'isPayPalPlus' => $isPayPalPlus
         );
 
         $jsonHelper->setHtml(
