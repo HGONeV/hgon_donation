@@ -56,6 +56,7 @@ plugin.tx_hgondonation {
         typeNumClearPage = {$plugin.tx_hgondonation.settings.typeNumClearPage}
         listPid = {$plugin.tx_hgondonation.settings.listPid}
         showPid = {$plugin.tx_hgondonation.settings.showPid}
+        donationFormPid = {$plugin.tx_hgondonation.settings.donationFormPid}
         itemsPerPage = {$plugin.tx_hgondonation.settings.itemsPerPage}
         maximumShownResults = {$plugin.tx_hgondonation.settings.maximumShownResults}
         bankAccount {

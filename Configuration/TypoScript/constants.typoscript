@@ -23,6 +23,8 @@ plugin.tx_hgondonation {
         listPid =
         # cat=plugin.tx_hgondonation//a; type=int; label=PID of detail page
         showPid =
+        # cat=plugin.tx_hgondonation//a; type=int; label=PID of donation plugin (shows content for lightbox)
+        donationFormPid =
         # cat=plugin.tx_hgondonation//a; type=int; label=items per page
         itemsPerPage = 3
         # cat=plugin.tx_hgondonation//a; type=int; label=maximum shown results

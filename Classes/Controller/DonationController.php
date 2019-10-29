@@ -319,10 +319,6 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         /** @var \HGON\HgonPayment\Api\PayPalApi $payPalApi */
         $payPalApi = $this->objectManager->get('HGON\\HgonPayment\\Api\\PayPalApi');
         $result = $payPalApi->executePayment($paymentId, $token, $payerId);
-
-
-        DebuggerUtility::var_dump($result);
-        exit;
     }
 
 
