@@ -1,11 +1,11 @@
 <f:section name="time">
     <f:link.action action="list" controller="Donation" extensionName="HgonDonation" pluginName="Listing" id="more-link-{pageNumber}" class="ajax btn btn--primary btn--rounded" title="Mehr laden" additionalParams="{tx_hgondonation_listing: '{page: page, filter: filter, itemType: 1}'}" additionalAttributes="{data-page-type: '{settingsArray.ajaxTypeNum}'}" >
-        Mehr laden
+        <f:translate key="tx_hgondonation_templates_donation_morelink.loadMore" />
     </f:link.action>
 </f:section>
 
 <f:section name="money">
     <f:link.action action="list" controller="Donation" extensionName="HgonDonation" pluginName="Listing" id="more-link-{pageNumber}" class="ajax btn btn--primary btn--rounded" title="Mehr laden" additionalParams="{tx_hgondonation_listing: '{page: page, filter: filter, itemType: 2}'}" additionalAttributes="{data-page-type: '{settingsArray.ajaxTypeNum}'}" >
-        Mehr laden
+        <f:translate key="tx_hgondonation_templates_donation_morelink.loadMore" />
     </f:link.action>
 </f:section>

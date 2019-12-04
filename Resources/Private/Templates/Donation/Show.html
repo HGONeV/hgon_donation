@@ -8,31 +8,49 @@
                 {donation.description}
             </f:format.raw>
         </div>
+        <br />
+        <div class="article__content">
+            <formvh:render persistenceIdentifier="EXT:hgon_template/Configuration/Yaml/FormFramework/Forms/zeitspende.form.yaml"/>
+        </div>
     </div>
+
     <f:comment><!-- SIDEBAR --></f:comment>
     <div class="sidebar color-bg-light">
 
         <f:link.page class="link link--icon / float-right" pageUid="{settings.listPid}" title="Mitmachen"  section="zeitspenden">
             <svg class="icon icon--btn-left" width="18" height="18"><use xlink:href="#ui-arrow-left"></use></svg>
-            Zurück zur Übersicht
+            <f:translate key="tx_hgondonation_templates_donation_show.backToList" />
         </f:link.page>
+
+        <f:if condition="{donation.txRkwprojectProject.projectPid}">
+            <aside class="aside">
+                <div class="aside__content">
+                    <!-- Related links -->
+                    <f:link.typolink class="btn btn--cta btn--rounded" parameter="{donation.txRkwprojectProject.projectPid}">
+                        <f:translate key="tx_hgondonation_templates_donation_show.goToProject" />
+                    </f:link.typolink>
+                </div>
+            </aside>
+        </f:if>
 
         <f:if condition="<f:count>{similarDonationList}</f:count>">
             <f:render section="furtherDonationOptions" arguments="{similarDonationList: similarDonationList}" />
         </f:if>
 
         <f:if condition="{donation.txRkwprojectProject.projectManager}">
-            <f:render section="contactPerson" arguments="{author: donation.txRkwprojectProject.projectManager}" />
+            <f:for each="{donation.txRkwprojectProject.projectManager}" as="projectManager">
+                <f:render section="contactPerson" arguments="{author: projectManager}" />
+            </f:for>
         </f:if>
 
-
+        <f:cObject typoscriptObjectPath="page.10.variables.bankAccountSidebar" />
     </div>
 </div>
 
 <f:section name="furtherDonationOptions">
     <aside class="aside aside--border aside-helpactivities color-bg-white">
         <header class="aside__header">
-            <h6>Ähnliche Zeitspenden</h6>
+            <h6><f:translate key="tx_hgondonation_templates_donation_show.similarDonationTime" /></h6>
         </header>
         <div class="aside__content">
             <ul>
@@ -55,7 +73,7 @@
     <aside class="aside color-bg-tertiary">
         <header class="aside__header">
             <h6>
-                Ansprechpartner
+                <f:translate key="tx_hgondonation_templates_donation_show.contactPerson" />
             </h6>
         </header>
         <div class="aside__content">

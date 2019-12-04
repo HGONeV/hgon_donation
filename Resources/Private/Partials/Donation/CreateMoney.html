@@ -15,6 +15,8 @@
         </script>
     </f:then>
     <f:else>
-        <a href="<f:format.raw>{approvalUrl}</f:format.raw>">Jetzt weiter zu PayPal!</a>
+        <a href="<f:format.raw>{approvalUrl}</f:format.raw>">
+            <f:translate key="tx_hgondonation_partials_donation_createMoney.forwardToPayPal" />
+        </a>
     </f:else>
 </f:if>

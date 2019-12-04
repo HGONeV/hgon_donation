@@ -208,6 +208,86 @@
             <!-- TEMPLATES -->
             <!-- ############################## -->
 
+            <trans-unit id="tx_hgondonation_templates_donation_bankAccountSidebar.title">
+                <source>Donation account</source>
+                <target>Spendenkonto Naturschutz</target>
+            </trans-unit>
+
+
+            <trans-unit id="tx_hgondonation_templates_donation_donationProject.title">
+                <source>Help now!</source>
+                <target>Jetzt helfen!</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_templates_donation_donationProject.support">
+                <source>Support project</source>
+                <target>Projekt unterstützen</target>
+            </trans-unit>
+
+
+            <trans-unit id="tx_hgondonation_templates_donation_list.temporal">
+                <source>Temporal</source>
+                <target>Zeitlich</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_templates_donation_list.financial">
+                <source>Financial</source>
+                <target>Finanziell</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_templates_donation_list.activity">
+                <source>Activity</source>
+                <target>Tätigkeit</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_templates_donation_list.place">
+                <source>Place</source>
+                <target>Ort</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_templates_donation_list.timeRequirement">
+                <source>Time requirement</source>
+                <target>Zeitaufwand</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_templates_donation_list.periodOfTime">
+                <source>Period of time</source>
+                <target>Zeitraum</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_templates_donation_list.project">
+                <source>Project</source>
+                <target>Projekt</target>
+            </trans-unit>
+
+
+            <trans-unit id="tx_hgondonation_templates_donation_show.backToList">
+                <source>Back to list</source>
+                <target>Zurück zur Übersicht</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_templates_donation_show.similarDonationTime">
+                <source>Similar donation time</source>
+                <target>Ähnliche Zeitspenden</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_templates_donation_show.contactPerson">
+                <source>Contact person</source>
+                <target>Ansprechpartner</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_templates_donation_show.goToProject">
+                <source>Go to project</source>
+                <target>Zum Projekt</target>
+            </trans-unit>
+
+
+            <trans-unit id="tx_hgondonation_templates_standard_supportoptions.supportUsNow">
+                <source>Support us now!</source>
+                <target>Unterstützen Sie uns jetzt!</target>
+            </trans-unit>
+
+
+            <trans-unit id="tx_hgondonation_templates_standard_supportoptionslight.becomeMember">
+                <source>Become member</source>
+                <target>Mitglied werden</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_templates_standard_supportoptionslight.donateNow">
+                <source>Donate now</source>
+                <target>Jetzt spenden</target>
+            </trans-unit>
+
+
             <trans-unit id="tx_hgondonation_templates_donation_supportOptions_button.becomeMember">
                 <source>Become member</source>
                 <target>Mitglied werden</target>
@@ -232,6 +312,67 @@
             </trans-unit>
 
 
+            <!-- ############################## -->
+            <!-- PARTIALS -->
+            <!-- ############################## -->
+            <trans-unit id="tx_hgondonation_partials_ajax_registerForm.thankYou">
+                <source>Thank you</source>
+                <target>Für freuen uns sehr über Dein Interesse und melden uns zeitnah bei Dir!</target>
+            </trans-unit>
+
+            <trans-unit id="tx_hgondonation_partials_donation_createMoney.forwardToPayPal">
+                <source>Forward to PayPal</source>
+                <target>Jetzt weiter zu PayPal!</target>
+            </trans-unit>
+
+            <trans-unit id="tx_hgondonation_partials_donation_list.oops">
+                <source>Oops!</source>
+                <target>Uuups!</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_partials_donation_list.noDonations">
+                <source>Currently are no donations available</source>
+                <target>Aktuell bieten wir keine passende Spende an, die diesen Kriterien entspricht. Aber das wird sich sicherlich bald wieder ändern :)</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_partials_donation_list.place">
+                <source>Place:</source>
+                <target>Ort:</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_partials_donation_list.expense">
+                <source>Expense:</source>
+                <target>Aufwand:</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_partials_donation_list.periodOfTime">
+                <source>Period of time:</source>
+                <target>Zeitraum:</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_partials_donation_list.donate">
+                <source>Donate</source>
+                <target>Spenden</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_partials_donation_list.readMore">
+                <source>Read more</source>
+                <target>Mehr erfahren</target>
+            </trans-unit>
+
+
+            <trans-unit id="tx_hgondonation_partials_donation_filter.all">
+                <source>All</source>
+                <target>Alle</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_partials_donation_filter.byTime">
+                <source>By time</source>
+                <target>Zeitlich</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_partials_donation_filter.financial">
+                <source>Financial</source>
+                <target>Finanziell</target>
+            </trans-unit>
+
+
+            <trans-unit id="tx_hgondonation_templates_donation_morelink.loadMore">
+                <source>Load more</source>
+                <target>Mehr laden</target>
+            </trans-unit>
 
 
         </body>

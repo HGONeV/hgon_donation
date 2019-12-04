@@ -17,7 +17,9 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
         <header class="section__header">
             <div class="flex-container space-between">
-                <h2>Projekt unterstützen</h2>
+                <h2>
+                    <f:translate key="tx_hgondonation_templates_donation_donationProject.support" />
+                </h2>
             </div>
         </header>
 
@@ -27,8 +29,12 @@ Otherwise your changes will be overwritten the next time you save the extension 
                 <div class="flex-item c-12">
                     <nav class="nav nav--tab js-tab-nav / align-right">
                         <ul>
-                            <li class="active"><a class="js-tab-link" href="#tab-01" data-index="0">Zeitlich</a></li>
-                            <li class=""><a class="js-tab-link" href="#tab-02" data-index="1">Finanziell</a></li>
+                            <li class="active"><a class="js-tab-link" href="#tab-01" data-index="0">
+                                <f:translate key="tx_hgondonation_templates_donation_list.temporal" />
+                            </a></li>
+                            <li class=""><a class="js-tab-link" href="#tab-02" data-index="1">
+                                <f:translate key="tx_hgondonation_templates_donation_list.financial" />
+                            </a></li>
                         </ul>
                     </nav>
                     <div class="tabs js-tabs">
@@ -37,10 +43,18 @@ Otherwise your changes will be overwritten the next time you save the extension 
                             <table class="table table--support-tasks tab__item-content">
                                 <thead>
                                     <tr>
-                                        <th>Tätigkeit</th>
-                                        <th>Ort</th>
-                                        <th>Zeitaufwand</th>
-                                        <th>Zeitraum</th>
+                                        <th>
+                                            <f:translate key="tx_hgondonation_templates_donation_list.activity" />
+                                        </th>
+                                        <th>
+                                            <f:translate key="tx_hgondonation_templates_donation_list.place" />
+                                        </th>
+                                        <th>
+                                            <f:translate key="tx_hgondonation_templates_donation_list.timeRequirement" />
+                                        </th>
+                                        <th>
+                                            <f:translate key="tx_hgondonation_templates_donation_list.periodOfTime" />
+                                        </th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -63,7 +77,9 @@ Otherwise your changes will be overwritten the next time you save the extension 
                             <table class="table table--support-tasks tab__item-content">
                                 <thead>
                                     <tr>
-                                        <th colspan="2">Projekt</th>
+                                        <th colspan="2">
+                                            <f:translate key="tx_hgondonation_templates_donation_list.project" />
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody id="donation-listing-money">

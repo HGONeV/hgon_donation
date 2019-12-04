@@ -13,12 +13,14 @@
                     <div class="flex-container">
                         <div class="flex-item c-4">
                             <header class="card__header">
-                                <h3 class="headline">Uuups!</h3>
+                                <h3 class="headline">
+                                    <f:translate key="tx_hgondonation_partials_donation_list.oops" />
+                                </h3>
                             </header>
                         </div>
                         <div class="flex-item c-7">
                             <div class="card__content">
-                                Aktuell bieten wir keine passende Spende an, die diesen Kriterien entspricht. Aber das wird sich sicherlich bald wieder ändern :)
+                                <f:translate key="tx_hgondonation_partials_donation_list.noDonations" />
                             </div>
                         </div>
                     </div>
@@ -45,27 +47,31 @@
 
     </td>
 
+    <f:comment><!-- Donation Type Time --></f:comment>
     <f:if condition="{donation.type} == 1">
         <f:then>
             <td>
-                <strong class="th">Ort: </strong>
+                <strong class="th"><f:translate key="tx_hgondonation_partials_donation_list.place" /> </strong>
             </td>
             <td>
-                <strong class="th">Aufwand: </strong></td>
+                <strong class="th"><f:translate key="tx_hgondonation_partials_donation_list.expense" /> </strong></td>
             <td>
-                <strong class="th">Zeitraum: </strong>April 2019
+                <strong class="th"><f:translate key="tx_hgondonation_partials_donation_list.periodOfTime" /> </strong>April 2019
             </td>
             <td class="align-right">
                 <!--
                 <a class="btn btn--primary-outline btn--rounded">Unterstützen</a>
                 -->
-                <f:link.action class="btn btn--primary-outline btn--rounded" action="show" controller="Donation" pageUid="{settings.showPid}" additionalParams="{tx_hgondonation_detail:{donation: donation}}">Mehr erfahren</f:link.action>
+                <f:link.action class="btn btn--primary-outline btn--rounded" action="show" controller="Donation" pageUid="{settings.showPid}" additionalParams="{tx_hgondonation_detail:{donation: donation}}">
+                    Mehr erfahren
+                </f:link.action>
             </td>
         </f:then>
         <f:else>
+            <f:comment><!-- Donation Money --></f:comment>
             <td class="align-right">
                 <f:link.action pageUid="{settings.donationFormPid}" class="btn btn--primary-outline btn--rounded" action="newMoney" arguments="{project: donation}" additionalAttributes="{data-featherlight: ''}">
-                    Spenden
+                    <f:translate key="tx_hgondonation_partials_donation_list.donate" />
                 </f:link.action>
             </td>
         </f:else>
@@ -92,7 +98,7 @@
 
                 <footer class="card__footer">
                     <f:link.action class="btn btn--rounded btn--tertiary" action="show" controller="Donation" pluginName="Detail" extensionName="HgonDonation" pageUid="{settingsArray.showPid}" arguments="{donation : donation}">
-                        Mehr erfahren
+                        <f:translate key="tx_hgondonation_partials_donation_list.readMore" />
                     </f:link.action>
                 </footer>
             </div>

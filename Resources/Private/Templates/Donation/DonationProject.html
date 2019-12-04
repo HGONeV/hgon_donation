@@ -1,7 +1,9 @@
 <f:if condition="<f:count>{donationList}</f:count>">
     <aside class="aside aside--border aside-helpactivities color-bg-white">
         <header class="aside__header">
-            <h6>Jetzt helfen!</h6>
+            <h6>
+                <f:translate key="tx_hgondonation_templates_donation_donationProject.title" />
+            </h6>
         </header>
         <div class="aside__content">
             <ul>
@@ -22,11 +24,15 @@
     </aside>
 </f:if>
 
-<aside class="aside / no-padding">
-    <div class="aside__content">
-        <a class="btn btn--cta btn--rounded">
-            Projekt unterstützen
-            <svg class="icon icon--btn-left" width="16" height="16"><use xlink:href="#ui-next"></use></svg>
-        </a>
-    </div>
-</aside>
+<f:for each="{donationList}" as="donation" iteration="iter">
+    <f:if condition="{iter.isFirst}">
+        <aside class="aside / no-padding">
+            <div class="aside__content">
+                <f:link.action pageUid="{settings.donationFormPid}" class="btn btn--cta btn--rounded" action="newMoney" arguments="{project: donation.txRkwprojectProject}" additionalAttributes="{data-featherlight: ''}">
+                    <f:translate key="tx_hgondonation_templates_donation_donationProject.support" />
+                    <svg class="icon icon--btn-left" width="16" height="16"><use xlink:href="#ui-next"></use></svg>
+                </f:link.action>
+            </div>
+        </aside>
+    </f:if>
+</f:for>
