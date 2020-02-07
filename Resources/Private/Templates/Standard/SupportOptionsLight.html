@@ -43,9 +43,16 @@
                         </p>
                     </div>
                     <footer class="card__footer">
-                        <a data-featherlight="#hgon-paypal" href="#" class="btn btn--white btn--rounded">
+                        <f:comment>
+                            <!-- old simple paypal button -->
+                            <a data-featherlight="#hgon-paypal" href="#" class="btn btn--white btn--rounded">
+                                <f:translate key="tx_hgondonation_templates_standard_supportoptionslight.donateNow" />
+                            </a>
+                        </f:comment>
+
+                        <f:link.action pageUid="{settings.donationFormPid}" class="btn btn--white btn--rounded" action="newMoney" controller="Donation" additionalAttributes="{data-featherlight: ''}">
                             <f:translate key="tx_hgondonation_templates_standard_supportoptionslight.donateNow" />
-                        </a>
+                        </f:link.action>
                     </footer>
                 </div>
             </article>

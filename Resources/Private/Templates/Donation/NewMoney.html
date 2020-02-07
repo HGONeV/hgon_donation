@@ -1,5 +1,14 @@
 <h2>Geldspende</h2>
-<p>Unterstützen sie das Projekt <strong>{project.name}</strong> mit ihrem Beitrag!</p>
+
+<f:if condition="{project}">
+    <f:then>
+        <p>Unterstützen sie das Projekt <strong>{project.name}</strong> mit ihrem Beitrag!</p>
+    </f:then>
+    <f:else>
+        <p>Unterstützen sie das HGON mit ihrem Beitrag!</p>
+    </f:else>
+</f:if>
+
 <f:comment><i>{project.description}</i></f:comment>
 <div>
     <div id="payment-container" class="flex-container space-between gutter">

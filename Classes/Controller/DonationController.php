@@ -208,7 +208,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @param \HGON\HgonTemplate\Domain\Model\Projects $project
      * @return void
      */
-    public function newMoneyAction(\HGON\HgonTemplate\Domain\Model\Projects $project)
+    public function newMoneyAction(\HGON\HgonTemplate\Domain\Model\Projects $project = null)
     {
         $this->view->assign('project', $project);
     }
@@ -219,11 +219,11 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * action createMoney
      * action for donation money (PayPal)
      *
-     * @param \HGON\HgonTemplate\Domain\Model\Projects $project
      * @param array $moneyAmount
+     * @param \HGON\HgonTemplate\Domain\Model\Projects $project
      * @return void
      */
-    public function createMoneyAction(\HGON\HgonTemplate\Domain\Model\Projects $project, $moneyAmount)
+    public function createMoneyAction($moneyAmount, \HGON\HgonTemplate\Domain\Model\Projects $project = null)
     {
         /** @var \HGON\HgonPayment\Domain\Model\Basket $basket */
         $basket = $this->objectManager->get('HGON\\HgonPayment\\Domain\\Model\\Basket');
@@ -231,9 +231,9 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         /** @var \HGON\HgonPayment\Domain\Model\Article $article */
         $article = $this->objectManager->get('HGON\\HgonPayment\\Domain\\Model\\Article');
         $article->setDescription("Mein Beitrag für den Umweltschutz!");
-        $article->setName($project->getName());
+        $article->setName($project ? $project->getName() : 'Allgemein');
         $article->setPrice(floatval($moneyAmount['amount']));
-        $article->setSku($project->getInternalName());
+        $article->setSku($project ? $project->getInternalName() : 'allgemein');
         $basket->addArticle($article);
 
         $GLOBALS['TSFE']->fe_user->setKey('ses', 'hgon_payment_basket', $basket);
