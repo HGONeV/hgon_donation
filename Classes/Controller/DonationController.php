@@ -253,6 +253,12 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             $result = $payPalApi->createPayment($basket);
         }
 
+        // check for error
+        $requestIsInvalid = false;
+        if ($result->name == "INVALID_REQUEST") {
+            $requestIsInvalid = true;
+        }
+
         // extract approval_url
         $approvalUrl = $result->links;
         //$this->view->assign('approvalUrl', $approvalUrl[1]->href);
@@ -263,7 +269,8 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         // get new list
         $replacements = array (
             'approvalUrl' => $isPayPalPlus ? $approvalUrl[1]->href : $approvalUrl[0]->href,
-            'isPayPalPlus' => $isPayPalPlus
+            'isPayPalPlus' => $isPayPalPlus,
+            'requestIsInvalid' => $requestIsInvalid
         );
 
         $jsonHelper->setHtml(

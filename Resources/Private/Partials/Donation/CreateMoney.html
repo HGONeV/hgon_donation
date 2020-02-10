@@ -16,8 +16,19 @@
         </script>
     </f:then>
     <f:else>
-        <a href="<f:format.raw>{approvalUrl}</f:format.raw>">
-            <f:translate key="tx_hgondonation_partials_donation_createMoney.forwardToPayPal" />
-        </a>
+
+        <f:if condition="{requestIsInvalid}">
+            <f:then>
+                <div>
+                    <p><b>Upps!</b></p>
+                    <p>Hier ist etwas schief gelaufen. Aktuell können aus technischen Gründen keine monatlichen Spenden abgeschlossen werden. Bitte probieren Sie es später nocheinmal!</p>
+                </div>
+            </f:then>
+            <f:else>
+                <a href="<f:format.raw>{approvalUrl}</f:format.raw>">
+                    <f:translate key="tx_hgondonation_partials_donation_createMoney.forwardToPayPal" />
+                </a>
+            </f:else>
+        </f:if>
     </f:else>
 </f:if>

@@ -1,4 +1,3 @@
-<h2>Geldspende</h2>
 
 <f:if condition="{project}">
     <f:then>
@@ -15,29 +14,19 @@
         <div class="flex-item c-6">
             <p><strong>Einfach unkompliziert</strong> mit PayPal</p>
             <br/>
-            <div class="badge badge--circle">
-                <span class="is-centered">5€</span>
-            </div>
-            <div class="badge badge--circle">
-                <span class="is-centered">10€</span>
-            </div>
-            <div class="badge badge--circle">
-                <span class="is-centered">20€</span>
-            </div>
-            <div class="badge badge--circle">
-                <span class="is-centered">50€</span>
-            </div>
             <f:form class="ajax" action="createMoney" enctype="multipart/form-data" id="moneyAmount" name="moneyAmount" object="{moneyAmount}" arguments="{project: project}">
                 <!-- Override typeNum for AJAX -->
                 <input type="hidden" name="type" value="{typeNumClearPage}">
-                <p>Individueller Wunschbetrag in <strong>€</strong></p>
                 <p>
                     Monatlich
                     <f:form.radio property="permanent" value="1" /> Ja
                     <f:form.radio property="permanent" value="0" checked="checked" /> Nein
                 </p>
-                <f:form.textfield property="amount" placeholder="€" value="15" style="width: 150px" type="number" additionalAttributes="{pattern: '[0-9]{1,10}'}"/>
-                <f:form.submit class="btn btn--primary-outline btn--rounded" value="Spenden!" />
+                <p>Individueller Wunschbetrag in <strong>€</strong></p>
+                <f:form.textfield property="amount" placeholder="€" value="15" type="number" additionalAttributes="{pattern: '[0-9]{1,10}'}"/>
+                <p>
+                    <f:form.submit class="btn btn--primary btn--rounded" value="Spenden!" />
+                </p>
             </f:form>
 
         </div>
