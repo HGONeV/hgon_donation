@@ -45,6 +45,44 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     protected $projectsRepository = null;
 
     /**
+     * cacheManager
+     *
+     * @var \TYPO3\CMS\Core\Cache\CacheManager
+     */
+    protected $cacheManager;
+
+    /**
+     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+     */
+    protected $cObj;
+
+    /**
+     * cacheIdentifier
+     *
+     * @var string
+     */
+    protected $cacheIdentifier = "hgon_donation";
+
+    private function initializeCache() {
+        // initialize caching
+        $this->cacheManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Cache\\CacheManager')->getCache($this->cacheIdentifier);
+        $this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\Extbase\\Object\\ObjectManager');
+        $configurationManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
+        $this->persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
+        $this->cObj = $configurationManager->getContentObject();
+    }
+
+    /**
+     * Constructor
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->initializeCache();
+    }
+
+        /**
      * action list
      * (alternative list for donation time popup in footer)
      *
@@ -210,6 +248,12 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function newMoneyAction(\HGON\HgonTemplate\Domain\Model\Projects $project = null)
     {
+        // workaround - we have some parameter trouble while using ajax
+        if (!$project) {
+            $projectUid = intval(\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('project'));
+            $project = $this->projectsRepository->findByIdentifier($projectUid);
+        }
+
         $this->view->assign('project', $project);
     }
 
@@ -225,6 +269,8 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function createMoneyAction($moneyAmount, \HGON\HgonTemplate\Domain\Model\Projects $project = null)
     {
+        //DebuggerUtility::var_dump($moneyAmount); exit;
+
         /** @var \HGON\HgonPayment\Domain\Model\Basket $basket */
         $basket = $this->objectManager->get('HGON\\HgonPayment\\Domain\\Model\\Basket');
 
@@ -243,11 +289,47 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $payPalApi = $this->objectManager->get('HGON\\HgonPayment\\Api\\PayPalApi');
 
         $isPayPalPlus = true;
+        $isSepa = false;
         // create subscription
         if ($moneyAmount['permanent']) {
-            // Subscription with PayPal (PayPalPlus does not support recurring payments)
-            $result = $payPalApi->createSubscription($article);
-            $isPayPalPlus = false;
+
+            if ($moneyAmount['type'] == 'paypal') {
+                // Subscription with PayPal (PayPalPlus does not support recurring payments)
+                $result = $payPalApi->createSubscription($article);
+                $isPayPalPlus = false;
+            } elseif ($moneyAmount['type'] == 'sepa') {
+
+                // @toDo: Check data
+
+
+                // add mollie as payment option
+                /** @var \HGON\HgonPayment\Api\MollieApi $mollieApi */
+                $mollieApi = $this->objectManager->get('HGON\\HgonPayment\\Api\\MollieApi');
+                // create customer
+                $mollieCustomer = $mollieApi->createCustomer($moneyAmount['customer']);
+                // create customer mandate
+                $mollieMandate = $mollieApi->createMandate($mollieCustomer, $moneyAmount['customer']);
+
+                // if false, there is no mandate created. In most case because iban is not valid
+                if (!$mollieMandate) {
+
+                    $this->returnAjaxMessage(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_hgondonation_controller_donation.pleaseCheckData', 'hgon_donation'));
+                }
+
+                $this->cacheManager->set($mollieCustomer->id, $mollieCustomer);
+
+
+
+             //   DebuggerUtility::var_dump($mollieMandate); exit;
+                // create subscription for customer
+            //    $result = $mollieApi->createSubscription($mollieCustomer, $article);
+
+                $isSepa = true;
+                $isPayPalPlus = false;
+            //    DebuggerUtility::var_dump($moneyAmount); exit;
+                $moneyAmount['customer']['customerId'] = $mollieCustomer->id;
+                $result = $moneyAmount;
+            }
         } else {
             // one time payment mit PayPalPlus
             $result = $payPalApi->createPayment($basket);
@@ -270,7 +352,9 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $replacements = array (
             'approvalUrl' => $isPayPalPlus ? $approvalUrl[1]->href : $approvalUrl[0]->href,
             'isPayPalPlus' => $isPayPalPlus,
-            'requestIsInvalid' => $requestIsInvalid
+            'isSepa' => $isSepa,
+            'requestIsInvalid' => $requestIsInvalid,
+            'result' => $result
         );
 
         $jsonHelper->setHtml(
@@ -331,6 +415,59 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
 
     /**
+     * action executeSepa
+     *
+     * @param array $moneyAmount
+     * @return void
+     */
+    public function executeSepaAction($moneyAmount)
+    {
+        /** @var \HGON\HgonPayment\Domain\Model\Basket $basket */
+        $basket = $GLOBALS['TSFE']->fe_user->getKey('ses','hgon_payment_basket');
+        foreach ($basket->getArticle() as $articleSingle) {
+            $article = $articleSingle;
+            break;
+        }
+
+        $isPayed = false;
+
+        /** @var \HGON\HgonPayment\Api\MollieApi $mollieApi */
+        $mollieApi = $this->objectManager->get('HGON\\HgonPayment\\Api\\MollieApi');
+        if ($this->cacheManager->has($moneyAmount['customerId'])) {
+            $customer = $this->cacheManager->get($moneyAmount['customerId']);
+            $result = $mollieApi->createSubscription($customer, $article);
+            if ($result instanceof \Mollie\Api\Resources\Subscription) {
+                if ($result->status == "active") {
+                    $isPayed = true;
+                }
+            }
+        } else {
+            // @toDo: error log?
+        }
+
+        // get JSON helper
+        /** @var \RKW\RkwBasics\Helper\Json $jsonHelper */
+        $jsonHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('RKW\\RkwBasics\\Helper\\Json');
+        // get new list
+        $replacements = array (
+            'isPayed' => $isPayed
+        );
+
+        $jsonHelper->setHtml(
+            'payment-container',
+            $replacements,
+            'replace',
+            'Ajax/Donation/SepaThankYou.html'
+        );
+
+        print (string) $jsonHelper;
+        exit();
+        //===
+    }
+
+
+
+    /**
      * action bankAccountSidebar
      * shows bank data in a simple yellow box
      *
@@ -369,6 +506,36 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             $donationList = $this->donationRepository->findByTxRkwprojectProject($pages->getTxRkwprojectsProjectUid());
             $this->view->assign('donationList', $donationList);
         }
+    }
+
+
+
+    /**
+     * returnAjaxMessage
+     *
+     * @param $message
+     */
+    protected function returnAjaxMessage($message)
+    {
+        // get JSON helper
+        /** @var \RKW\RkwBasics\Helper\Json $jsonHelper */
+        $jsonHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('RKW\\RkwBasics\\Helper\\Json');
+        // get new list
+        $replacements = array (
+            'message' => $message
+
+        );
+
+        $jsonHelper->setHtml(
+            'message-container',
+            $replacements,
+            'replace',
+            'Ajax/Donation/Message.html'
+        );
+
+        print (string) $jsonHelper;
+        exit();
+        //===
     }
 
 }

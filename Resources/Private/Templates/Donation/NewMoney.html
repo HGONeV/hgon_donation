@@ -11,10 +11,10 @@
 <f:comment><i>{project.description}</i></f:comment>
 <div>
     <div id="payment-container" class="flex-container space-between gutter">
-        <div class="flex-item c-6">
-            <p><strong>Einfach unkompliziert</strong> mit PayPal</p>
-            <br/>
-            <f:form class="ajax" action="createMoney" enctype="multipart/form-data" id="moneyAmount" name="moneyAmount" object="{moneyAmount}" arguments="{project: project}">
+        <div class="flex-item c-12">
+            <p>Online: <strong>Einfach unkompliziert</strong></p>
+            <f:form class="form" action="createMoney" enctype="multipart/form-data" id="moneyAmount" name="moneyAmount" object="{moneyAmount}" arguments="{project: project}">
+                <div id="message-container"></div>
                 <!-- Override typeNum for AJAX -->
                 <input type="hidden" name="type" value="{typeNumClearPage}">
                 <p>
@@ -22,20 +22,73 @@
                     <f:form.radio property="permanent" value="1" /> Ja
                     <f:form.radio property="permanent" value="0" checked="checked" /> Nein
                 </p>
+                <p class="option-sepa" style="display: none;">
+                    Zahlen via
+                    <f:form.radio property="type" value="paypal" checked="checked" /> PayPal
+                    <f:form.radio property="type" value="sepa" /> SEPA
+                </p>
+                <div class="option-data" style="display: none;">
+                    <p class="form__field">
+                        <label class="control-label" for="donateForm-name">Name
+                            <span class="required">*</span>
+                        </label>
+                        <f:form.textfield id="donateForm-name" property="customer.name" placeholder="Name" />
+                    </p>
+                    <p class="form__field">
+                        <label class="control-label" for="donateForm-email">E-Mail
+                            <span class="required">*</span>
+                        </label>
+                        <f:form.textfield id="donateForm-email" property="customer.email" placeholder="E-Mail" />
+                    </p>
+                    <p class="form__field">
+                        <label class="control-label" for="donateForm-iban">IBAN
+                            <span class="required">*</span>
+                        </label>
+                        <f:form.textfield id="donateForm-iban" property="customer.iban" placeholder="IBAN" />
+                    </p>
+
+                </div>
                 <p>Individueller Wunschbetrag in <strong>€</strong></p>
                 <f:form.textfield property="amount" placeholder="€" value="15" type="number" additionalAttributes="{pattern: '[0-9]{1,10}'}"/>
                 <p>
-                    <f:form.submit class="btn btn--primary btn--rounded" value="Spenden!" />
+                    <f:form.submit class="btn btn--primary btn--rounded" value="Weiter" />
                 </p>
             </f:form>
 
+            <p>Oder <strong>einfach überweisen</strong></p>
+            <f:cObject typoscriptObjectPath="page.10.variables.bankAccountSidebar"/>
+
         </div>
-        <div class="flex-item c-6">
+        <!--
+        <div class="flex-item c-3">
             <p>Oder <strong>einfach überweisen</strong></p>
             <f:cObject typoscriptObjectPath="page.10.variables.bankAccountSidebar"/>
         </div>
+        -->
     </div>
 </div>
+
+<script>
+    jQuery("#moneyAmount input[name='tx_hgondonation_listing[moneyAmount][permanent]']").on('click', function(){
+        var radioValue = jQuery(this).val();
+        if (radioValue == 1){
+            jQuery('.option-sepa').show();
+        } else {
+            jQuery('.option-sepa').hide();
+            jQuery('.option-data').hide();
+            jQuery('input[name="tx_hgondonation_listing[moneyAmount][type]"][value="paypal"]').prop('checked', true);
+        }
+    });
+
+    jQuery("#moneyAmount input[name='tx_hgondonation_listing[moneyAmount][type]']").on('click', function(){
+        var radioValue = jQuery(this).val();
+        if (radioValue == 'sepa'){
+            jQuery('.option-data').show();
+        } else {
+            jQuery('.option-data').hide();
+        }
+    });
+</script>
 
 
 

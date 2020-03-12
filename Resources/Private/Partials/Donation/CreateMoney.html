@@ -1,34 +1,58 @@
-<f:if condition="{isPayPalPlus}">
-    <f:then>
-        <script src="https://www.paypalobjects.com/webstatic/ppplusdcc/ppplusdcc.min.js" type="text/javascript">
-        </script>
-        <div id="ppplus">
-        </div>
-        <script type="application/javascript">
-            var ppp = PAYPAL.apps.PPP({
-                  "approvalUrl": "<f:format.raw>{approvalUrl}</f:format.raw>",
-                  "placeholder": "ppplus",
-                  "mode": "sandbox",
-                  "country": "DE",
-                  "language": "DE",
-                  "useraction": "commit"
-              });
-        </script>
-    </f:then>
-    <f:else>
+<div>
+    <f:if condition="{isPayPalPlus}">
+        <f:then>
+            <f:render partial="PayPal/PaymentWall" arguments="{_all}" />
+        </f:then>
+        <f:else>
+            <f:if condition="{requestIsInvalid}">
+                <f:then>
+                    <div>
+                        <p><b>Upps!</b></p>
+                        <p>Hier ist etwas schief gelaufen. Aktuell können aus technischen Gründen keine monatlichen Spenden abgeschlossen werden. Bitte probieren Sie es später nocheinmal!</p>
+                    </div>
+                </f:then>
+                <f:else>
+                    <f:if condition="{isSepa}">
+                        <f:then>
+                            <div id="payment-container" class="flex-container space-between gutter">
 
-        <f:if condition="{requestIsInvalid}">
-            <f:then>
-                <div>
-                    <p><b>Upps!</b></p>
-                    <p>Hier ist etwas schief gelaufen. Aktuell können aus technischen Gründen keine monatlichen Spenden abgeschlossen werden. Bitte probieren Sie es später nocheinmal!</p>
-                </div>
-            </f:then>
-            <f:else>
-                <a href="<f:format.raw>{approvalUrl}</f:format.raw>">
-                    <f:translate key="tx_hgondonation_partials_donation_createMoney.forwardToPayPal" />
-                </a>
-            </f:else>
-        </f:if>
-    </f:else>
-</f:if>
+                                <f:form class="form" controller="Donation" action="executeSepa" extensionName="HgonDonation" pluginName="Listing" enctype="multipart/form-data" id="moneyAmount" name="moneyAmount" object="{moneyAmount}" >
+                                    <p>Kontrollieren Sie nochmals ihre daten.</p>
+
+                                    <f:form.hidden property="customerId" value="{result.customer.customerId}" />
+                                    <p class="form__field">
+                                        <label class="control-label">Betrag:</label>
+                                        <f:format.currency decimalSeparator="," thousandsSeparator="." decimals="2" currencySign="€">
+                                            {result.amount}
+                                        </f:format.currency>
+                                    </p>
+                                    <p class="form__field">
+                                        <label class="control-label">Name:</label>
+                                        {result.customer.name}
+                                    </p>
+                                    <p class="form__field">
+                                        <label class="control-label">E-Mail:</label>
+                                        {result.customer.email}
+                                    </p>
+                                    <p class="form__field">
+                                        <label class="control-label">IBAN:</label>
+                                        {result.customer.iban}
+                                    </p>
+                                    <p>
+                                        <f:form.submit class="btn btn--primary btn--rounded" value="Kostenpflichtig kaufen" />
+                                    </p>
+                                </f:form>
+                            </div>
+                        </f:then>
+                        <f:else>
+                            <a class="btn btn--primary btn--rounded" href="<f:format.raw>{approvalUrl}</f:format.raw>">
+                                <f:translate key="tx_hgondonation_partials_donation_createMoney.forwardToPayPal" extensionName="HgonDonation" />
+                            </a>
+                        </f:else>
+                    </f:if>
+
+                </f:else>
+            </f:if>
+        </f:else>
+    </f:if>
+</div>

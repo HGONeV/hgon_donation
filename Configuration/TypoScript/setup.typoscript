@@ -37,6 +37,7 @@ plugin.tx_hgondonation {
 		templateRootPaths.1 = {$plugin.tx_hgondonation.view.templateRootPath}
 		partialRootPaths.0 = EXT:hgon_donation/Resources/Private/Partials/
 		partialRootPaths.1 = {$plugin.tx_hgondonation.view.partialRootPath}
+        partialRootPaths.2 = EXT:hgon_payment/Resources/Private/Partials/
 		layoutRootPaths.0 = EXT:hgon_donation/Resources/Private/Layouts/
 		layoutRootPaths.1 = {$plugin.tx_hgondonation.view.layoutRootPath}
 	}
@@ -127,13 +128,12 @@ txHgondonationDonateMoney {
     #includeJSFooterlibs.file35 = https://www.paypalobjects.com/webstatic/ppplus/ppplus.min.js
 
     typeNum = {$plugin.tx_hgondonation.settings.typeNumClearPage}
-
     config {
         disableAllHeaderCode = 1
         xhtml_cleaning = 0
         admPanel = 0
         additionalHeaders = Content-type: text/plain
-        no_cache = 0
+        no_cache = 1
     }
 
     10 = USER_INT
@@ -143,13 +143,12 @@ txHgondonationDonateMoney {
         pluginName = Listing
         vendorName = HGON
         switchableControllerActions {
-
             # Again: Controller-Name and Action
             Donation {
                 10 = newMoney
                 20 = createMoney
+                30 = executeSepa
             }
-
         }
 
         view < plugin.tx_hgondonation.view

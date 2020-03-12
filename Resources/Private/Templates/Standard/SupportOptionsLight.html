@@ -49,10 +49,9 @@
                                 <f:translate key="tx_hgondonation_templates_standard_supportoptionslight.donateNow" />
                             </a>
                         </f:comment>
-
-                        <f:link.action pageUid="{settings.donationFormPid}" class="btn btn--white btn--rounded" action="newMoney" controller="Donation" additionalAttributes="{data-featherlight: ''}">
+                        <f:link.page pageType="{settings.typeNumClearPage}" pageUid="{settings.donationFormPid}" class="btn btn--white btn--rounded" additionalAttributes="{data-featherlight: ''}">
                             <f:translate key="tx_hgondonation_templates_standard_supportoptionslight.donateNow" />
-                        </f:link.action>
+                        </f:link.page>
                     </footer>
                 </div>
             </article>

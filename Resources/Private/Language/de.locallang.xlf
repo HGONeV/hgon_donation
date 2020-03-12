@@ -3,7 +3,17 @@
 	<file source-language="de" target-language="de" datatype="plaintext" original="messages" date="2019-04-25T13:49:26Z" product-name="hgon_donation">
 		<header/>
 		<body>
+		    <!-- ############################## -->
+            <!-- CONTROLLER -->
+            <!-- ############################## -->
+            <trans-unit id="tx_hgondonation_controller_donation.pleaseCheckData">
+                <source>There went something wrong. Please check your given data.</source>
+                <target>Da ist etwas nicht korrekt. Bitte überprüfen Sie nochmals die angegebene Daten.</target>
+            </trans-unit>
 
+            <!-- ############################## -->
+            <!-- MODELS -->
+            <!-- ############################## -->
             <trans-unit id="tx_hgondonation_domain_model_donate">
 				<source>donate</source>
 				<target>Spenden</target>
@@ -323,6 +333,10 @@
             <trans-unit id="tx_hgondonation_partials_donation_createMoney.forwardToPayPal">
                 <source>Forward to PayPal</source>
                 <target>Jetzt weiter zu PayPal!</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_partials_donation_createMoney.forwardToSepa">
+                <source>Forward to SEPA</source>
+                <target>Mit SEPA Lastschrift fortfahren</target>
             </trans-unit>
 
             <trans-unit id="tx_hgondonation_partials_donation_list.oops">

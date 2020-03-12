@@ -8,11 +8,11 @@ call_user_func(
             'HGON.HgonDonation',
             'Listing',
             [
-                'Donation' => 'list, newMoney, createMoney'
+                'Donation' => 'list, newMoney, createMoney, executeSepa'
             ],
             // non-cacheable actions
             [
-                'Donation' => 'list, newMoney, createMoney'
+                'Donation' => 'list, newMoney, createMoney, executeSepa'
             ]
         );
 
@@ -107,17 +107,19 @@ call_user_func(
         // Hook for Geodata and reservation cleanup on copy
         $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][$extKey] = 'HGON\\HgonDonation\\Hooks\\TceMainHooks';
 
-        /*
-        // add to InstallTool options (otherwise the ajax calls will not work)
-        $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'tx_hgondonation_donate[action]';
-        $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'tx_hgondonation_donate[controller]';
-        $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'tx_hgondonation_donate[donationTypeTime]';
-
-        $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'tx_hgondonation_listing[action]';
-        $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'tx_hgondonation_listing[controller]';
-        $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'tx_hgondonation_listing[filter][type]';
-        $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'tx_hgondonation_listing[filter][time]';
-        */
+        // caching
+        if( !is_array($GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$extKey] ) ) {
+            $GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$extKey] = array();
+        }
+        if( !isset($GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$extKey]['frontend'] ) ) {
+            $GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$extKey]['frontend'] = 'TYPO3\\CMS\\Core\\Cache\\Frontend\\VariableFrontend';
+        }
+        if( !isset($GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$extKey]['options'] ) ) {
+            $GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$extKey]['options'] = array('defaultLifetime' => 3600);
+        }
+        if( !isset($GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$extKey]['groups'] ) ) {
+            $GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$extKey]['groups'] = array('pages');
+        }
 	},
 	$_EXTKEY
 );

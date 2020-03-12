@@ -70,9 +70,9 @@
         <f:else>
             <f:comment><!-- Donation Money --></f:comment>
             <td class="align-right">
-                <f:link.action pageUid="{settings.donationFormPid}" class="btn btn--primary-outline btn--rounded" action="newMoney" arguments="{project: donation}" additionalAttributes="{data-featherlight: ''}">
+                <f:link.page pageType="{settings.typeNumClearPage}" pageUid="{settings.donationFormPid}" class="btn btn--primary-outline btn--rounded" additionalParams="{project: donation}" additionalAttributes="{data-featherlight: ''}">
                     <f:translate key="tx_hgondonation_partials_donation_list.donate" />
-                </f:link.action>
+                </f:link.page>
             </td>
         </f:else>
     </f:if>
