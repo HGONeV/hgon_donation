@@ -5,16 +5,16 @@
 		<body>
 
 		    <trans-unit id="tx_hgondonation_domain_model_donate">
-                <source>donate</source>
-                <target>Spenden</target>
+                <source>HGON Donation: Donate</source>
+                <target>HGON Donation: Spenden</target>
             </trans-unit>
             <trans-unit id="tx_hgondonation_domain_model_donate.description">
                 <source>Donation extension of HGON</source>
                 <target>HGON: Spenden-Erweiterung</target>
             </trans-unit>
             <trans-unit id="tx_hgondonation_domain_model_donation">
-                <source>Donation Type</source>
-                <target>Spendentyp</target>
+                <source>HGON Donation: Donation Type</source>
+                <target>HGON Donation: Spendentyp</target>
             </trans-unit>
             <trans-unit id="tx_hgondonation_domain_model_donation.title">
                 <source>Title</source>
@@ -74,8 +74,8 @@
             </trans-unit>
 
             <trans-unit id="tx_hgondonation_domain_model_donationtypetime">
-                <source>Donation Type Time</source>
-                <target>Zeitspende</target>
+                <source>HGON Donation: Donation Type Time</source>
+                <target>HGON Donation: Zeitspende</target>
             </trans-unit>
             <trans-unit id="tx_hgondonation_domain_model_donationtypetime.title">
                 <source>Title</source>
@@ -139,8 +139,8 @@
                 <target>Projekt Seite</target>
             </trans-unit>
             <trans-unit id="tx_hgondonation_domain_model_donationtypemoney">
-                <source>Donation Type Money</source>
-                <target>Geldspende</target>
+                <source>HGON Donation: Donation Type Money</source>
+                <target>HGON Donation: Geldspende</target>
             </trans-unit>
             <trans-unit id="tx_hgondonation_domain_model_donationtypemoney.title">
                 <source>Title</source>
@@ -176,8 +176,8 @@
             </trans-unit>
 
             <trans-unit id="tx_hgondonation_domain_model_donationplace">
-                <source>Donation Place</source>
-                <target>Ort</target>
+                <source>HGON Donation: Donation Place</source>
+                <target>HGON Donation: Ort</target>
             </trans-unit>
             <trans-unit id="tx_hgondonation_domain_model_donationplace.title">
                 <source>Title</source>

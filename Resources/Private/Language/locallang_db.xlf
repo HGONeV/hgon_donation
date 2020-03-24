@@ -4,13 +4,13 @@
 		<header/>
 		<body>
 			<trans-unit id="tx_hgondonation_domain_model_donate">
-				<source>donate</source>
+				<source>HGON Donation: Donate</source>
 			</trans-unit>
 			<trans-unit id="tx_hgondonation_domain_model_donate.description">
 				<source>Donation extension of HGON</source>
 			</trans-unit>
 			<trans-unit id="tx_hgondonation_domain_model_donation">
-				<source>Donation</source>
+				<source>HGON Donation: Donation</source>
 			</trans-unit>
 			<trans-unit id="tx_hgondonation_domain_model_donation.type">
 				<source>Type</source>
@@ -65,7 +65,7 @@
             </trans-unit>
 
 			<trans-unit id="tx_hgondonation_domain_model_donationtypetime">
-				<source>Donation Time</source>
+				<source>HGON Donation: Donation Time</source>
 			</trans-unit>
 			<trans-unit id="tx_hgondonation_domain_model_donationtypetime.title">
 				<source>Title</source>
@@ -113,7 +113,7 @@
                 <source>Project page</source>
             </trans-unit>
 			<trans-unit id="tx_hgondonation_domain_model_donationtypemoney">
-				<source>Donation Money</source>
+				<source>HGON Donation: Donation Money</source>
 			</trans-unit>
 			<trans-unit id="tx_hgondonation_domain_model_donationtypemoney.title">
 				<source>Title</source>
@@ -141,7 +141,7 @@
 			</trans-unit>
 
 			<trans-unit id="tx_hgondonation_domain_model_donationplace">
-				<source>Donation Place</source>
+				<source>HGON Donation: Donation Place</source>
 			</trans-unit>
 			<trans-unit id="tx_hgondonation_domain_model_donationplace.title">
 				<source>Title</source>
