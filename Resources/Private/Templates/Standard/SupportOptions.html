@@ -65,9 +65,15 @@
 
                     </f:if>
                     <f:if condition="{itemType} == 'donateMoney'">
-                        <a data-featherlight="#hgon-paypal" href="#" class="btn btn--rounded btn--tertiary">
-                            <f:translate key="tx_hgondonation_templates_donation_supportOptions_button.{itemType}"/>
-                        </a>
+                        <f:link.page pageType="{settings.typeNumClearPage}" pageUid="{settings.donationFormPid}" class="btn btn--rounded btn--tertiary" additionalAttributes="{data-featherlight: ''}">
+                            <f:translate key="tx_hgondonation_templates_standard_supportoptionslight.donateNow" />
+                        </f:link.page>
+                        <f:comment>
+                            <!-- old -->
+                            <a data-featherlight="#hgon-paypal" href="#" class="btn btn--rounded btn--tertiary">
+                                <f:translate key="tx_hgondonation_templates_donation_supportOptions_button.{itemType}"/>
+                            </a>
+                        </f:comment>
                     </f:if>
                     <f:if condition="{itemType} == 'donateTime'">
                         <!--

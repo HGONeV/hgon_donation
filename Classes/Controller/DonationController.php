@@ -107,8 +107,6 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             $filter[$key] = filter_var($value, FILTER_SANITIZE_STRING);
         }
 
-        $this->settings['itemsPerPage'] = 1;
-
         // for pagination - we set the type manually in the more-link
         if ($itemType) {
             $filter['type'] = intval($itemType);
