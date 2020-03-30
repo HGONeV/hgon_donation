@@ -6,7 +6,7 @@
             <article class="card card--shadow card--primary">
                 <f:if condition="{settings.supportOptions.becomeMember.image}">
                     <picture class="card__image">
-                        <f:image class="image-embed-item" treatIdAsReference="1" src="{settings.supportOptions.becomeMember.image}" width="595px" height="300px" />
+                        <f:image class="image-embed-item" treatIdAsReference="1" src="{settings.supportOptions.becomeMember.image}" width="595c" height="300" cropVariant="2to1" />
                     </picture>
                 </f:if>
                 <div class="card__inner card__inner--light">
@@ -43,15 +43,21 @@
                         </p>
                     </div>
                     <footer class="card__footer">
+
+                        <f:link.page pageType="{settings.typeNumClearPage}" pageUid="{settings.donationFormPid}" class="btn btn--white btn--rounded" additionalParams="{project: donation}" additionalAttributes="{data-featherlight: ''}">
+                            <f:translate key="tx_hgondonation_partials_donation_list.donate" />
+                        </f:link.page>
                         <f:comment>
                             <!-- old simple paypal button -->
                             <a data-featherlight="#hgon-paypal" href="#" class="btn btn--white btn--rounded">
                                 <f:translate key="tx_hgondonation_templates_standard_supportoptionslight.donateNow" />
                             </a>
                         </f:comment>
-                        <f:link.page pageType="{settings.typeNumClearPage}" pageUid="{settings.donationFormPid}" class="btn btn--white btn--rounded" additionalAttributes="{data-featherlight: ''}">
-                            <f:translate key="tx_hgondonation_templates_standard_supportoptionslight.donateNow" />
-                        </f:link.page>
+                        <f:comment>
+                            <f:link.page pageType="{settings.typeNumClearPage}" pageUid="{settings.donationFormPid}" class="btn btn--white btn--rounded" additionalAttributes="{data-featherlight: ''}">
+                                <f:translate key="tx_hgondonation_templates_standard_supportoptionslight.donateNow" />
+                            </f:link.page>
+                        </f:comment>
                     </footer>
                 </div>
             </article>
