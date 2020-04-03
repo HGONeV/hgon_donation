@@ -54,6 +54,7 @@ plugin.tx_hgondonation {
     settings {
         ajaxTypeNum = {$plugin.tx_hgondonation.settings.ajaxTypeNum}
         ajaxTypeNumDonationMoney = {$plugin.tx_hgondonation.settings.ajaxTypeNumDonationMoney}
+        typeNumBecomeMember = {$plugin.tx_hgondonation.settings.typeNumBecomeMember}
         typeNumClearPage = {$plugin.tx_hgondonation.settings.typeNumClearPage}
         listPid = {$plugin.tx_hgondonation.settings.listPid}
         showPid = {$plugin.tx_hgondonation.settings.showPid}
@@ -155,4 +156,27 @@ txHgondonationDonateMoney {
         persistence < plugin.tx_hgondonation.persistence
         settings < plugin.tx_hgondonation.settings
     }
+}
+
+txHgondonationBecomeMember = PAGE
+txHgondonationBecomeMember {
+
+    typeNum = {$plugin.tx_hgondonation.settings.typeNumBecomeMember}
+    config {
+        disableAllHeaderCode = 1
+        xhtml_cleaning = 0
+        admPanel = 0
+        additionalHeaders = Content-type: text/plain
+        no_cache = 1
+    }
+
+    10 = CONTENT
+    10 {
+        table = tt_content
+        select {
+            pidInList = 78
+            uidInList = 191
+        }
+    }
+
 }
