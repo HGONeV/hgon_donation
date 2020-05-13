@@ -175,7 +175,7 @@ txHgondonationBecomeMember {
         table = tt_content
         select {
             pidInList = 78
-            uidInList = 191
+            uidInList = 192
         }
     }
 
