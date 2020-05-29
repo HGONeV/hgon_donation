@@ -15,8 +15,13 @@ plugin.tx_hgondonation {
     settings {
         # cat=plugin.tx_hgondonation//a; type=int; label=Ajax TypeNum
         ajaxTypeNum = 1560941246
-        # cat=plugin.tx_hgondonation//a; type=int; label=Ajax TypeNum
+        # cat=plugin.tx_hgondonation//a; type=int; label=Ajax TypeNum donation money
         ajaxTypeNumDonationMoney = 1570023206
+        # cat=plugin.tx_hgondonation//a; type=int; label=Ajax TypeNum donation time
+        ajaxTypeNumDonationTime = 1590742601
+        # cat=plugin.tx_hgondonation//a; type=int; label=TypeNum for page with content and css (see hgon_template)
+        # The number 1590761711 is copied from hgon_template. Do not change!
+        typeNumPageWithCss = 1590761711
         # cat=plugin.tx_hgondonation//a; type=int; label=TypeNum clear page (forms e.g.)
         typeNumClearPage = 1568798050
         # cat=plugin.tx_hgondonation//a; type=int; label=TypeNum become member
@@ -27,6 +32,10 @@ plugin.tx_hgondonation {
         showPid =
         # cat=plugin.tx_hgondonation//a; type=int; label=PID of donation plugin (shows content for lightbox)
         donationFormPid =
+        # cat=plugin.tx_hgondonation//a; type=int; label=PID of donation time plugin (shows content for lightbox)
+        donationTimeFormPid =
+        # cat=plugin.tx_hgondonation//a; type=int; label=PID of become member form (shows content for lightbox)
+        becomeMemberFormPid =
         # cat=plugin.tx_hgondonation//a; type=int; label=items per page
         itemsPerPage = 3
         # cat=plugin.tx_hgondonation//a; type=int; label=maximum shown results

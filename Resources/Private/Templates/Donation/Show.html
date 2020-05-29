@@ -7,11 +7,24 @@
             </f:format.raw>
         </div>
         <br />
-        <div class="article__content">
-            <formvh:render persistenceIdentifier="EXT:hgon_template/Configuration/Yaml/FormFramework/Forms/zeitspende.form.yaml"/>
+        <div class="wrap wrap--text / align-center">
+            <f:comment>
+                <formvh:render persistenceIdentifier="EXT:hgon_template/Configuration/Yaml/FormFramework/Forms/zeitspende.form.yaml"/>
+            </f:comment>
+
+            <f:link.page pageType="{settings.typeNumPageWithCss}" pageUid="{settings.donationTimeFormPid}" class="btn btn--rounded btn--tertiary" additionalAttributes="{data-featherlight: 'iframe', data-featherlight-iframe-height: '800', data-featherlight-iframe-width: '600'}">
+                Ich will mitmachen!
+            </f:link.page>
+
         </div>
 
-    <f:comment><!-- SIDEBAR -->
+
+
+
+
+<f:comment><!-- OLD STUFF --></f:comment>
+    <f:comment>
+        <!-- SIDEBAR -->
         <div class="sidebar color-bg-light">
 
             <f:link.page class="link link--icon / float-right" pageUid="{settings.listPid}" title="Mitmachen"  section="zeitspenden">

@@ -54,11 +54,15 @@ plugin.tx_hgondonation {
     settings {
         ajaxTypeNum = {$plugin.tx_hgondonation.settings.ajaxTypeNum}
         ajaxTypeNumDonationMoney = {$plugin.tx_hgondonation.settings.ajaxTypeNumDonationMoney}
+        ajaxTypeNumDonationTime = {$plugin.tx_hgondonation.settings.ajaxTypeNumDonationTime}
         typeNumBecomeMember = {$plugin.tx_hgondonation.settings.typeNumBecomeMember}
         typeNumClearPage = {$plugin.tx_hgondonation.settings.typeNumClearPage}
+        typeNumPageWithCss = {$plugin.tx_hgondonation.settings.typeNumPageWithCss}
         listPid = {$plugin.tx_hgondonation.settings.listPid}
         showPid = {$plugin.tx_hgondonation.settings.showPid}
         donationFormPid = {$plugin.tx_hgondonation.settings.donationFormPid}
+        donationTimeFormPid = {$plugin.tx_hgondonation.settings.donationTimeFormPid}
+        becomeMemberFormPid = {$plugin.tx_hgondonation.settings.becomeMemberFormPid}
         itemsPerPage = {$plugin.tx_hgondonation.settings.itemsPerPage}
         maximumShownResults = {$plugin.tx_hgondonation.settings.maximumShownResults}
         bankAccount {
@@ -74,7 +78,7 @@ plugin.tx_hgondonation_listing < plugin.tx_hgondonation
 plugin.tx_hgondonation_donate < plugin.tx_hgondonation
 
 
-page.includeJSFooter.txHgonDonation  = EXT:hgon_donation/Resources/Public/Scripts/hgondonation.js
+page.includeJSFooter.txHgonDonation = EXT:hgon_donation/Resources/Public/Scripts/hgondonation.js
 
 
 #===============================================================
@@ -158,6 +162,7 @@ txHgondonationDonateMoney {
     }
 }
 
+/*
 txHgondonationBecomeMember = PAGE
 txHgondonationBecomeMember {
 
@@ -166,7 +171,7 @@ txHgondonationBecomeMember {
         disableAllHeaderCode = 1
         xhtml_cleaning = 0
         admPanel = 0
-        additionalHeaders = Content-type: text/plain
+        additionalHeaders = Content-type: text/html
         no_cache = 1
     }
 
@@ -178,5 +183,34 @@ txHgondonationBecomeMember {
             uidInList = 192
         }
     }
-
 }
+
+
+txHgondonationDonationTime = PAGE
+txHgondonationDonationTime {
+
+    includeCSS.file10 = typo3conf/ext/hgon_template/Resources/Public/Styles/styles.css
+
+    typeNum = {$plugin.tx_hgondonation.settings.ajaxTypeNumDonationTime}
+    config {
+        disableAllHeaderCode = 1
+        xhtml_cleaning = 0
+        admPanel = 0
+        additionalHeaders = Content-type: text/html
+        no_cache = 1
+    }
+
+    10 = CONTENT
+    10 {
+        table = tt_content
+        select {
+            #pidInList = 272
+            #uidInList = 539
+            pidInList = 100
+            uidInList = 222
+        }
+
+    }
+}
+
+*/
