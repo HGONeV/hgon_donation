@@ -16,10 +16,9 @@
                         <f:then>
                             <div id="payment-container" class="flex-container space-between gutter">
 
-                                <f:form class="form" controller="Donation" action="executeSepa" extensionName="HgonDonation" pluginName="Listing" enctype="multipart/form-data" id="moneyAmount" name="moneyAmount" object="{moneyAmount}" >
+                                <f:form class="form" controller="Donation" action="executeSepa" extensionName="HgonDonation" pluginName="Listing" enctype="multipart/form-data" id="moneyAmount" name="moneyAmount" object="{moneyAmount}" additionalParams="{tx_hgondonation_listing: {customer: result.customer}}" >
                                     <p>Kontrollieren Sie nochmals ihre daten.</p>
 
-                                    <f:form.hidden property="customerId" value="{result.customer.customerId}" />
                                     <p class="form__field">
                                         <label class="control-label">Betrag:</label>
                                         <f:format.currency decimalSeparator="," thousandsSeparator="." decimals="2" currencySign="€">

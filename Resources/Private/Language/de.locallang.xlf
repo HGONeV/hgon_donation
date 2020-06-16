@@ -389,6 +389,26 @@
             </trans-unit>
 
 
+            <!-- E-Mail subjects -->
+			<trans-unit id="rkwMailService.confirmationUser.subject" approved="yes">
+				<source>Thank You</source>
+				<target>Vielen Dank</target>
+			</trans-unit>
+
+			 <!-- Templates/Email/ConfirmationUser.html -->
+            <trans-unit id="templates_email_confirmationUser.headline">
+                <source>Hello %s %s,</source>
+                <target>Hallo %s %s,</target>
+            </trans-unit>
+            <trans-unit id="templates_email_confirmationUser.text1">
+                <source>thank you for your contribution.</source>
+                <target>vielen Dank für Ihren Beitrag.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_confirmationUser.text2">
+                <source>Please find below the details of your contribution.</source>
+                <target>Untenstehend finden Sie die Details Ihrem Beitrag. Bei Rückfragen können Sie einfach direkt auf diese E-Mail antworten.</target>
+            </trans-unit>
+
         </body>
 	</file>
 </xliff>

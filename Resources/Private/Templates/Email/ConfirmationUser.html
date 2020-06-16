@@ -1,0 +1,31 @@
+{namespace vh=RKW\RkwMailer\ViewHelpers}
+{namespace vh1=RKW\RkwEvents\ViewHelpers}
+<f:layout name="Email/{mailType}" />
+
+
+<!-- PLAINTEXT -->
+<f:section name="Plaintext">
+<vh:frontend.translate key="templates_email_confirmationUser.headline" languageKey="{frontendUser.txRkwregistrationLanguageKey}" extensionName="hgonDonation" arguments="{0 : frontendUser.firstName, 1: frontendUser.lastName}" />
+
+<vh:frontend.translate key="templates_email_confirmationUser.text1" languageKey="{frontendUser.txRkwregistrationLanguageKey}" extensionName="hgonDonation" />
+<vh:frontend.translate key="templates_email_confirmationUser.text2" languageKey="{frontendUser.txRkwregistrationLanguageKey}" extensionName="hgonDonation" />
+<f:if condition="{reservation.event.costsReg}"><vh:frontend.translate key="templates_email_confirmationUser.billing" languageKey="{frontendUser.txRkwregistrationLanguageKey}" extensionName="hgonDonation" /></f:if>
+<f:render partial="Email/Details" section="Plaintext" arguments="{_all}"/>
+</f:section>
+
+<!-- HTML -->
+<f:section name="Html">
+	<h1><vh:frontend.translate key="templates_email_confirmationUser.headline" languageKey="{frontendUser.txRkwregistrationLanguageKey}" extensionName="hgonDonation" arguments="{0 : frontendUser.firstName, 1: frontendUser.lastName}" /></h1>
+	<p>
+		<vh:frontend.translate key="templates_email_confirmationUser.text1" languageKey="{frontendUser.txRkwregistrationLanguageKey}" extensionName="hgonDonation" /><br>
+		<vh:frontend.translate key="templates_email_confirmationUser.text2" languageKey="{frontendUser.txRkwregistrationLanguageKey}" extensionName="hgonDonation" />
+	</p>
+	<f:if condition="{reservation.event.costsReg}">
+		<p>
+			<vh:frontend.translate key="templates_email_confirmationUser.billing" languageKey="{frontendUser.txRkwregistrationLanguageKey}" extensionName="hgonDonation" />
+		</p>
+	</f:if>
+
+	<f:render partial="Email/Details" section="Html" arguments="{_all}"/>
+
+</f:section>

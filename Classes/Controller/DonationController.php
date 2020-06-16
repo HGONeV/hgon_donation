@@ -268,8 +268,6 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function createMoneyAction($moneyAmount, \HGON\HgonTemplate\Domain\Model\Projects $project = null)
     {
-        //DebuggerUtility::var_dump($moneyAmount); exit;
-
         /** @var \HGON\HgonPayment\Domain\Model\Basket $basket */
         $basket = $this->objectManager->get('HGON\\HgonPayment\\Domain\\Model\\Basket');
 
@@ -416,10 +414,10 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     /**
      * action executeSepa
      *
-     * @param array $moneyAmount
+     * @param array $customer
      * @return void
      */
-    public function executeSepaAction($moneyAmount)
+    public function executeSepaAction($customer)
     {
         /** @var \HGON\HgonPayment\Domain\Model\Basket $basket */
         $basket = $GLOBALS['TSFE']->fe_user->getKey('ses','hgon_payment_basket');
@@ -432,12 +430,26 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
         /** @var \HGON\HgonPayment\Api\MollieApi $mollieApi */
         $mollieApi = $this->objectManager->get('HGON\\HgonPayment\\Api\\MollieApi');
-        if ($this->cacheManager->has($moneyAmount['customerId'])) {
-            $customer = $this->cacheManager->get($moneyAmount['customerId']);
+        if ($this->cacheManager->has($customer['customerId'])) {
+            $customer = $this->cacheManager->get($customer['customerId']);
             $result = $mollieApi->createSubscription($customer, $article);
             if ($result instanceof \Mollie\Api\Resources\Subscription) {
                 if ($result->status == "active") {
                     $isPayed = true;
+
+                    // @toDo: Send a mail to customer
+                    /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
+                    $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+
+                    /** @var \RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUser */
+                    $frontendUser = $objectManager->get('RKW\\RkwRegistration\\Domain\\Model\\FrontendUser');
+                    $frontendUser->setEmail($customer->email);
+                    // We do not have first and lastname separately
+                    $frontendUser->setLastName($customer->name);
+                    /** @var \HGON\HgonDonation\Service\RkwMailService $rkwMailService */
+                    $rkwMailService = $objectManager->get('HGON\\HgonDonation\\Service\\RkwMailService');
+                    $rkwMailService->confirmSepaUser($frontendUser, $result);
+                    //$rkwMailService->confirmSepaAdmin($backendUser, $result);
                 }
             }
         } else {

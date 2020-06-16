@@ -1,0 +1,23 @@
+{namespace rkwMailer=RKW\RkwMailer\ViewHelpers}
+{namespace rkwEvents=RKW\RkwEvents\ViewHelpers}
+
+<!-- PLAINTEXT -->
+<f:section name="Plaintext">
+    Beitrag: <f:format.currency decimalSeparator="," thousandsSeparator="." decimals="2" currencySign="€">{subscription.amount.value}</f:format.currency>
+    Taktung: Monatlich
+    Startet am: <f:format.date format="d.m.Y">{subscription.startDate}</f:format.date>
+</f:section>
+
+
+<!-- HTML -->
+<f:section name="Html">
+    <p>
+        Beitrag: <f:format.currency decimalSeparator="," thousandsSeparator="." decimals="2" currencySign="€">{subscription.amount.value}</f:format.currency>
+    </p>
+    <p>
+        Zahlungsintervall: Monatlich
+    </p>
+    <p>
+        Startet am: <f:format.date format="d.m.Y">{subscription.startDate}</f:format.date>
+    </p>
+</f:section>

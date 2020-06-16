@@ -309,6 +309,24 @@
             <trans-unit id="tx_hgondonation_templates_donation_morelink.loadMore">
                 <source>Load more</source>
             </trans-unit>
+
+
+
+            <!-- E-Mail subjects -->
+            <trans-unit id="rkwMailService.confirmationUser.subject" approved="yes">
+                <source>Thank You</source>
+            </trans-unit>
+
+             <!-- Templates/Email/ConfirmationUser.html -->
+            <trans-unit id="templates_email_confirmationUser.headline">
+                <source>Hello %s %s,</source>
+            </trans-unit>
+            <trans-unit id="templates_email_confirmationUser.text1">
+                <source>thank you for your contribution.</source>
+            </trans-unit>
+            <trans-unit id="templates_email_confirmationUser.text2">
+                <source>Please find below the details of you contribution.</source>
+            </trans-unit>
 		</body>
 	</file>
 </xliff>
