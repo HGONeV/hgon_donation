@@ -40,7 +40,8 @@ plugin.tx_hgondonation {
         itemsPerPage = 3
         # cat=plugin.tx_hgondonation//a; type=int; label=maximum shown results
         maximumShownResults = 9999
-
+        # cat=plugin.tx_hgondonation//a; type=int; label=the RkwAuthor which is contact person in email etc
+        rkwAuthorContactPerson =
         bankAccount {
             # cat=plugin.tx_hgondonation//a; type=string; label=IBAN
             iban =

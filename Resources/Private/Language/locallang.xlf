@@ -316,6 +316,9 @@
             <trans-unit id="rkwMailService.confirmationUser.subject" approved="yes">
                 <source>Thank You</source>
             </trans-unit>
+            <trans-unit id="rkwMailService.confirmationAdmin.subject" approved="yes">
+                <source>New contribution</source>
+            </trans-unit>
 
              <!-- Templates/Email/ConfirmationUser.html -->
             <trans-unit id="templates_email_confirmationUser.headline">
@@ -326,6 +329,17 @@
             </trans-unit>
             <trans-unit id="templates_email_confirmationUser.text2">
                 <source>Please find below the details of you contribution.</source>
+            </trans-unit>
+
+            <!-- Templates/Email/ConfirmationAdmin.html -->
+            <trans-unit id="templates_email_confirmationAdmin.headline">
+                <source>Hello %s,</source>
+            </trans-unit>
+            <trans-unit id="templates_email_confirmationAdmin.text1">
+                <source>a new contribution has arrived.</source>
+            </trans-unit>
+            <trans-unit id="templates_email_confirmationAdmin.text2">
+                <source>Please find below the details of your contribution.</source>
             </trans-unit>
 		</body>
 	</file>

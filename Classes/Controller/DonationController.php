@@ -45,6 +45,14 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     protected $projectsRepository = null;
 
     /**
+     * authorsRepository
+     *
+     * @var \RKW\RkwAuthors\Domain\Repository\AuthorsRepository
+     * @inject
+     */
+    protected $authorsRepository = null;
+
+    /**
      * cacheManager
      *
      * @var \TYPO3\CMS\Core\Cache\CacheManager
@@ -433,23 +441,47 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         if ($this->cacheManager->has($customer['customerId'])) {
             $customer = $this->cacheManager->get($customer['customerId']);
             $result = $mollieApi->createSubscription($customer, $article);
+
             if ($result instanceof \Mollie\Api\Resources\Subscription) {
                 if ($result->status == "active") {
                     $isPayed = true;
 
-                    // @toDo: Send a mail to customer
-                    /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
-                    $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+                    // @todo: throws currently errors on stage
+                    //if (false) {
+                        // @toDo: Send a mail to customer
+                        /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
+                        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 
-                    /** @var \RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUser */
-                    $frontendUser = $objectManager->get('RKW\\RkwRegistration\\Domain\\Model\\FrontendUser');
-                    $frontendUser->setEmail($customer->email);
-                    // We do not have first and lastname separately
-                    $frontendUser->setLastName($customer->name);
-                    /** @var \HGON\HgonDonation\Service\RkwMailService $rkwMailService */
-                    $rkwMailService = $objectManager->get('HGON\\HgonDonation\\Service\\RkwMailService');
-                    $rkwMailService->confirmSepaUser($frontendUser, $result);
-                    //$rkwMailService->confirmSepaAdmin($backendUser, $result);
+                        /** @var \RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUser */
+                        $frontendUser = $objectManager->get('RKW\\RkwRegistration\\Domain\\Model\\FrontendUser');
+                        $frontendUser->setEmail($customer->email);
+                        // We do not have first and lastname separately
+                        $frontendUser->setLastName($customer->name);
+                        $frontendUser->setTxRkwregistrationLanguageKey('de');
+
+                        /** @var \HGON\HgonPayment\Helper\DataConverter $dataConverter */
+                        $dataConverter = $objectManager->get('HGON\\HgonPayment\\Helper\\DataConverter');
+                        $subscriptionData = $dataConverter->subscriptionMollie($result, $customer);
+
+                        /** @var \HGON\HgonDonation\Service\RkwMailService $rkwMailService */
+                        $rkwMailService = $objectManager->get('HGON\\HgonDonation\\Service\\RkwMailService');
+                        $rkwMailService->confirmMollieUser($frontendUser, $subscriptionData);
+
+                        $author = $this->authorsRepository->findByIdentifier(intval($this->settings['rkwAuthorContactPerson']));
+                        if ($author instanceof \RKW\RkwAuthors\Domain\Model\Authors) {
+
+                            /** @var \RKW\RkwRegistration\Domain\Model\BackendUser $backendUser */
+                            $backendUser = $objectManager->get('RKW\\RkwRegistration\\Domain\\Model\\BackendUser');
+                            $backendUser->setEmail($author->getEmail());
+                            $backendUser->setRealName($author->getFirstName() . ' ' . $author->getLastName());
+                            $backendUser->setLang('de');
+
+                            $rkwMailService->confirmMollieAdmin($backendUser, $subscriptionData, $frontendUser);
+                        }
+
+
+                    //}
+
                 }
             }
         } else {

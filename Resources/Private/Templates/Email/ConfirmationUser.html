@@ -9,7 +9,6 @@
 
 <vh:frontend.translate key="templates_email_confirmationUser.text1" languageKey="{frontendUser.txRkwregistrationLanguageKey}" extensionName="hgonDonation" />
 <vh:frontend.translate key="templates_email_confirmationUser.text2" languageKey="{frontendUser.txRkwregistrationLanguageKey}" extensionName="hgonDonation" />
-<f:if condition="{reservation.event.costsReg}"><vh:frontend.translate key="templates_email_confirmationUser.billing" languageKey="{frontendUser.txRkwregistrationLanguageKey}" extensionName="hgonDonation" /></f:if>
 <f:render partial="Email/Details" section="Plaintext" arguments="{_all}"/>
 </f:section>
 
@@ -18,14 +17,9 @@
 	<h1><vh:frontend.translate key="templates_email_confirmationUser.headline" languageKey="{frontendUser.txRkwregistrationLanguageKey}" extensionName="hgonDonation" arguments="{0 : frontendUser.firstName, 1: frontendUser.lastName}" /></h1>
 	<p>
 		<vh:frontend.translate key="templates_email_confirmationUser.text1" languageKey="{frontendUser.txRkwregistrationLanguageKey}" extensionName="hgonDonation" /><br>
+    </p>
+    <p>
 		<vh:frontend.translate key="templates_email_confirmationUser.text2" languageKey="{frontendUser.txRkwregistrationLanguageKey}" extensionName="hgonDonation" />
 	</p>
-	<f:if condition="{reservation.event.costsReg}">
-		<p>
-			<vh:frontend.translate key="templates_email_confirmationUser.billing" languageKey="{frontendUser.txRkwregistrationLanguageKey}" extensionName="hgonDonation" />
-		</p>
-	</f:if>
-
 	<f:render partial="Email/Details" section="Html" arguments="{_all}"/>
-
 </f:section>

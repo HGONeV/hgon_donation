@@ -4,21 +4,20 @@
 
 <!-- PLAINTEXT -->
 <f:section name="Plaintext">
-<vh:frontend.translate key="templates_email_confirmationReservationAdmin.headline" languageKey="{language}" extensionName="rkwEvents" arguments="{0 : fullName}" />
+<vh:frontend.translate key="templates_email_confirmationAdmin.headline" languageKey="{language}" extensionName="hgonDonation" arguments="{0 : fullName}" />
 
-<vh:frontend.translate key="templates_email_confirmationReservationAdmin.text1" languageKey="{language}" extensionName="rkwEvents" />
+<vh:frontend.translate key="templates_email_confirmationAdmin.text1" languageKey="{language}" extensionName="hgonDonation" />
 
-<vh:frontend.translate key="templates_email_confirmationReservationAdmin.text2" languageKey="{language}" extensionName="rkwEvents" />
-
-<f:render partial="Email/Details" section="Plaintext" arguments="{reservation: reservation, frontendUser: reservation.feUser, language:language, showPid: showPid, admin:admin}"/>
+<vh:frontend.translate key="templates_email_confirmationAdmin.text2" languageKey="{language}" extensionName="hgonDonation" />
+<f:render partial="Email/Details" section="Plaintext" arguments="{_all}"/>
 </f:section>
 
 <!-- HTML -->
 <f:section name="Html">
-	<h1><vh:frontend.translate key="templates_email_confirmationReservationAdmin.headline" languageKey="{language}" extensionName="rkwEvents" arguments="{0 : fullName}" /></h1>
-	<p><vh:frontend.translate key="templates_email_confirmationReservationAdmin.text1" languageKey="{language}" extensionName="rkwEvents" /></p>
-    <p class="important"><vh:frontend.translate key="templates_email_confirmationReservationAdmin.text2" languageKey="{language}" extensionName="rkwEvents" /></p>
-	
-	<f:render partial="Email/Details" section="Html" arguments="{reservation: reservation, frontendUser: reservation.feUser, language:language, showPid: showPid, admin:admin}"/>
+	<h1><vh:frontend.translate key="templates_email_confirmationAdmin.headline" languageKey="{language}" extensionName="hgonDonation" arguments="{0 : fullName}" /></h1>
+	<p><vh:frontend.translate key="templates_email_confirmationAdmin.text1" languageKey="{language}" extensionName="hgonDonation" /></p>
+    <p class="important"><vh:frontend.translate key="templates_email_confirmationAdmin.text2" languageKey="{language}" extensionName="hgonDonation" /></p>
+
+    <f:render partial="Email/Details" section="Html" arguments="{_all}"/>
 
 </f:section>

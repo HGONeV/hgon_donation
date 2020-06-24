@@ -21,7 +21,7 @@ $EM_CONF[$_EXTKEY] = [
     'uploadfolder' => '1',
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '8.7.17',
+    'version' => '8.7.18',
     'constraints' => [
         'depends' => [
             'typo3' => '7.6.0-8.7.99',
@@ -29,6 +29,7 @@ $EM_CONF[$_EXTKEY] = [
             'hgon_payment' => '8.7.0-8.7.99',
             'rkw_basics' => '8.7.0-8.7.99',
             'rkw_projects' => '7.6.0-8.7.99',
+            'rkw_authors' => '8.7.0-8.7.99'
         ],
         'conflicts' => [],
         'suggests' => [],

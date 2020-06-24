@@ -3,21 +3,36 @@
 
 <!-- PLAINTEXT -->
 <f:section name="Plaintext">
-    Beitrag: <f:format.currency decimalSeparator="," thousandsSeparator="." decimals="2" currencySign="€">{subscription.amount.value}</f:format.currency>
+    <f:if condition="{admin}">Kunden-ID: {subscriptionData.customer.id}</f:if>
+    Name: {subscriptionData.customer.name}
+    E-Mail: {subscriptionData.customer.email}
+    Beitrag: <f:format.currency decimalSeparator="," thousandsSeparator="." decimals="2" currencySign="€">{subscriptionData.subscription.amount.value}</f:format.currency>
     Taktung: Monatlich
-    Startet am: <f:format.date format="d.m.Y">{subscription.startDate}</f:format.date>
+    Startet am: <f:format.date format="d.m.Y">{subscriptionData.subscription.startDate}</f:format.date>
 </f:section>
 
 
 <!-- HTML -->
 <f:section name="Html">
+    <f:if condition="{admin}">
+        <p>
+            Plattform: {subscriptionData.subscription.type}
+            Kunden-ID: {subscriptionData.customer.id}
+        </p>
+    </f:if>
     <p>
-        Beitrag: <f:format.currency decimalSeparator="," thousandsSeparator="." decimals="2" currencySign="€">{subscription.amount.value}</f:format.currency>
+        Name: {subscriptionData.customer.name}
+    </p>
+    <p>
+        E-Mail: {subscriptionData.customer.email}
+    </p>
+    <p>
+        Beitrag: <f:format.currency decimalSeparator="," thousandsSeparator="." decimals="2" currencySign="€">{subscriptionData.subscription.amount.value}</f:format.currency>
     </p>
     <p>
         Zahlungsintervall: Monatlich
     </p>
     <p>
-        Startet am: <f:format.date format="d.m.Y">{subscription.startDate}</f:format.date>
+        Startet am: <f:format.date format="d.m.Y">{subscriptionData.subscription.startDate}</f:format.date>
     </p>
 </f:section>

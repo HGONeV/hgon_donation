@@ -35,7 +35,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      * Handles confirm mail for user
      *
      * @param \RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUser
-     * @param \Mollie\Api\Resources\Subscription $subscription
+     * @param array $subscription
      * @return void
      * @throws \RKW\RkwMailer\Service\MailException
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
@@ -46,7 +46,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
      */
-    public function confirmSepaUser(\RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUser, \Mollie\Api\Resources\Subscription $subscription)
+    public function confirmMollieUser(\RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUser, $subscription)
     {
         // send confirmation
         $this->userMail($frontendUser, $subscription, 'confirmation', true);
@@ -56,8 +56,9 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
     /**
      * Handles confirm mail for admin
      *
-     * @param \RKW\RkwEvents\Domain\Model\BackendUser|array $backendUser
-     * @param \Mollie\Api\Resources\Subscription $subscription
+     * @param \RKW\RkwRegistration\Domain\Model\BackendUser|array $backendUser
+     * @param array $subscription
+     * @param \RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUser
      * @return void
      * @throws \RKW\RkwMailer\Service\MailException
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
@@ -68,16 +69,16 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
      */
-    public function confirmSepaAdmin($backendUser, \Mollie\Api\Resources\Subscription $subscription)
+    public function confirmMollieAdmin($backendUser, $subscription, $frontendUser)
     {
-        $this->adminMail($backendUser, $subscription, 'confirmation');
+        $this->adminMail($backendUser, $subscription, 'confirmation', $frontendUser);
     }
 
     /**
      * Sends an E-Mail to a Frontend-User
      *
      * @param \RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUser
-     * @param \Mollie\Api\Resources\Subscription $subscription
+     * @param array $paymentData
      * @param boolean $sendCalendarMeeting
      * @param string $action
      * @throws \RKW\RkwMailer\Service\MailException
@@ -89,7 +90,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
      */
-    protected function userMail(\RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUser, \Mollie\Api\Resources\Subscription $subscription, $action = 'confirmation', $sendCalendarMeeting = false)
+    protected function userMail(\RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUser, $paymentData, $action = 'confirmation', $sendCalendarMeeting = false)
     {
         // get settings
         $settings = $this->getSettings(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
@@ -103,7 +104,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
             // send new user an email with token
             $mailService->setTo($frontendUser, array(
                 'marker' => array(
-                    'subscription'  => $subscription,
+                    'subscriptionData'  => $paymentData,
                     'frontendUser' => $frontendUser,
                     'pageUid'      => intval($GLOBALS['TSFE']->id),
                     'showPid'      => intval($settingsDefault['showPid']),
@@ -151,8 +152,8 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
     /**
      * Sends an E-Mail to an Admin
      *
-     * @param \RKW\RkwEvents\Domain\Model\BackendUser|array $backendUser
-     * @param \Mollie\Api\Resources\Subscription $subscription
+     * @param \RKW\RkwRegistration\Domain\Model\BackendUser|array $backendUser
+     * @param array $paymentData
      * @param string $action
      * @param \RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUser
      * @throws \RKW\RkwMailer\Service\MailException
@@ -164,7 +165,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
      */
-    protected function adminMail($backendUser, \Mollie\Api\Resources\Subscription $subscription, $action = 'confirmation', \RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUser = null)
+    protected function adminMail($backendUser, $paymentData, $action = 'confirmation', \RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUser = null)
     {
         // get settings
         $settings = $this->getSettings(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
@@ -185,11 +186,8 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
             foreach ($recipients as $recipient) {
 
                 if (
-                    (
-                        ($recipient instanceof \RKW\RkwEvents\Domain\Model\BackendUser)
-                        || ($recipient instanceof \RKW\RkwEvents\Domain\Model\EventContact)
-                    )
-                    && ($recipient->getEmail())
+                    $recipient instanceof \RKW\RkwRegistration\Domain\Model\BackendUser
+                    && $recipient->getEmail()
                 ) {
 
                     $language = $recipient->getLang();
@@ -201,23 +199,20 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
                     if ($recipient instanceof \RKW\RkwEvents\Domain\Model\BackendUser) {
                         $name = $recipient->getRealName();
                     }
-                    if ($recipient instanceof \RKW\RkwEvents\Domain\Model\EventContact) {
-                        $name = $recipient->getFirstName() . ' ' . $recipient->getLastName();
-                    }
 
                     // send new user an email with token
                     $mailService->setTo($recipient, array(
                         'marker'  => array(
-                            'subscription'  => $subscription,
+                            'subscriptionData'  => $paymentData,
                             'admin'        => $recipient,
                             'frontendUser' => $frontendUser,
                             'pageUid'      => intval($GLOBALS['TSFE']->id),
                             'showPid'      => intval($settingsDefault['showPid']),
-                            'fullName'     => $name,
+                            'fullName'     => $backendUser->getRealName(),
                             'language'     => $language,
                         ),
                         'subject' => \RKW\RkwMailer\Helper\FrontendLocalization::translate(
-                            'rkwMailService.' . strtolower($action) . 'ReservationAdmin.subject',
+                            'rkwMailService.' . strtolower($action) . 'Admin.subject',
                             'hgon_donation',
                             null,
                             $recipient->getLang()
@@ -227,15 +222,15 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
             }
 
             if (
-                ($eventReservation->getFeUser())
-                && ($eventReservation->getFeUser()->getEmail())
+                ($frontendUser)
+                && ($frontendUser->getEmail())
             ) {
-                $mailService->getQueueMail()->setReplyAddress($eventReservation->getFeUser()->getEmail());
+                $mailService->getQueueMail()->setReplyAddress($frontendUser->getEmail());
             }
 
             $mailService->getQueueMail()->setSubject(
                 \RKW\RkwMailer\Helper\FrontendLocalization::translate(
-                    'rkwMailService.' . strtolower($action) . 'ReservationAdmin.subject',
+                    'rkwMailService.' . strtolower($action) . 'Admin.subject',
                     'hgon_donation',
                     null,
                     'de'
@@ -245,8 +240,8 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
             $mailService->getQueueMail()->addTemplatePaths($settings['view']['templateRootPaths']);
             $mailService->getQueueMail()->addPartialPaths($settings['view']['partialRootPaths']);
 
-            $mailService->getQueueMail()->setPlaintextTemplate('Email/' . ucfirst(strtolower($action)) . 'ReservationAdmin');
-            $mailService->getQueueMail()->setHtmlTemplate('Email/' . ucfirst(strtolower($action)) . 'ReservationAdmin');
+            $mailService->getQueueMail()->setPlaintextTemplate('Email/' . ucfirst(strtolower($action)) . 'Admin');
+            $mailService->getQueueMail()->setHtmlTemplate('Email/' . ucfirst(strtolower($action)) . 'Admin');
 
             if (count($mailService->getTo())) {
                 $mailService->send();
