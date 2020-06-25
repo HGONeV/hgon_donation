@@ -1,7 +1,7 @@
 <f:if condition="{donationTypeTimeList}">
-    <f:render partial="Donation/List" arguments="{donationList: donationTypeTimeList}" />
+    <f:render partial="Donation/List" arguments="{donationList: donationTypeTimeList, settings: settingsArray}" />
 </f:if>
 
 <f:if condition="{donationTypeMoneyList}">
-    <f:render partial="Donation/List" arguments="{donationList: donationTypeMoneyList}" />
+    <f:render partial="Donation/List" arguments="{donationList: donationTypeMoneyList, settings: settingsArray}" />
 </f:if>

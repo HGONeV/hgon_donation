@@ -348,6 +348,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
         // extract approval_url
         $approvalUrl = $result->links;
+
         //$this->view->assign('approvalUrl', $approvalUrl[1]->href);
 
         // get JSON helper
@@ -479,7 +480,9 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                             $rkwMailService->confirmMollieAdmin($backendUser, $subscriptionData, $frontendUser);
                         }
 
-
+                    // remove Session data
+                    $GLOBALS['TSFE']->fe_user->setKey('ses', 'hgon_payment_basket', null);
+                    $GLOBALS['TSFE']->storeSessionData();
                     //}
 
                 }

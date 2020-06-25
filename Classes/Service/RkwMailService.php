@@ -49,7 +49,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
     public function confirmMollieUser(\RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUser, $subscription)
     {
         // send confirmation
-        $this->userMail($frontendUser, $subscription, 'confirmation', true);
+        $this->userMail($frontendUser, $subscription, 'confirmation');
     }
 
 
@@ -79,7 +79,6 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      *
      * @param \RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUser
      * @param array $paymentData
-     * @param boolean $sendCalendarMeeting
      * @param string $action
      * @throws \RKW\RkwMailer\Service\MailException
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
@@ -90,7 +89,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
      */
-    protected function userMail(\RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUser, $paymentData, $action = 'confirmation', $sendCalendarMeeting = false)
+    protected function userMail(\RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUser, $paymentData, $action = 'confirmation')
     {
         // get settings
         $settings = $this->getSettings(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
