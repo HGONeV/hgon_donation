@@ -23,8 +23,8 @@
 				<target>HGON: Spenden-Erweiterung</target>
 			</trans-unit>
 			<trans-unit id="tx_hgondonation_domain_model_donation">
-				<source>Donation Type</source>
-				<target>Spendentyp</target>
+				<source>Donation</source>
+				<target>Spende (Zeit / Geld)</target>
 			</trans-unit>
 			<trans-unit id="tx_hgondonation_domain_model_donation.title">
 				<source>Title</source>

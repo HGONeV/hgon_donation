@@ -13,8 +13,24 @@
                 <target>HGON: Spenden-Erweiterung</target>
             </trans-unit>
             <trans-unit id="tx_hgondonation_domain_model_donation">
-                <source>HGON Donation: Donation Type</source>
-                <target>HGON Donation: Spendentyp</target>
+                <source>HGON Donation: Donation</source>
+                <target>HGON Donation: Spende</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_donation.type">
+                <source>Type</source>
+                <target>Typ</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_donation.type.select">
+                <source>Choose</source>
+                <target>Bitte wählen</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_donation.type.time">
+                <source>Time</source>
+                <target>Zeit</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_donation.type.money">
+                <source>Money</source>
+                <target>Geld</target>
             </trans-unit>
             <trans-unit id="tx_hgondonation_domain_model_donation.title">
                 <source>Title</source>
@@ -177,7 +193,7 @@
 
             <trans-unit id="tx_hgondonation_domain_model_donationplace">
                 <source>HGON Donation: Donation Place</source>
-                <target>HGON Donation: Ort</target>
+                <target>HGON Donation: Ort (nur für Zeitspenden)</target>
             </trans-unit>
             <trans-unit id="tx_hgondonation_domain_model_donationplace.title">
                 <source>Title</source>

@@ -43,6 +43,18 @@ call_user_func(
             'HGON Donation: Zeige Spenden-Optionen (Mitglied & Geld)'
         );
 
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+            'HGON.HgonDonation',
+            'Header',
+            'HGON Donation: Header'
+        );
+
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+            'HGON.HgonDonation',
+            'Sidebar',
+            'HGON Donation: Sidebar'
+        );
+
 		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($extKey, 'Configuration/TypoScript', 'HGON Donation');
 
 		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_hgondonation_domain_model_donationtype', 'EXT:hgon_donation/Resources/Private/Language/locallang_csh_tx_hgondonation_domain_model_donationtype.xlf');

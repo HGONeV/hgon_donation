@@ -20,14 +20,14 @@ return [
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		],
-		'searchFields' => 'title,short_description,description,image,link,time_range_start, time_range_end, tx_rkwproject_project, time_requirement, donation_place',
+		'searchFields' => 'type,title,short_description,description,image,link,time_range_start, time_range_end, tx_rkwproject_project, time_requirement, donation_place',
 		'iconfile' => 'EXT:hgon_donation/Resources/Public/Icons/tx_hgondonation_domain_model_donation.gif'
 	],
 	'interface' => [
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, short_description, description, image, link, time_range_start, time_range_end, tx_rkwproject_project, time_requirement, donation_place',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, type, title, short_description, description, image, link, time_range_start, time_range_end, tx_rkwproject_project, time_requirement, donation_place',
 	],
 	'types' => [
-		'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, time_range_start, time_range_end, title, short_description, description, time_requirement, donation_place, image, link, tx_rkwproject_project, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+		'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, type, time_range_start, time_range_end, title, short_description, description, time_requirement, donation_place, image, link, tx_rkwproject_project, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
 	],
 	'columns' => [
 		'sys_language_uid' => [
@@ -121,12 +121,12 @@ return [
 				'eval' => 'int, required',
 				'minitems' => 0,
 				'maxitems' => 1,
-                'default' => 1,
+                'default' => 0,
 				'items' => [
 					['LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_donation.type.select', 0],
 					['LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_donation.type.time', 1],
 					['LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_donation.type.money', 2],
-					['LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_donation.type.link', 3],
+					//['LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_donation.type.link', 3],
 				],
 			]
 		],
@@ -306,6 +306,7 @@ return [
                     'upper' => mktime(0, 0, 0, 1, 1, 2038)
                 ]
             ],
+            'displayCond' => 'FIELD:type:=:1',
         ],
         'time_range_end' => [
             'exclude' => true,
@@ -319,6 +320,7 @@ return [
                     'upper' => mktime(0, 0, 0, 1, 1, 2038)
                 ]
             ],
+            'displayCond' => 'FIELD:type:=:1',
         ],
         'tx_rkwproject_project' => [
             'exclude' => true,
@@ -332,6 +334,7 @@ return [
                 'minitems'      => 1,
                 'size'          => 5,
             ],
+            'displayCond' => 'FIELD:type:>:0',
         ],
         'time_requirement' => [
             'exclude' => true,
@@ -341,6 +344,7 @@ return [
                 'size' => 30,
                 'eval' => 'trim'
             ],
+            'displayCond' => 'FIELD:type:=:1',
         ],
         'donation_place' => [
             'exclude' => true,
@@ -358,6 +362,7 @@ return [
                     'showAllLocalizationLink' => 1
                 ],
             ],
+            'displayCond' => 'FIELD:type:=:1',
         ],
 	],
 ];

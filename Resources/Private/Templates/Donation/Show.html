@@ -12,9 +12,21 @@
                 <formvh:render persistenceIdentifier="EXT:hgon_template/Configuration/Yaml/FormFramework/Forms/zeitspende.form.yaml"/>
             </f:comment>
 
-            <f:link.page pageType="{settings.typeNumPageWithCss}" pageUid="{settings.donationTimeFormPid}" class="btn btn--rounded btn--tertiary" additionalAttributes="{data-featherlight: 'iframe', data-featherlight-iframe-height: '800', data-featherlight-iframe-width: '600'}">
-                Ich will mitmachen!
-            </f:link.page>
+            <f:if condition="{donation.type} == 1">
+                <f:then>
+                    <f:link.page pageType="{settings.typeNumPageWithCss}" pageUid="{settings.donationTimeFormPid}" class="btn btn--rounded btn--tertiary" additionalAttributes="{data-featherlight: 'iframe', data-featherlight-iframe-height: '800', data-featherlight-iframe-width: '600'}">
+                        Ich will mitmachen!
+                    </f:link.page>
+                </f:then>
+                <f:else>
+                    <f:link.page pageType="{settings.typeNumClearPage}" pageUid="{settings.donationFormPid}" class="btn btn--rounded btn--tertiary" additionalParams="{project: donation.txRkwprojectProject}" additionalAttributes="{data-featherlight: ''}">
+                        Ich will spenden!
+                    </f:link.page>
+                </f:else>
+            </f:if>
+
+
+
 
         </div>
 

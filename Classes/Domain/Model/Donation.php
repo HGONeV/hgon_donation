@@ -19,14 +19,10 @@ class Donation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
 	/**
 	 * type
-	 *
-     * Comment: We do not have several types anymore. Because every RkwProject dataset is a potential money donation type
-     * -> So we set generally all to type = 1 (donation time). So we are flexible for changes in future
-     * (otherwise we could remove a lot of stuff)
      *
 	 * @var integer
 	 */
-	protected $type = 1;
+	protected $type = 0;
 
 	/**
 	 * title

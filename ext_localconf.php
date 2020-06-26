@@ -53,6 +53,30 @@ call_user_func(
             ]
         );
 
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            'HGON.HgonDonation',
+            'Header',
+            [
+                'Donation' => 'header'
+            ],
+            // non-cacheable actions
+            [
+                'Donation' => 'header'
+            ]
+        );
+
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            'HGON.HgonDonation',
+            'Sidebar',
+            [
+                'Donation' => 'sidebar'
+            ],
+            // non-cacheable actions
+            [
+                'Donation' => 'sidebar'
+            ]
+        );
+
 		\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 			'HGON.HgonDonation',
 			'Donate',

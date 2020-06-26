@@ -149,8 +149,8 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         ) {
             // set filter, if not set (to get only donation time data sets)
             $filter['type'] = 2;
-            //$donationListTotal = $this->donationRepository->findByFilter($filter, 1, PHP_INT_MAX)->count();
-            $donationListTotal = $this->projectsRepository->findByFilter(1, PHP_INT_MAX)->count();
+            $donationListTotal = $this->donationRepository->findByFilter($filter, 1, PHP_INT_MAX)->count();
+            //$donationListTotal = $this->projectsRepository->findByFilter(1, PHP_INT_MAX)->count();
             $maximumReached = ($page * $this->settings['itemsPerPage']) < intval($this->settings['maximumShownResults']) ? false : true;
 
             if (
@@ -159,7 +159,8 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             ) {
                 $replacements['showMoreLinkDonationMoney'] = true;
             }
-            $replacements['donationTypeMoneyList'] = $this->projectsRepository->findByFilter($page, intval($this->settings['itemsPerPage']));
+            //$replacements['donationTypeMoneyList'] = $this->projectsRepository->findByFilter($page, intval($this->settings['itemsPerPage']));
+            $replacements['donationTypeMoneyList'] = $this->donationRepository->findByFilter($filter, $page, intval($this->settings['itemsPerPage']));
         }
 
         $replacements['page'] = $page;
@@ -552,6 +553,44 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             $donationList = $this->donationRepository->findByTxRkwprojectProject($pages->getTxRkwprojectsProjectUid());
             $this->view->assign('donationList', $donationList);
         }
+    }
+
+
+
+    /**
+     * action header
+     * Template helper
+     *
+     * @return void
+     */
+    public function headerAction()
+    {
+
+        $getParams = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('tx_hgondonation_detail');
+
+        $donationUid = preg_replace('/[^0-9]/', '', $getParams['donation']);
+        $donation = $this->donationRepository->findByIdentifier(filter_var($donationUid, FILTER_SANITIZE_NUMBER_INT));
+
+        $this->view->assign('donation', $donation);
+    }
+
+
+
+    /**
+     * action sidebar
+     * Template helper
+     *
+     * @return void
+     */
+    public function sidebarAction()
+    {
+
+        $getParams = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('tx_hgondonation_detail');
+
+        $donationUid = preg_replace('/[^0-9]/', '', $getParams['donation']);
+        $donation = $this->donationRepository->findByIdentifier(filter_var($donationUid, FILTER_SANITIZE_NUMBER_INT));
+
+        $this->view->assign('donation', $donation);
     }
 
 
