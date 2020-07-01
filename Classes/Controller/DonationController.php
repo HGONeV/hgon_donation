@@ -136,7 +136,6 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                 $replacements['showMoreLinkDonationTime'] = true;
             }
             $replacements['donationTypeTimeList'] = $this->donationRepository->findByFilter($filter, $page, intval($this->settings['itemsPerPage']));
-
             // reset type to not disturbed code below
             $filter['type'] = $originalType;
         }

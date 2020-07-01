@@ -57,27 +57,34 @@
                 {donation.timeRequirement}
             </td>
             <td>
-                <f:format.date format="d.m.Y">{donation.timeRangeStart}</f:format.date> - <f:format.date format="d.m.Y">{donation.timeRangeEnd}</f:format.date>
+                <f:if condition="{donation.timeRangeStart}">
+                    <f:then>
+                        <f:format.date format="d.m.Y">{donation.timeRangeStart}</f:format.date> - <f:if condition="{donation.timeRangeEnd}"><f:then><f:format.date format="d.m.Y">{donation.timeRangeEnd}</f:format.date></f:then><f:else>Offen</f:else></f:if>
+                    </f:then>
+                    <f:else>
+                        Keine Angabe
+                    </f:else>
+                </f:if>
             </td>
             <td class="align-right">
                 <!--
                 <a class="btn btn--primary-outline btn--rounded">Unterstützen</a>
                 -->
-                <f:link.action class="btn btn--primary-outline btn--rounded" action="show" controller="Donation" pageUid="{settings.showPid}" additionalParams="{tx_hgondonation_detail:{donation: donation}}">
+                <f:link.action class="btn btn--primary-outline btn--rounded" action="show" controller="Donation" extensionName="HgonDonation" pageUid="{settings.showPid}" additionalParams="{tx_hgondonation_detail:{donation: donation}}">
                     <f:translate key="tx_hgondonation_partials_donation_list.readMore" extensionName="HgonDonation" />
                 </f:link.action>
             </td>
         </f:then>
         <f:else>
             <f:comment><!-- Donation Money -->
-            <td class="align-right">
-                <f:link.page pageType="{settings.typeNumClearPage}" pageUid="{settings.donationFormPid}" class="btn btn--primary-outline btn--rounded" additionalParams="{project: donation}" additionalAttributes="{data-featherlight: ''}">
-                    <f:translate key="tx_hgondonation_partials_donation_list.donate" extensionName="HgonDonation" />
-                </f:link.page>
-            </td>
+                <td class="align-right">
+                    <f:link.page pageType="{settings.typeNumClearPage}" pageUid="{settings.donationFormPid}" class="btn btn--primary-outline btn--rounded" additionalParams="{project: donation}" additionalAttributes="{data-featherlight: ''}">
+                        <f:translate key="tx_hgondonation_partials_donation_list.donate" extensionName="HgonDonation" />
+                    </f:link.page>
+                </td>
             </f:comment>
             <td class="align-right">
-                <f:link.action class="btn btn--primary-outline btn--rounded" action="show" controller="Donation" pageUid="{settings.showPid}" additionalParams="{tx_hgondonation_detail:{donation: donation}}">
+                <f:link.action class="btn btn--primary-outline btn--rounded" action="show" controller="Donation" extensionName="HgonDonation" pageUid="{settings.showPid}" additionalParams="{tx_hgondonation_detail:{donation: donation}}">
                     <f:translate key="tx_hgondonation_partials_donation_list.readMore" extensionName="HgonDonation" />
                 </f:link.action>
             </td>

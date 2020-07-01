@@ -113,21 +113,6 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
                 ),
             ));
 
-            /*
-            // set reply address
-            if (count($eventReservation->getEvent()->getInternalContact()) > 0) {
-
-                foreach ($eventReservation->getEvent()->getInternalContact() as $contact) {
-
-                    if ($contact->getEmail()) {
-                        $mailService->getQueueMail()->setReplyAddress($contact->getEmail());
-                        break;
-                        //===
-                    }
-                }
-            }
-            */
-
             $mailService->getQueueMail()->setSubject(
                 \RKW\RkwMailer\Helper\FrontendLocalization::translate(
                     'rkwMailService.' . strtolower($action) . 'User.subject',
