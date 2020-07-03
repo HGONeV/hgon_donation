@@ -42,6 +42,8 @@ plugin.tx_hgondonation {
         maximumShownResults = 9999
         # cat=plugin.tx_hgondonation//a; type=int; label=the RkwAuthor which is contact person in email etc
         rkwAuthorContactPerson =
+        # cat=plugin.tx_hgondonation//a; type=int; label=the backendUser which is contact person in email etc
+        backendUserContactPerson =
         bankAccount {
             # cat=plugin.tx_hgondonation//a; type=string; label=IBAN
             iban =

@@ -66,6 +66,7 @@ plugin.tx_hgondonation {
         itemsPerPage = {$plugin.tx_hgondonation.settings.itemsPerPage}
         maximumShownResults = {$plugin.tx_hgondonation.settings.maximumShownResults}
         rkwAuthorContactPerson = {$plugin.tx_hgondonation.settings.rkwAuthorContactPerson}
+        backendUserContactPerson = {$plugin.tx_hgondonation.settings.backendUserContactPerson}
         bankAccount {
             iban = {$plugin.tx_hgondonation.settings.bankAccount.iban}
             bic = {$plugin.tx_hgondonation.settings.bankAccount.bic}
