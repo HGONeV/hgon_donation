@@ -461,6 +461,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
                     /** @var \RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUser */
                     $frontendUser = $objectManager->get('RKW\\RkwRegistration\\Domain\\Model\\FrontendUser');
+
                     $frontendUser->setEmail($customer->email);
                     // We do not have first and lastname separately
                     $frontendUser->setLastName($customer->name);

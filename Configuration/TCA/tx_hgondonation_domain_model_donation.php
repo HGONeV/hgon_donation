@@ -166,48 +166,23 @@ return [
 		'image' => [
 			'exclude' => true,
 			'label' => 'LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_donation.image',
-			'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
-				'image',
-				[
-					'appearance' => [
-						'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
-					],
-					'foreign_types' => [
-						'0' => [
-							'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-						],
-						\TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
-							'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-						],
-						\TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
-							'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-						],
-						\TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
-							'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-						],
-						\TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
-							'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-						],
-						\TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
-							'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-						]
-					],
-					'maxitems' => 1
-				],
-				$GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
-			),
+            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
+                'image',
+                array(
+                    'minitems' => 0,
+                    'maxitems' => 1,
+                    'overrideChildTca' => [
+                        'types' => [
+                            \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
+                                'showitem' => '
+                    --palette--;LLL:EXT:lang/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                    --palette--;;filePalette'
+                            ],
+                        ],
+                    ],
+                ),
+                'jpg, jpeg, png, gif'
+            ),
 			'displayCond' => 'FIELD:type:>:0',
 		],
 		'link' => [
