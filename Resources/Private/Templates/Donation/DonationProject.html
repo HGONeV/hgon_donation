@@ -9,12 +9,19 @@
             <ul>
                 <f:for each="{donationList}" as="donation">
                     <f:if condition="{donation.type}">
-                        <li>
+                        <li class="<f:if condition='{donation.type} == 1'><f:then>time</f:then><f:else>money</f:else></f:if>">
                             <p>
                                 <strong>{donation.title}</strong><br>
                             </p>
                             <p>
-                                <f:link.action action="show" controller="Donation" pageUid="{settings.showPid}" additionalParams="{tx_hgondonation_detail:{donation: donation}}">Mehr erfahren</f:link.action>
+                                <f:link.action action="show" controller="Donation" pageUid="{settings.showPid}" additionalParams="{tx_hgondonation_detail:{donation: donation}}">
+                                    <f:if condition="{donation.type} == 1">
+                                        Unterstützen mit Zeitspende
+                                    </f:if>
+                                    <f:if condition="{donation.type} == 2">
+                                        Unterstützen mit Sachspende
+                                    </f:if>
+                                </f:link.action>
                             </p>
                         </li>
                     </f:if>
@@ -30,7 +37,6 @@
             <div class="aside__content">
                 <f:link.action pageUid="{settings.donationFormPid}" class="btn btn--cta btn--rounded" action="newMoney" arguments="{project: donation.txRkwprojectProject}" additionalAttributes="{data-featherlight: ''}">
                     <f:translate key="tx_hgondonation_templates_donation_donationProject.support" />
-                    <svg class="icon icon--btn-left" width="16" height="16"><use xlink:href="#ui-next"></use></svg>
                 </f:link.action>
             </div>
         </aside>

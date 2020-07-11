@@ -17,16 +17,57 @@
                 <div id="message-container"></div>
                 <!-- Override typeNum for AJAX -->
                 <input type="hidden" name="type" value="{typeNumClearPage}">
-                <p>
-                    Monatlich
-                    <f:form.radio property="permanent" value="1" /> Ja
-                    <f:form.radio property="permanent" value="0" checked="checked" /> Nein
-                </p>
-                <p class="option-sepa" style="display: none;">
-                    Zahlen via
-                    <f:form.radio property="type" value="paypal" checked="checked" /> PayPal
-                    <f:form.radio property="type" value="sepa" /> SEPA
-                </p>
+
+                <div class="interval">
+                    <p>Monatlich</p>
+                    <span class="radio-group">
+                        <label class="radio">
+                            <span class="radio__input">
+                                <f:form.radio id="permanentYes" class="input input-radio" property="permanent" value="1" />
+                                <label for="permanentYes"></label>
+                            </span>
+                            <span class="checkbox__label">
+                                Ja
+                            </span>
+                        </label>
+                        <br />
+                        <label class="radio">
+                            <span class="radio__input">
+                                 <f:form.radio id="permanentNo" class="input input-radio" property="permanent" value="0" checked="checked" />
+                                <label for="permanentNo"></label>
+                            </span>
+                            <span class="checkbox__label">
+                                Nein
+                            </span>
+                        </label>
+                    </span>
+                </div>
+
+
+                <div class="option-sepa" style="display: none;">
+                    <p>Zahlen via</p>
+                    <span class="radio-group">
+                    <label class="radio">
+                        <span class="radio__input">
+                            <f:form.radio id="paypal" property="type" value="paypal" checked="checked" />
+                            <label for="paypal"></label>
+                        </span>
+                        <span class="checkbox__label">
+                            PayPal
+                        </span>
+                    </label>
+                    <br />
+                    <label class="radio">
+                        <span class="radio__input">
+                             <f:form.radio id="sepa" property="type" value="sepa" />
+                            <label for="sepa"></label>
+                        </span>
+                        <span class="checkbox__label">
+                            SEPA
+                        </span>
+                    </label>
+                </span>
+                </div>
                 <div class="option-data" style="display: none;">
                     <p class="form__field">
                         <label class="control-label" for="donateForm-name">Name

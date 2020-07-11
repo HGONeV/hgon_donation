@@ -1,35 +1,77 @@
 {namespace hgon=HGON\HgonTemplate\ViewHelpers}
 
-        <div class="article__content">
-            <h2>{donation.title}</h2>
-            <f:format.raw>
-                {donation.description}
-            </f:format.raw>
-        </div>
-        <br />
-        <div class="wrap wrap--text / align-center">
-            <f:comment>
-                <formvh:render persistenceIdentifier="EXT:hgon_template/Configuration/Yaml/FormFramework/Forms/zeitspende.form.yaml"/>
-            </f:comment>
+<div class="article__content">
+    <h2>{donation.title}</h2>
+    <f:if condition="{donation.type} == 1">
+        <p class="donation-details">
+            <span class="place">
+                Ort:
+                <f:if condition="{donation.donationPlace.0.title}">
+                    <f:then>
+                        {donation.donationPlace.0.title}
+                    </f:then>
+                    <f:else>
+                        Keine Angabe
+                    </f:else>
+                </f:if>
+            </span>
+            <span class="time-requirement">
+                 | Zeitaufwand:
+                <f:if condition="{donation.timeRequirement}">
+                    <f:then>
+                        {donation.timeRequirement}
+                    </f:then>
+                    <f:else>
+                        Keine Angabe
+                    </f:else>
+                </f:if>
+            </span>
+            <span class="time-range">
+                 | Zeitraum:
+                <f:if condition="{donation.timeRangeStart}">
+                    <f:then>
+                        <f:format.date format="d.m.Y">{donation.timeRangeStart}</f:format.date> - <f:if condition="{donation.timeRangeEnd}"><f:then><f:format.date format="d.m.Y">{donation.timeRangeEnd}</f:format.date></f:then><f:else>Offen</f:else></f:if>
+                    </f:then>
+                    <f:else>
+                        Keine Angabe
+                    </f:else>
+                </f:if>
+            </span>
+        </p>
+    </f:if>
+    <f:format.raw>
+        <p>
+            <strong>
+                {donation.shortDescription}
+            </strong>
+        </p>
+    </f:format.raw>
+    <f:format.raw>
+        {donation.description}
+    </f:format.raw>
+</div>
+<br />
+<div class="wrap wrap--text / align-center">
+    <f:comment>
+        <formvh:render persistenceIdentifier="EXT:hgon_template/Configuration/Yaml/FormFramework/Forms/zeitspende.form.yaml"/>
+    </f:comment>
 
-            <f:if condition="{donation.type} == 1">
-                <f:then>
-                    <f:link.page pageType="{settings.typeNumPageWithCss}" pageUid="{settings.donationTimeFormPid}" class="btn btn--rounded btn--tertiary" additionalAttributes="{data-featherlight: 'iframe', data-featherlight-iframe-height: '800', data-featherlight-iframe-width: '600'}">
-                        Ich will mitmachen!
-                    </f:link.page>
-                </f:then>
-                <f:else>
-                    <f:link.page pageType="{settings.typeNumClearPage}" pageUid="{settings.donationFormPid}" class="btn btn--rounded btn--tertiary" additionalParams="{project: donation.txRkwprojectProject}" additionalAttributes="{data-featherlight: ''}">
-                        Ich will spenden!
-                    </f:link.page>
-                </f:else>
-            </f:if>
+    <f:if condition="{donation.type} == 1">
+        <f:then>
+            <f:link.page pageType="{settings.typeNumPageWithCss}" pageUid="{settings.donationTimeFormPid}" class="btn btn--rounded btn--tertiary" additionalParams="{tx_hgondonation_detail: {donation: donation}}" additionalAttributes="{data-featherlight: 'iframe', data-featherlight-iframe-height: '800', data-featherlight-iframe-width: '600'}">
+                Ich will mitmachen!
+            </f:link.page>
+        </f:then>
+        <f:else>
+            <f:link.page pageType="{settings.typeNumClearPage}" pageUid="{settings.donationFormPid}" class="btn btn--rounded btn--tertiary" additionalParams="{project: donation.txRkwprojectProject}" additionalAttributes="{data-featherlight: ''}">
+                Ich will spenden!
+            </f:link.page>
+        </f:else>
+    </f:if>
 
+</div>
 
-
-
-        </div>
-
+<f:cObject typoscriptObjectPath="page.10.variables.showProjectPartner" />
 
 
 
