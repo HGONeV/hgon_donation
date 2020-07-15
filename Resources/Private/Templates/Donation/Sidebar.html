@@ -38,7 +38,7 @@
                         <f:if condition="{author.email}">
                             <a href="mailto:<f:format.stripTags><f:format.html>{author.email}</f:format.html></f:format.stripTags>">
                                 <svg class="icon icon--btn-left color-font-primary" width="16" height="16"><use xlink:href="#ui-mail"></use></svg>
-                                {author.email}
+                                <f:link.email email="{author.email}" />
                             </a>
                         </f:if>
                     </p>
@@ -51,7 +51,7 @@
         <f:cObject typoscriptObjectPath="page.10.variables.relatedNews" />
     </f:if>
 
-    <f:if condition="{donation.txRkwprojectProject}">
+    <f:if condition="{donation.txRkwprojectProject.projectPid}">
         <aside class="aside / no-padding">
             <div class="aside__content">
                 <f:link.typolink parameter="{donation.txRkwprojectProject.projectPid}" class="btn btn--cta btn--rounded">
