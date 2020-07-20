@@ -119,4 +119,26 @@ class DonationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         //===
     }
 
+
+
+    /**
+     * find last created for newsletter
+     *
+     * @param int $limit
+     * @return \Traversable
+     */
+    public function findLastCreated($limit = 2)
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+        $query->setLimit($limit);
+        $query->setOrderings(
+            array(
+                'uid' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
+            )
+        );
+        return $query->execute();
+        //===
+    }
+
 }
