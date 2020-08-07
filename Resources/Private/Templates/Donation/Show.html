@@ -51,25 +51,49 @@
     </f:format.raw>
 </div>
 <br />
-<div class="wrap wrap--text / align-center">
-    <f:comment>
-        <formvh:render persistenceIdentifier="EXT:hgon_template/Configuration/Yaml/FormFramework/Forms/zeitspende.form.yaml"/>
-    </f:comment>
+
+
+
 
     <f:if condition="{donation.type} == 1">
         <f:then>
-            <f:link.page pageType="{settings.typeNumPageWithCss}" pageUid="{settings.donationTimeFormPid}" class="btn btn--rounded btn--tertiary" additionalParams="{tx_hgondonation_detail: {donation: donation}}" additionalAttributes="{data-featherlight: 'iframe', data-featherlight-iframe-height: '800', data-featherlight-iframe-width: '600'}">
-                Ich will mitmachen!
-            </f:link.page>
+
+                <div class="wrap wrap--text">
+                    <formvh:render
+                        overrideConfiguration="{
+                            renderingOptions: {
+                                additionalParams: {
+                                    'tx_hgondonation_detail[donation]': donation
+                                }
+                            }
+                        }"
+                        persistenceIdentifier="EXT:hgon_template/Configuration/Yaml/FormFramework/Forms/zeitspende.form.yaml"/>
+                </div>
+
+            <f:comment>
+                <div class="wrap wrap--text / align-center">
+                    <f:link.page pageUid="{settings.donationTimeFormPid}" class="btn btn--rounded btn--tertiary" additionalParams="{tx_hgondonation_detail: {donation: donation}}" >
+                        Ich will mitmachen!
+                    </f:link.page>
+
+                    <f:comment>
+                        <f:link.page pageType="{settings.typeNumPageWithCss}" pageUid="{settings.donationTimeFormPid}" class="btn btn--rounded btn--tertiary" additionalParams="{tx_hgondonation_detail: {donation: donation}}" additionalAttributes="{data-featherlight: 'iframe', data-featherlight-iframe-height: '800', data-featherlight-iframe-width: '600'}">
+                            Ich will mitmachen!
+                        </f:link.page>
+                    </f:comment>
+                </div>
+            </f:comment>
         </f:then>
         <f:else>
-            <f:link.page pageType="{settings.typeNumClearPage}" pageUid="{settings.donationFormPid}" class="btn btn--rounded btn--tertiary" additionalParams="{project: donation.txRkwprojectProject}" additionalAttributes="{data-featherlight: ''}">
-                Ich will spenden!
-            </f:link.page>
+            <div class="wrap wrap--text / align-center">
+                <f:link.page pageType="{settings.typeNumClearPage}" pageUid="{settings.donationFormPid}" class="btn btn--rounded btn--tertiary" additionalParams="{project: donation.txRkwprojectProject}" additionalAttributes="{data-featherlight: ''}">
+                    Ich will spenden!
+                </f:link.page>
+            </div>
         </f:else>
     </f:if>
 
-</div>
+
 
 <f:cObject typoscriptObjectPath="page.10.variables.showProjectPartner" />
 
