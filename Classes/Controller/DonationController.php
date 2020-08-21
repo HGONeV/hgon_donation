@@ -600,15 +600,18 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
         $getParams = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('tx_hgondonation_detail');
 
-        if (key_exists('donation', $getParams)) {
-            $donationUid = preg_replace('/[^0-9]/', '', $getParams['donation']);
-        } else {
-            // Workground in relation to FormExt: Although we got this params here, the GP vars above delivers some crap
-            $donationUid = preg_replace('/[^0-9]/', '', $_GET['tx_hgondonation_detail']['donation']);
-        }
-        $donation = $this->donationRepository->findByIdentifier(filter_var($donationUid, FILTER_SANITIZE_NUMBER_INT));
+        if ($getParams) {
+            if (key_exists('donation', $getParams)) {
+                $donationUid = preg_replace('/[^0-9]/', '', $getParams['donation']);
+            } else {
+                // Workground in relation to FormExt: Although we got this params here, the GP vars above delivers some crap
+                $donationUid = preg_replace('/[^0-9]/', '', $_GET['tx_hgondonation_detail']['donation']);
+            }
+            $donation = $this->donationRepository->findByIdentifier(filter_var($donationUid, FILTER_SANITIZE_NUMBER_INT));
 
-        $this->view->assign('donation', $donation);
+            $this->view->assign('donation', $donation);
+        }
+
     }
 
 
@@ -624,15 +627,17 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
         $getParams = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('tx_hgondonation_detail');
 
-        if (key_exists('donation', $getParams)) {
-            $donationUid = preg_replace('/[^0-9]/', '', $getParams['donation']);
-        } else {
-            // Workground in relation to FormExt: Although we got this params here, the GP vars above delivers some crap
-            $donationUid = preg_replace('/[^0-9]/', '', $_GET['tx_hgondonation_detail']['donation']);
-        }
-        $donation = $this->donationRepository->findByIdentifier(filter_var($donationUid, FILTER_SANITIZE_NUMBER_INT));
+        if ($getParams) {
+            if (key_exists('donation', $getParams)) {
+                $donationUid = preg_replace('/[^0-9]/', '', $getParams['donation']);
+            } else {
+                // Workground in relation to FormExt: Although we got this params here, the GP vars above delivers some crap
+                $donationUid = preg_replace('/[^0-9]/', '', $_GET['tx_hgondonation_detail']['donation']);
+            }
+            $donation = $this->donationRepository->findByIdentifier(filter_var($donationUid, FILTER_SANITIZE_NUMBER_INT));
 
-        $this->view->assign('donation', $donation);
+            $this->view->assign('donation', $donation);
+        }
     }
 
 
