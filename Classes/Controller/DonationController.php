@@ -554,7 +554,14 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function bankAccountSidebarAction()
     {
-        // do nothing else. Just show template
+        // special case: If this page has a project: Show specific project bank account
+        $pages = $this->pagesRepository->findByIdentifier(intval($GLOBALS['TSFE']->id));
+        if ($pages->getTxRkwprojectsProjectUid()) {
+            // get HGON project type for correct getter and setter
+            $project = $this->projectsRepository->findByIdentifier($pages->getTxRkwprojectsProjectUid()->getUid());
+            //DebuggerUtility::var_dump($project); exit;
+            $this->view->assign('project', $project);
+        }
     }
 
 

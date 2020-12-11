@@ -1,0 +1,24 @@
+<aside class="aside color-bg-cta">
+    <header class="aside__header">
+        <h6>
+            <f:if condition="{project.txHgontemplateBankHeader}">
+                <f:then>
+                    {project.txHgontemplateBankHeader}
+                </f:then>
+                <f:else>
+                    <f:translate key="tx_hgondonation_templates_donation_bankAccountSidebar.titleProject" />
+                </f:else>
+            </f:if>
+        </h6>
+    </header>
+    <div class="aside__content">
+        <p>
+            <f:if condition="{project.txHgontemplateBankIban} && {project.txHgontemplateBankBic}">
+                {project.txHgontemplateBankInstitute}<br>
+                <strong> BIC</strong> {project.txHgontemplateBankBic}<br>
+                <strong>IBAN</strong> {project.txHgontemplateBankIban}
+            </f:if>
+
+        </p>
+    </div>
+</aside>

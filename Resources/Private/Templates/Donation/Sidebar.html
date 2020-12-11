@@ -13,6 +13,8 @@
         </f:if>
     </f:for>
 
+    <f:render partial="Donation/SidebarBankAccount" arguments="{project: donation.txRkwprojectProject}" />
+
     <f:if condition="{donation}">
         <f:cObject typoscriptObjectPath="page.10.variables.relatedNews" />
     </f:if>

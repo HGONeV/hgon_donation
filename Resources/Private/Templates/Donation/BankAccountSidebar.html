@@ -1,26 +1,34 @@
-<aside class="aside color-bg-cta">
-    <header class="aside__header">
-        <h6>
-            <f:translate key="tx_hgondonation_templates_donation_bankAccountSidebar.title" />
-        </h6>
-    </header>
-    <div class="aside__content">
-        <p>
-            <f:if condition="{settings.bankAccountSidebar.bank.iban} && {settings.bankAccountSidebar.bank.bic}">
-                <f:then>
-                    <f:comment><!-- Flexform --></f:comment>
-                    {settings.bankAccountSidebar.bank.institute}<br>
-                    <strong> BIC</strong> {settings.bankAccountSidebar.bank.bic}<br>
-                    <strong>IBAN</strong> {settings.bankAccountSidebar.bank.iban}
-                </f:then>
-                <f:else>
-                    <f:comment><!-- TypoScript default --></f:comment>
-                    {settings.bankAccount.bank}<br>
-                    <strong> BIC</strong> {settings.bankAccount.bic}<br>
-                    <strong>IBAN</strong> {settings.bankAccount.iban}
-                </f:else>
-            </f:if>
+<f:if condition="{project}">
+    <f:then>
+        <f:render partial="Donation/SidebarBankAccount" arguments="{project: project}" />
+    </f:then>
+    <f:else>
+        <aside class="aside color-bg-cta">
+            <header class="aside__header">
+                <h6>
+                    <f:translate key="tx_hgondonation_templates_donation_bankAccountSidebar.title" />
+                </h6>
+            </header>
+            <div class="aside__content">
+                <p>
+                    <f:if condition="{settings.bankAccountSidebar.bank.iban} && {settings.bankAccountSidebar.bank.bic}">
+                        <f:then>
+                            <f:comment><!-- Flexform --></f:comment>
+                            {settings.bankAccountSidebar.bank.institute}<br>
+                            <strong> BIC</strong> {settings.bankAccountSidebar.bank.bic}<br>
+                            <strong>IBAN</strong> {settings.bankAccountSidebar.bank.iban}
+                        </f:then>
+                        <f:else>
+                            <f:comment><!-- TypoScript default --></f:comment>
+                            {settings.bankAccount.bank}<br>
+                            <strong> BIC</strong> {settings.bankAccount.bic}<br>
+                            <strong>IBAN</strong> {settings.bankAccount.iban}
+                        </f:else>
+                    </f:if>
 
-        </p>
-    </div>
-</aside>
+                </p>
+            </div>
+        </aside>
+    </f:else>
+</f:if>
+

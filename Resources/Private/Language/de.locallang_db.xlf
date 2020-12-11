@@ -281,7 +281,7 @@
             </trans-unit>
             <trans-unit id="flexform.bankAccountSidebar.bank.institute">
                 <source>Bank institute</source>
-                <target>Standard überschreiben: Bank Institut (z.B. "Sparkasse Marburg-Biedenkopf)"</target>
+                <target>Standard überschreiben: Bank Institut (z.B. "Sparkasse Marburg-Biedenkopf")</target>
             </trans-unit>
             <trans-unit id="flexform.bankAccountSidebar.bank.iban">
                 <source>Bank IBAN</source>

@@ -222,6 +222,10 @@
                 <source>Donation account</source>
                 <target>Spendenkonto Naturschutz</target>
             </trans-unit>
+            <trans-unit id="tx_hgondonation_templates_donation_bankAccountSidebar.titleProject">
+                <source>Donation account project</source>
+                <target>Projektspezifisches Spendenkonto</target>
+            </trans-unit>
 
 
             <trans-unit id="tx_hgondonation_templates_donation_donationProject.title">

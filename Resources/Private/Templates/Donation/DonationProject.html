@@ -1,4 +1,8 @@
 <f:if condition="<f:count>{donationList}</f:count>">
+
+    <f:comment>
+        <f:render partial="Donation/SidebarBankAccount" arguments="{_all}" />
+    </f:comment>
     <aside class="aside aside--border aside-helpactivities color-bg-white">
         <header class="aside__header">
             <h6>
