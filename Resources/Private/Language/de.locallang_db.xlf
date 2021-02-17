@@ -292,6 +292,35 @@
                 <target>Standard überschreiben: Bank BIC</target>
             </trans-unit>
 
+            <trans-unit id="flexform.listing.sheetTitle">
+                <source>Donation options</source>
+                <target>Spendenoptionen</target>
+            </trans-unit>
+            <trans-unit id="flexform.listing.listType">
+                <source>Donation list type</source>
+                <target>Anzeigeoptionen</target>
+            </trans-unit>
+            <trans-unit id="flexform.listing.listType.both">
+                <source>Show both</source>
+                <target>Beide Spendenoptionen anzeigen</target>
+            </trans-unit>
+            <trans-unit id="flexform.listing.listType.financial">
+                <source>Financial</source>
+                <target>Nur Geldspenden</target>
+            </trans-unit>
+            <trans-unit id="flexform.listing.listType.time">
+                <source>Time</source>
+                <target>Nur Zeitspenden</target>
+            </trans-unit>
+            <trans-unit id="flexform.listing.headerAlt">
+                <source>Alternative header</source>
+                <target>Alternative Überschrift</target>
+            </trans-unit>
+            <trans-unit id="flexform.listing.removePadding">
+                <source>Remove padding</source>
+                <target>Entferne CSS Abstandshalter (diese Option ist je nach Layout zu nutzen)</target>
+            </trans-unit>
+
         </body>
 	</file>
 </xliff>

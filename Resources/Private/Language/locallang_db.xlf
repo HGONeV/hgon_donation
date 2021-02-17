@@ -216,6 +216,28 @@
             <trans-unit id="flexform.bankAccountSidebar.bank.bic">
                 <source>Bank BIC</source>
             </trans-unit>
+
+            <trans-unit id="flexform.listing.sheetTitle">
+                <source>Donation options</source>
+            </trans-unit>
+            <trans-unit id="flexform.listing.listType">
+                <source>Donation list type</source>
+            </trans-unit>
+            <trans-unit id="flexform.listing.listType.both">
+                <source>Show both</source>
+            </trans-unit>
+            <trans-unit id="flexform.listing.listType.financial">
+                <source>Financial</source>
+            </trans-unit>
+            <trans-unit id="flexform.listing.listType.time">
+                <source>Time</source>
+            </trans-unit>
+            <trans-unit id="flexform.listing.headerAlt">
+                <source>Alternative header</source>
+            </trans-unit>
+            <trans-unit id="flexform.listing.removePadding">
+                <source>Remove padding</source>
+            </trans-unit>
 		</body>
 	</file>
 </xliff>

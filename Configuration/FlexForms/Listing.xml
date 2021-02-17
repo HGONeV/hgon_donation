@@ -1,0 +1,58 @@
+<T3DataStructure>
+    <sheets>
+        <sDEF>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:flexform.listing.sheetTitle</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <settings.flexform.listing.headerAlt>
+                        <TCEforms>
+                            <label>LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:flexform.listing.headerAlt</label>
+                            <config>
+                                <type>input</type>
+                                <size>20</size>
+                                <max>100</max>
+                                <eval>trim</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.flexform.listing.headerAlt>
+                    <settings.flexform.listing.listType>
+                        <TCEforms>
+                            <label>LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:flexform.listing.listType</label>
+                            <config>
+                                <type>select</type>
+                                <renderType>selectSingle</renderType>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:flexform.listing.listType.both</numIndex>
+                                        <numIndex index="1">0</numIndex>
+                                    </numIndex>
+                                    <numIndex index="1">
+                                        <numIndex index="0">LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:flexform.listing.listType.financial</numIndex>
+                                        <numIndex index="1">1</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2">
+                                        <numIndex index="0">LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:flexform.listing.listType.time</numIndex>
+                                        <numIndex index="1">2</numIndex>
+                                    </numIndex>
+                                </items>
+                            </config>
+                        </TCEforms>
+                    </settings.flexform.listing.listType>
+                    <settings.flexform.listing.removePadding>
+                        <TCEforms>
+                            <label>LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:flexform.listing.removePadding</label>
+                            <config>
+                                <type>check</type>
+                                <default>0</default>
+                            </config>
+                        </TCEforms>
+                    </settings.flexform.listing.removePadding>
+                </el>
+            </ROOT>
+        </sDEF>
+
+    </sheets>
+</T3DataStructure>
