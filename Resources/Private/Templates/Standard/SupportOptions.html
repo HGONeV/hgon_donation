@@ -2,20 +2,25 @@
 {namespace formvh=TYPO3\CMS\Form\ViewHelpers}
 
 <section class="section">
-    <header class="section__header / pb-2">
-        <div class="wrap wrap--text / align-center">
-            <span class="badge badge--secondary">
-                {settings.supportOptions.preHeader}
-                <span class="is-hidden">: </span>
-            </span>
-            <span class="h1 headline">
+
+    <f:if condition="{settings.supportOptions.header}">
+        <header class="section__header / pb-2">
+            <div class="wrap wrap--text / align-center">
+                <f:if condition="{settings.supportOptions.preHeader}">
+                    <span class="badge badge--secondary">
+                        {settings.supportOptions.preHeader}
+                        <span class="is-hidden">: </span>
+                    </span>
+                </f:if>
+                <span class="h1 headline">
                 {settings.supportOptions.header}
             </span>
-            <p>
-                {settings.supportOptions.text}
-            </p>
-        </div>
-    </header>
+                <p>
+                    {settings.supportOptions.text}
+                </p>
+            </div>
+        </header>
+    </f:if>
 
     <div class="section__content">
         <div class="flex-container space-between gutter valign-stretch">
@@ -23,10 +28,10 @@
             <f:if condition="{settings.supportOptions.showBecomeMember}">
                 <f:render section="threeElements" arguments="{itemType: 'becomeMember'}"/>
             </f:if>
-            <f:if condition="{settings.supportOptions.donateMoney}">
+            <f:if condition="{settings.supportOptions.showDonateMoney}">
                 <f:render section="threeElements" arguments="{itemType: 'donateMoney'}"/>
             </f:if>
-            <f:if condition="{settings.supportOptions.donateTime}">
+            <f:if condition="{settings.supportOptions.showDonateTime}">
                 <f:render section="threeElements" arguments="{itemType: 'donateTime'}"/>
             </f:if>
         </div>

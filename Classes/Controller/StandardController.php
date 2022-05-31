@@ -71,7 +71,6 @@ class StandardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
               print (string)$jsonHelper;
               exit();
-              //===
 
           } else {
               $this->view->assignMultiple($templateDataArray);
@@ -162,7 +161,6 @@ class StandardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * - donate time
      * -> Options are defined via flexForm
      *
-     * @deprecated Moved to HGON DONATION
      * @return void
      */
     public function supportOptionsAction()
@@ -176,7 +174,6 @@ class StandardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * action supportOptionsLight
      * -> Gives no real forms. Only anchros for opening forms of "supportOptions" plugin, which is used as standard footer element
      *
-     * @deprecated Moved to HGON DONATION
      * @return void
      */
     public function supportOptionsLightAction()
