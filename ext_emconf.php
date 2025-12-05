@@ -21,14 +21,12 @@ $EM_CONF[$_EXTKEY] = [
     'uploadfolder' => '1',
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '13.4.2',
+    'version' => '13.4.3',
     'constraints' => [
         'depends' => [
             'typo3' => '7.6.0-13.4.99',
             'hgon_template' => '8.7.0-13.4.99',
-            'hgon_payment' => '8.7.0-13.4.99',
-            'rkw_projects' => '7.6.0-13.4.99',
-            'rkw_authors' => '8.7.0-13.4.99'
+            'hgon_payment' => '8.7.0-13.4.99'
         ],
         'conflicts' => [],
         'suggests' => [],
