@@ -19,21 +19,29 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class StandardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
-	/**
-	 * donationTypeTimeRepository
-	 *
-	 * @var \HGON\HgonDonation\Domain\Repository\DonationTypeTimeRepository
-	 * @inject
-	 */
-	protected $donationTypeTimeRepository = null;
+    /**
+     * @var \HGON\HgonDonation\Domain\Repository\DonationTypeTimeRepository
+     */
+    protected $donationTypeTimeRepository;
 
     /**
-     * pagesRepository
-     *
-     * @var \HGON\HgonTemplate\Domain\Repository\PagesRepository
-     * @inject
+     * @param \HGON\HgonDonation\Domain\Repository\DonationTypeTimeRepository $donationTypeTimeRepository
      */
-    protected $pagesRepository = null;
+    public function injectDonationTypeTimeRepository(\HGON\HgonDonation\Domain\Repository\DonationTypeTimeRepository $donationTypeTimeRepository): void {
+        $this->donationTypeTimeRepository = $donationTypeTimeRepository;
+    }
+
+    /**
+     * @var \HGON\HgonTemplate\Domain\Repository\PagesRepository
+     */
+    protected $pagesRepository;
+
+    /**
+     * @param \HGON\HgonTemplate\Domain\Repository\PagesRepository $pagesRepository
+     */
+    public function injectPagesRepository(\HGON\HgonTemplate\Domain\Repository\PagesRepository $pagesRepository): void {
+        $this->pagesRepository = $pagesRepository;
+    }
 
     /**
      * action newDonationTime
@@ -59,7 +67,7 @@ class StandardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
               // get JSON helper
               /** @var \RKW\RkwBasics\Helper\Json $jsonHelper */
-              $jsonHelper = GeneralUtility::makeInstance('RKW\\RkwBasics\\Helper\\Json');
+              $jsonHelper = GeneralUtility::makeInstance(\RKW\RkwBasics\Helper\Json::class);
 
               // Content
               $jsonHelper->setHtml(
@@ -128,7 +136,7 @@ class StandardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	{
         // get JSON helper
         /** @var \RKW\RkwBasics\Helper\Json $jsonHelper */
-        $jsonHelper = GeneralUtility::makeInstance('RKW\\RkwBasics\\Helper\\Json');
+        $jsonHelper = GeneralUtility::makeInstance(\RKW\RkwBasics\Helper\Json::class);
 
         // Content
         $jsonHelper->setHtml(

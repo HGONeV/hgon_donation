@@ -20,50 +20,103 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
-	/**
-	 * donationRepository
-	 *
-	 * @var \HGON\HgonDonation\Domain\Repository\DonationRepository
-	 * @inject
-	 */
-	protected $donationRepository = null;
+    /**
+     * @var \HGON\HgonDonation\Domain\Repository\DonationRepository
+     */
+    protected $donationRepository;
 
     /**
-     * pagesRepository
-     *
      * @var \HGON\HgonTemplate\Domain\Repository\PagesRepository
-     * @inject
      */
-    protected $pagesRepository = null;
+    protected $pagesRepository;
 
     /**
-     * projectsRepository
-     *
      * @var \HGON\HgonTemplate\Domain\Repository\ProjectsRepository
-     * @inject
      */
-    protected $projectsRepository = null;
+    protected $projectsRepository;
 
     /**
-     * authorsRepository
-     *
      * @var \RKW\RkwAuthors\Domain\Repository\AuthorsRepository
-     * @inject
      */
-    protected $authorsRepository = null;
+    protected $authorsRepository;
 
     /**
      * @var \RKW\RkwRegistration\Domain\Repository\BackendUserRepository
-     * @inject
      */
     protected $backendUserRepository;
 
     /**
-     * cacheManager
-     *
+     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+     */
+    protected $contentObjectRenderer;
+
+    /**
      * @var \TYPO3\CMS\Core\Cache\CacheManager
      */
     protected $cacheManager;
+
+    /**
+     * @var \TYPO3\CMS\Core\Session\UserSession
+     */
+    protected $session;
+
+
+    /**
+     * @param \HGON\HgonDonation\Domain\Repository\DonationRepository $donationRepository
+     */
+    public function injectDonationRepository(\HGON\HgonDonation\Domain\Repository\DonationRepository $donationRepository): void {
+        $this->donationRepository = $donationRepository;
+    }
+
+    /**
+     * @param \HGON\HgonTemplate\Domain\Repository\PagesRepository $pagesRepository
+     */
+    public function injectPagesRepository(\HGON\HgonTemplate\Domain\Repository\PagesRepository $pagesRepository): void {
+        $this->pagesRepository = $pagesRepository;
+    }
+
+    /**
+     * @param \HGON\HgonTemplate\Domain\Repository\ProjectsRepository $projectsRepository
+     */
+    public function injectProjectsRepository(\HGON\HgonTemplate\Domain\Repository\ProjectsRepository $projectsRepository): void {
+        $this->projectsRepository = $projectsRepository;
+    }
+
+    /**
+     * @param \RKW\RkwAuthors\Domain\Repository\AuthorsRepository $authorsRepository
+     */
+    public function injectAuthorsRepository(\RKW\RkwAuthors\Domain\Repository\AuthorsRepository $authorsRepository): void {
+        $this->authorsRepository = $authorsRepository;
+    }
+
+    /**
+     * @param \RKW\RkwRegistration\Domain\Repository\BackendUserRepository $backendUserRepository
+     */
+    public function injectBackendUserRepository(\RKW\RkwRegistration\Domain\Repository\BackendUserRepository $backendUserRepository): void {
+        $this->backendUserRepository = $backendUserRepository;
+    }
+
+    /**
+     * @param \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer $contentObjectRenderer
+     */
+    public function injectContentObjectRenderer(\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer $contentObjectRenderer): void {
+        $this->contentObjectRenderer = $contentObjectRenderer;
+    }
+
+    /**
+     * @param \TYPO3\CMS\Core\Cache\CacheManager $cacheManager
+     */
+    public function injectCacheManager(\TYPO3\CMS\Core\Cache\CacheManager $cacheManager): void {
+        $this->cacheManager = $cacheManager;
+    }
+
+    /**
+     * @param \TYPO3\CMS\Core\Session\UserSession $session
+     */
+    public function injectUserSession(\TYPO3\CMS\Core\Session\UserSession $session): void {
+        $this->session = $session;
+    }
+
 
     /**
      * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
@@ -77,14 +130,6 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     protected $cacheIdentifier = "hgon_donation";
 
-    private function initializeCache() {
-        // initialize caching
-        $this->cacheManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Cache\\CacheManager')->getCache($this->cacheIdentifier);
-        $this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\Extbase\\Object\\ObjectManager');
-        $configurationManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
-        $this->persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
-        $this->cObj = $configurationManager->getContentObject();
-    }
 
     /**
      * Constructor
@@ -93,7 +138,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     public function __construct()
     {
         parent::__construct();
-        $this->initializeCache();
+        $this->cObj = $this->contentObjectRenderer;
     }
 
         /**
@@ -183,7 +228,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
             // get JSON helper
             /** @var \RKW\RkwBasics\Helper\Json $jsonHelper */
-            $jsonHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('RKW\\RkwBasics\\Helper\\Json');
+            $jsonHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\RKW\RkwBasics\Helper\Json::class);
 
             // get new list
             $kindOfRequest = $isFilterRequest ? 'replace' : 'append';
@@ -206,7 +251,6 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
             print (string)$jsonHelper;
             exit();
-            //===
         }
 
     }
@@ -298,21 +342,20 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     public function createMoneyAction($moneyAmount, \HGON\HgonTemplate\Domain\Model\Projects $project = null)
     {
         /** @var \HGON\HgonPayment\Domain\Model\Basket $basket */
-        $basket = $this->objectManager->get('HGON\\HgonPayment\\Domain\\Model\\Basket');
+        $basket = $this->objectManager->get(\HGON\HgonPayment\Domain\Model\Basket::class);
 
         /** @var \HGON\HgonPayment\Domain\Model\Article $article */
-        $article = $this->objectManager->get('HGON\\HgonPayment\\Domain\\Model\\Article');
+        $article = $this->objectManager->get(\HGON\HgonPayment\Domain\Model\Article::class);
         $article->setDescription("Mein Beitrag für den Umweltschutz!");
         $article->setName($project ? $project->getName() : 'Allgemein');
         $article->setPrice(floatval($moneyAmount['amount']));
         $article->setSku($project ? $project->getInternalName() : 'allgemein');
         $basket->addArticle($article);
 
-        $GLOBALS['TSFE']->fe_user->setKey('ses', 'hgon_payment_basket', $basket);
-        $GLOBALS['TSFE']->storeSessionData();
+        $this->session->set('hgon_payment_basket', $basket);
 
         /** @var \HGON\HgonPayment\Api\PayPalApi $payPalApi */
-        $payPalApi = $this->objectManager->get('HGON\\HgonPayment\\Api\\PayPalApi');
+        $payPalApi = $this->objectManager->get(\HGON\HgonPayment\Api\PayPalApi::class);
 
         $isPayPalPlus = true;
         $isSepa = false;
@@ -330,7 +373,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
                 // add mollie as payment option
                 /** @var \HGON\HgonPayment\Api\MollieApi $mollieApi */
-                $mollieApi = $this->objectManager->get('HGON\\HgonPayment\\Api\\MollieApi');
+                $mollieApi = $this->objectManager->get(\HGON\HgonPayment\Api\MollieApi::class);
                 // create customer
                 $mollieCustomer = $mollieApi->createCustomer($moneyAmount['customer']);
                 // create customer mandate
@@ -374,7 +417,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
         // get JSON helper
         /** @var \RKW\RkwBasics\Helper\Json $jsonHelper */
-        $jsonHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('RKW\\RkwBasics\\Helper\\Json');
+        $jsonHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\RKW\RkwBasics\Helper\Json::class);
         // get new list
         $replacements = array (
             'approvalUrl' => $isPayPalPlus ? $approvalUrl[1]->href : $approvalUrl[0]->href,
@@ -414,8 +457,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             'payerId' =>  preg_replace('/[^A-Z0-9-]/', '', \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('PayerID'))
         ]);
 
-        $GLOBALS['TSFE']->fe_user->setKey('ses', 'hgon_payment_basket', $basket);
-        $GLOBALS['TSFE']->storeSessionData();
+        $this->session->set('hgon_payment_basket', $basket);
 
         $this->view->assign('basket', $basket);
     }
@@ -435,7 +477,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $payerId = preg_replace('/[^A-Z0-9-]/', '', \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('PayerID'));
 
         /** @var \HGON\HgonPayment\Api\PayPalApi $payPalApi */
-        $payPalApi = $this->objectManager->get('HGON\\HgonPayment\\Api\\PayPalApi');
+        $payPalApi = $this->objectManager->get(\HGON\HgonPayment\Api\PayPalApi::class);
         $result = $payPalApi->executePayment($paymentId, $token, $payerId);
     }
 
@@ -459,7 +501,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $isPayed = false;
 
         /** @var \HGON\HgonPayment\Api\MollieApi $mollieApi */
-        $mollieApi = $this->objectManager->get('HGON\\HgonPayment\\Api\\MollieApi');
+        $mollieApi = $this->objectManager->get(\HGON\HgonPayment\Api\MollieApi::class);
         if ($this->cacheManager->has($customer['customerId'])) {
             $customer = $this->cacheManager->get($customer['customerId']);
             $result = $mollieApi->createSubscription($customer, $article);
@@ -472,10 +514,10 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                     //if (false) {
                     // @toDo: Send a mail to customer
                     /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
-                    $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+                    $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class);
 
                     /** @var \RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUser */
-                    $frontendUser = $objectManager->get('RKW\\RkwRegistration\\Domain\\Model\\FrontendUser');
+                    $frontendUser = $objectManager->get(\RKW\RkwRegistration\Domain\Model\FrontendUser::class);
 
                     $frontendUser->setEmail($customer->email);
                     // We do not have first and lastname separately
@@ -483,11 +525,11 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                     $frontendUser->setTxRkwregistrationLanguageKey('de');
 
                     /** @var \HGON\HgonPayment\Helper\DataConverter $dataConverter */
-                    $dataConverter = $objectManager->get('HGON\\HgonPayment\\Helper\\DataConverter');
+                    $dataConverter = $objectManager->get(\HGON\HgonPayment\Helper\DataConverter::class);
                     $subscriptionData = $dataConverter->subscriptionMollie($result, $customer);
 
                     /** @var \HGON\HgonDonation\Service\RkwMailService $rkwMailService */
-                    $rkwMailService = $objectManager->get('HGON\\HgonDonation\\Service\\RkwMailService');
+                    $rkwMailService = $objectManager->get(\HGON\HgonDonation\Service\RkwMailService::class);
                     $rkwMailService->confirmMollieUser($frontendUser, $subscriptionData);
 
                     if (intval($this->settings['rkwAuthorContactPerson'])) {
@@ -495,7 +537,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                         if ($author instanceof \RKW\RkwAuthors\Domain\Model\Authors) {
 
                             /** @var \RKW\RkwRegistration\Domain\Model\BackendUser $backendUser */
-                            $backendUser = $objectManager->get('RKW\\RkwRegistration\\Domain\\Model\\BackendUser');
+                            $backendUser = $objectManager->get(\RKW\RkwRegistration\Domain\Model\BackendUser::class);
                             $backendUser->setEmail($author->getEmail());
                             $backendUser->setRealName($author->getFirstName() . ' ' . $author->getLastName());
                             $backendUser->setLang('de');
@@ -514,8 +556,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
 
                     // remove Session data
-                    $GLOBALS['TSFE']->fe_user->setKey('ses', 'hgon_payment_basket', null);
-                    $GLOBALS['TSFE']->storeSessionData();
+                    $this->session->remove('hgon_payment_basket');
                     //}
 
                 }
@@ -526,7 +567,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
         // get JSON helper
         /** @var \RKW\RkwBasics\Helper\Json $jsonHelper */
-        $jsonHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('RKW\\RkwBasics\\Helper\\Json');
+        $jsonHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\RKW\RkwBasics\Helper\Json::class);
         // get new list
         $replacements = array (
             'isPayed' => $isPayed
@@ -541,7 +582,6 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
         print (string) $jsonHelper;
         exit();
-        //===
     }
 
 
@@ -658,7 +698,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     {
         // get JSON helper
         /** @var \RKW\RkwBasics\Helper\Json $jsonHelper */
-        $jsonHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('RKW\\RkwBasics\\Helper\\Json');
+        $jsonHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\RKW\RkwBasics\Helper\Json::class);
         // get new list
         $replacements = array (
             'message' => $message
@@ -674,7 +714,6 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
         print (string) $jsonHelper;
         exit();
-        //===
     }
 
 }

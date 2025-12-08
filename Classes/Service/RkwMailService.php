@@ -23,6 +23,8 @@ use RKW\RkwEvents\Helper\DivUtility;
 /**
  * RkwMailService
  *
+ * @deprecated
+ *
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @copyright HGON
  * @package Hgon_HgonDonation
@@ -30,7 +32,7 @@ use RKW\RkwEvents\Helper\DivUtility;
  */
 class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
 {
-    
+
     /**
      * Handles confirm mail for user
      *

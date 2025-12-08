@@ -1,6 +1,8 @@
 <?php
 
 namespace HGON\HgonDonation\Hooks;
+use TYPO3\CMS\Core\Log\LogManager;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
@@ -51,11 +53,11 @@ class TceMainHooks
                     // set longitude and latitude into event location
                     $donationPlaceDb = \TYPO3\CMS\Backend\Utility\BackendUtility::getRecord('tx_hgondonation_domain_model_donationplace', $id);
                     $donationPlace = array_merge($donationPlaceDb, $fieldArray);
-                   
+
                     if (count($donationPlace)) {
 
                         /** @var \RKW\RkwGeolocation\Service\Geolocation $geoLocation */
-                        $geoLocation = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('RKW\\RkwGeolocation\\Service\\Geolocation');
+                        $geoLocation = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\RKW\RkwGeolocation\Service\Geolocation::class);
 
                         // set country
                         $staticCountry = \TYPO3\CMS\Backend\Utility\BackendUtility::getRecord('static_countries', $donationPlace['country']);
@@ -94,8 +96,7 @@ class TceMainHooks
      */
     protected function getLogger()
     {
-        return \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Log\\LogManager')->getLogger(__CLASS__);
-        //===
+        return GeneralUtility::makeInstance(LogManager::class)->getLogger(static::class);
     }
 }
 

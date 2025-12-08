@@ -49,7 +49,7 @@ class Donation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 * image
 	 *
 	 * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
-	 * @cascade remove
+	 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
 	 */
 	protected $image = null;
 
@@ -71,7 +71,7 @@ class Donation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 * donationTypeTime
 	 *
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\HGON\HgonDonation\Domain\Model\DonationTypeTime>
-	 * @cascade remove
+	 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
 	 */
 	protected $donationTypeTime = null;
 
@@ -79,7 +79,7 @@ class Donation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 * donationTypeMoney
 	 *
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\HGON\HgonDonation\Domain\Model\DonationTypeMoney>
-	 * @cascade remove
+	 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
 	 */
 	protected $donationTypeMoney = null;
 
