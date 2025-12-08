@@ -450,7 +450,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     public function preparePaymentAction()
     {
         /** @var \HGON\HgonPayment\Domain\Model\Basket $basket */
-        $basket = $GLOBALS['TSFE']->fe_user->getKey('ses','hgon_payment_basket');
+        $basket = $this->session->get('hgon_payment_basket');
         $basket->setPaymentData([
             'paymentId' =>  preg_replace('/[^A-Z0-9-]/', '', \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('paymentId')),
             'token' =>  preg_replace('/[^A-Z0-9-]/', '', \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('token')),
@@ -492,7 +492,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     public function executeSepaAction($customer)
     {
         /** @var \HGON\HgonPayment\Domain\Model\Basket $basket */
-        $basket = $GLOBALS['TSFE']->fe_user->getKey('ses','hgon_payment_basket');
+        $basket = $this->session->get('hgon_payment_basket');
         foreach ($basket->getArticle() as $articleSingle) {
             $article = $articleSingle;
             break;
