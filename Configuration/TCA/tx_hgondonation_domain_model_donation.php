@@ -8,7 +8,6 @@ return [
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
 		'cruser_id' => 'cruser_id',
-		'requestUpdate' => 'type',
 		'versioningWS' => true,
 		'sortby' => 'sorting',
 		'languageField' => 'sys_language_uid',
@@ -88,28 +87,31 @@ return [
 		],
 		'starttime' => [
 			'exclude' => true,
-			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.starttime',
-			'config' => [
-				'type' => 'input',
-				'size' => 13,
-				'eval' => 'datetime',
-				'default' => 0,
-			]
+            'config' => [
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'size' => 13,
+                'eval' => 'datetime',
+                'default' => 0,
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true,
+                ],
+            ],
 		],
 		'endtime' => [
 			'exclude' => true,
-			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.endtime',
-			'config' => [
-				'type' => 'input',
-				'size' => 13,
-				'eval' => 'datetime',
-				'default' => 0,
-				'range' => [
-					'upper' => mktime(0, 0, 0, 1, 1, 2038)
-				]
-			],
+            'config' => [
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'size' => 13,
+                'eval' => 'datetime',
+                'default' => 0,
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true,
+                ],
+            ],
 		],
 		'type' => [
 			'exclude' => 0,
@@ -128,7 +130,8 @@ return [
 					['LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_donation.type.money', 2],
 					//['LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_donation.type.link', 3],
 				],
-			]
+			],
+            'onChange' => 'reload'
 		],
 		'title' => [
 			'exclude' => true,
@@ -185,32 +188,26 @@ return [
             ),
 			'displayCond' => 'FIELD:type:>:0',
 		],
-		'link' => [
-			'exclude' => true,
-			'label' => 'LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_donation.link',
-			'config' => [
-				'type' => 'input',
-				'size' => '50',
-				'max' => '1024',
-				'eval' => 'trim, required',
-				'wizards' => [
-					'link' => [
-						'type' => 'popup',
-						'title' => 'LLL:EXT:cms/locallang_ttc.xlf:header_link_formlabel',
-						'icon' => 'link_popup.gif',
-						'module' => [
-							'name' => 'wizard_element_browser',
-							'urlParameters' => [
-								'mode' => 'wizard'
-							]
-						],
-						'JSopenParams' => 'height=300,width=500,status=0,menubar=0,scrollbars=1'
-					]
-				],
-				'softref' => 'typolink'
-			],
-			'displayCond' => 'FIELD:type:=:3',
-		],
+        'link' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_donation.link',
+            'displayCond' => 'FIELD:type:=:3',
+            'config' => [
+                'type' => 'input',
+                'renderType' => 'inputLink',
+                'size' => 50,
+                'max' => 1024,
+                'eval' => 'trim,required',
+                'softref' => 'typolink',
+                'fieldControl' => [
+                    'linkPopup' => [
+                        'options' => [
+                            'title' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:header_link_formlabel',
+                        ],
+                    ],
+                ],
+            ],
+        ],
 		'donation_type_time' => [
 			'exclude' => true,
 			'label' => 'LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_donation.donation_type_time',
@@ -272,30 +269,32 @@ return [
         'time_range_start' => [
             'exclude' => true,
             'label' => 'LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_donation.time_range_start',
+            'displayCond' => 'FIELD:type:=:1',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 13,
                 'eval' => 'datetime',
                 'default' => 0,
-                'range' => [
-                    'upper' => mktime(0, 0, 0, 1, 1, 2038)
-                ]
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true,
+                ],
             ],
-            'displayCond' => 'FIELD:type:=:1',
         ],
         'time_range_end' => [
             'exclude' => true,
             'label' => 'LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_donation.time_range_end',
+            'displayCond' => 'FIELD:type:=:1',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 13,
                 'eval' => 'datetime',
                 'default' => 0,
-                'range' => [
-                    'upper' => mktime(0, 0, 0, 1, 1, 2038)
-                ]
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true,
+                ],
             ],
-            'displayCond' => 'FIELD:type:=:1',
         ],
         'tx_rkwproject_project' => [
             'exclude' => true,
