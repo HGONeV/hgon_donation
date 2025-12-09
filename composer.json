@@ -13,16 +13,16 @@
     },
     "autoload": {
         "psr-4": {
-            "HGON\\HgonDonation\\": "Classes"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "HGON\\HgonDonation\\Tests\\": "Tests"
+            "HGON\\HgonDonation\\": "Classes/"
         }
     },
     "replace": {
         "hgon_donation": "self.version",
         "typo3-ter/hgon-donation": "self.version"
-    }
+    },
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "hgon_donation"
+		}
+	}
 }
