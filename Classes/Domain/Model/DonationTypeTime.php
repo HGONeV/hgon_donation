@@ -83,7 +83,7 @@ class DonationTypeTime extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * contactPerson
 	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwAuthors\Domain\Model\Authors>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\HGON\HgonTemplate\Domain\Model\Authors>
 	 */
 	protected $contactPerson = null;
 
@@ -107,7 +107,7 @@ class DonationTypeTime extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 *
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwRegistration\Domain\Model\FrontendUser>
 	 */
-	protected $frontendUser = null;
+	//protected $frontendUser = null;
 
 	/**
 	 * maxNumFrontendUser
@@ -349,10 +349,10 @@ class DonationTypeTime extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Adds a contactPerson
 	 *
-	 * @param \RKW\RkwAuthors\Domain\Model\Authors $contactPerson
+	 * @param \HGON\HgonTemplate\Domain\Model\Authors $contactPerson
 	 * @return void
 	 */
-	public function addContactPerson(\RKW\RkwAuthors\Domain\Model\Authors $contactPerson)
+	public function addContactPerson(\HGON\HgonTemplate\Domain\Model\Authors $contactPerson)
 	{
 		$this->contactPerson->attach($contactPerson);
 	}
@@ -360,10 +360,10 @@ class DonationTypeTime extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Removes a contactPerson
 	 *
-	 * @param \RKW\RkwAuthors\Domain\Model\Authors $contactPersonToRemove
+	 * @param \HGON\HgonTemplate\Domain\Model\Authors $contactPersonToRemove
 	 * @return void
 	 */
-	public function removeQuestion(\RKW\RkwAuthors\Domain\Model\Authors $contactPersonToRemove)
+	public function removeQuestion(\HGON\HgonTemplate\Domain\Model\Authors $contactPersonToRemove)
 	{
 		$this->contactPerson->detach($contactPersonToRemove);
 	}
@@ -371,7 +371,7 @@ class DonationTypeTime extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Returns the contactPerson
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwAuthors\Domain\Model\Authors> $contactPerson
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\HGON\HgonTemplate\Domain\Model\Authors> $contactPerson
 	 */
 	public function getContactPerson()
 	{
@@ -381,7 +381,7 @@ class DonationTypeTime extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Sets the contactPerson
 	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwAuthors\Domain\Model\Authors> $contactPerson
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\HGON\HgonTemplate\Domain\Model\Authors> $contactPerson
 	 * @return void
 	 */
 	public function setQuestion(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $contactPerson)
@@ -460,47 +460,6 @@ class DonationTypeTime extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 */
 	public function removeDonationPlace(\HGON\HgonDonation\Domain\Model\DonationPlace $donationPlaceToRemove) {
 		$this->donationPlace->detach($donationPlaceToRemove);
-	}
-
-	/**
-	 * Returns the frontendUser
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwRegistration\Domain\Model\FrontendUser> $frontendUser
-	 */
-	public function getFrontendUser()
-	{
-		return $this->frontendUser;
-	}
-
-	/**
-	 * Sets the frontendUser
-	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwRegistration\Domain\Model\FrontendUser> $frontendUser
-	 * @return void
-	 */
-	public function setFrontendUser(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $frontendUser)
-	{
-		$this->frontendUser = $frontendUser;
-	}
-
-	/**
-	 * Adds a frontendUser
-	 *
-	 * @param \RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUser
-	 * @return void
-	 */
-	public function addFrontendUser(\RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUser) {
-		$this->frontendUser->attach($frontendUser);
-	}
-
-	/**
-	 * Removes a frontendUser
-	 *
-	 * @param \RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUserToRemove The frontendUser to be removed
-	 * @return void
-	 */
-	public function removeFrontendUser(\RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUserToRemove) {
-		$this->frontendUser->detach($frontendUserToRemove);
 	}
 
 	/**

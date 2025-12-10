@@ -11,9 +11,6 @@ namespace HGON\HgonDonation\Controller;
  *  (c) 2018 Maximilian Fäßler <maximilian@faesslerweb.de>, Fäßler Web UG
  *
  ***/
-use HGON\HgonDonation\Helper\Donation as DonationHelper;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * DonationController
@@ -36,12 +33,12 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     protected $projectsRepository;
 
     /**
-     * @var \RKW\RkwAuthors\Domain\Repository\AuthorsRepository
+     * @var \HGON\HgonTemplate\Domain\Repository\AuthorsRepository
      */
     protected $authorsRepository;
 
     /**
-     * @var \RKW\RkwRegistration\Domain\Repository\BackendUserRepository
+     * @var \TYPO3\CMS\Extbase\Domain\Repository\BackendUserRepository
      */
     protected $backendUserRepository;
 
@@ -54,12 +51,6 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @var \TYPO3\CMS\Core\Cache\CacheManager
      */
     protected $cacheManager;
-
-    /**
-     * @var \TYPO3\CMS\Core\Session\UserSession
-     */
-    protected $session;
-
 
     /**
      * @param \HGON\HgonDonation\Domain\Repository\DonationRepository $donationRepository
@@ -83,16 +74,16 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     }
 
     /**
-     * @param \RKW\RkwAuthors\Domain\Repository\AuthorsRepository $authorsRepository
+     * @param \HGON\HgonTemplate\Domain\Repository\AuthorsRepository $authorsRepository
      */
-    public function injectAuthorsRepository(\RKW\RkwAuthors\Domain\Repository\AuthorsRepository $authorsRepository): void {
+    public function injectAuthorsRepository(\HGON\HgonTemplate\Domain\Repository\AuthorsRepository $authorsRepository): void {
         $this->authorsRepository = $authorsRepository;
     }
 
     /**
-     * @param \RKW\RkwRegistration\Domain\Repository\BackendUserRepository $backendUserRepository
+     * @param \TYPO3\CMS\Extbase\Domain\Repository\BackendUserRepository $backendUserRepository
      */
-    public function injectBackendUserRepository(\RKW\RkwRegistration\Domain\Repository\BackendUserRepository $backendUserRepository): void {
+    public function injectBackendUserRepository(\TYPO3\CMS\Extbase\Domain\Repository\BackendUserRepository $backendUserRepository): void {
         $this->backendUserRepository = $backendUserRepository;
     }
 
@@ -110,10 +101,21 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $this->cacheManager = $cacheManager;
     }
 
+
     /**
-     * @param \TYPO3\CMS\Core\Session\UserSession $session
+     * (ab TYPO3 11 / 12) var \TYPO3\CMS\Core\Session\UserSession
+     *
+     * @var \HGON\HgonPayment\Session\BasketSessionService
      */
-    public function injectUserSession(\TYPO3\CMS\Core\Session\UserSession $session): void {
+    protected $session;
+
+
+    /**
+     * @param \HGON\HgonPayment\Session\BasketSessionService $session
+     */
+    public function injectUserSession(\HGON\HgonPayment\Session\BasketSessionService $session): void {
+        //$this->session = $session;
+
         $this->session = $session;
     }
 
@@ -516,9 +518,9 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                     /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
                     $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class);
 
-                    /** @var \RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUser */
-                    $frontendUser = $objectManager->get(\RKW\RkwRegistration\Domain\Model\FrontendUser::class);
-
+                    /** \RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUser */
+                    //$frontendUser = $objectManager->get(\RKW\RkwRegistration\Domain\Model\FrontendUser::class);
+/*
                     $frontendUser->setEmail($customer->email);
                     // We do not have first and lastname separately
                     $frontendUser->setLastName($customer->name);
@@ -530,11 +532,11 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
                     /** @var \HGON\HgonDonation\Service\RkwMailService $rkwMailService */
                     $rkwMailService = $objectManager->get(\HGON\HgonDonation\Service\RkwMailService::class);
-                    $rkwMailService->confirmMollieUser($frontendUser, $subscriptionData);
+ //                   $rkwMailService->confirmMollieUser($frontendUser, $subscriptionData);
 
                     if (intval($this->settings['rkwAuthorContactPerson'])) {
                         $author = $this->authorsRepository->findByIdentifier(intval($this->settings['rkwAuthorContactPerson']));
-                        if ($author instanceof \RKW\RkwAuthors\Domain\Model\Authors) {
+                        if ($author instanceof \RKW\HgonTemplate\Domain\Model\Authors) {
 
                             /** @var \RKW\RkwRegistration\Domain\Model\BackendUser $backendUser */
                             $backendUser = $objectManager->get(\RKW\RkwRegistration\Domain\Model\BackendUser::class);
@@ -594,14 +596,18 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function bankAccountSidebarAction()
     {
+
+        // @toDo: txRkwprojectsProjectUid does not longer exists
+
         // special case: If this page has a project: Show specific project bank account
         $pages = $this->pagesRepository->findByIdentifier(intval($GLOBALS['TSFE']->id));
-        if ($pages->getTxRkwprojectsProjectUid()) {
+        //if ($pages->getTxRkwprojectsProjectUid()) {
             // get HGON project type for correct getter and setter
-            $project = $this->projectsRepository->findByIdentifier($pages->getTxRkwprojectsProjectUid()->getUid());
+
+            //$project = $this->projectsRepository->findByIdentifier($pages->getTxRkwprojectsProjectUid()->getUid());
             //DebuggerUtility::var_dump($project); exit;
-            $this->view->assign('project', $project);
-        }
+          //  $this->view->assign('project', $project);
+        //}
     }
 
 

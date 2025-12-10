@@ -70,9 +70,9 @@ class DonationTypeMoney extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * frontendUserToInform
 	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwRegistration\Domain\Model\FrontendUser>
+	 * \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwRegistration\Domain\Model\FrontendUser>
 	 */
-	protected $frontendUserToInform = null;
+	//protected $frontendUserToInform = null;
 
 	/**
 	 * __construct
@@ -241,44 +241,4 @@ class DonationTypeMoney extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		$this->donatorCount = $donatorCount;
 	}
 
-	/**
-	 * Returns the frontendUserToInform
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwRegistration\Domain\Model\FrontendUser> $frontendUserToInform
-	 */
-	public function getFrontendUserToInform()
-	{
-		return $this->frontendUserToInform;
-	}
-
-	/**
-	 * Sets the frontendUserToInform
-	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwRegistration\Domain\Model\FrontendUser> $frontendUserToInform
-	 * @return void
-	 */
-	public function setFrontendUserToInform(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $frontendUserToInform)
-	{
-		$this->frontendUserToInform = $frontendUserToInform;
-	}
-
-	/**
-	 * Adds a frontendUserToInform
-	 *
-	 * @param \RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUserToInform
-	 * @return void
-	 */
-	public function addFrontendUserToInform(\RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUserToInform) {
-		$this->frontendUserToInform->attach($frontendUserToInform);
-	}
-
-	/**
-	 * Removes a frontendUserToInform
-	 *
-	 * @param \RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUserToInformToRemove The frontendUserToInform to be removed
-	 * @return void
-	 */
-	public function removeFrontendUserToInform(\RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUserToInformToRemove) {
-		$this->frontendUserToInform->detach($frontendUserToInformToRemove);
-	}
 }

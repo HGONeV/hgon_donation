@@ -23,7 +23,7 @@ namespace HGON\HgonDonation\Domain\Model;
  * @package HGON_HgonDonation
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class Pages extends \RKW\RkwBasics\Domain\Model\Pages
+class Pages extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
 
 }
