@@ -145,5 +145,5 @@ call_user_func(
             $GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$extKey]['groups'] = array('pages');
         }
 	},
-	$_EXTKEY
+	'hgon_donation'
 );

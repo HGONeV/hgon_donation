@@ -24,12 +24,8 @@ return [
 		'searchFields' => 'title,short_description,description,type,time_requirement,recurring,image,contact_person,finished,helpers_feedback,helpers_image,donation_place,frontend_user,max_num_frontend_user',
 		'iconfile' => 'EXT:hgon_donation/Resources/Public/Icons/tx_hgondonation_domain_model_donationtypetime.gif'
 	],
-	'interface' => [
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, short_description, description, type, time_requirement, recurring, image, contact_person, finished, helpers_feedback, helpers_image, donation_place, frontend_user, max_num_frontend_user',
-	],
 	'types' => [
-	//	'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, short_description, description, type, time_requirement, time_range_start, time_range_end, recurring, image, contact_person, finished, helpers_feedback, helpers_image, donation_place, frontend_user, max_num_frontend_user, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, time_requirement, donation_place, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+	    '1' => ['showitem' => 'sys_language_uid, l10n_diffsource, hidden, time_requirement, donation_place, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
 	],
 	'columns' => [
 		'sys_language_uid' => [
@@ -51,7 +47,6 @@ return [
 		],
 		'l10n_parent' => [
 			'displayCond' => 'FIELD:sys_language_uid:>:0',
-			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.l18n_parent',
 			'config' => [
 				'type' => 'select',

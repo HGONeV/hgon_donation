@@ -134,12 +134,13 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
 
     /**
-     * Constructor
-     *
+     * initialize
      */
-    public function __construct()
+    public function initializeAction(): void
     {
-        parent::__construct();
+        parent::initializeAction();
+
+        // contentObjectRenderer ist in ActionController vorhanden (nach Initialisierung)
         $this->cObj = $this->contentObjectRenderer;
     }
 

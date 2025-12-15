@@ -19,6 +19,6 @@ call_user_func(
 		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_hgondonation_domain_model_donationplace');
 
 	},
-	$_EXTKEY
+    'hgon_donation'
 );
 

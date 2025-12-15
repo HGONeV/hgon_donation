@@ -24,13 +24,9 @@ return [
 		'searchFields' => 'title,short_description,description,image,donation_goal,donation_amount_current,donator_count,frontend_user_to_inform',
 		'iconfile' => 'EXT:hgon_donation/Resources/Public/Icons/tx_hgondonation_domain_model_donationtypemoney.gif'
 	],
-	'interface' => [
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, short_description, description, image, donation_goal, donation_amount_current, donator_count, frontend_user_to_inform',
-	],
 	'types' => [
 		'1' => [
-		    //'showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, short_description, description, image, donation_goal, donation_amount_current, donator_count, frontend_user_to_inform, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'
-            'showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, image, donation_goal, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'
+            'showitem' => 'sys_language_uid, l10n_diffsource, hidden, image, donation_goal, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'
         ],
 	],
 	'columns' => [
@@ -53,7 +49,6 @@ return [
 		],
 		'l10n_parent' => [
 			'displayCond' => 'FIELD:sys_language_uid:>:0',
-			'exclude' => true,
 			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.l18n_parent',
 			'config' => [
 				'type' => 'select',
