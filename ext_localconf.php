@@ -8,11 +8,11 @@ call_user_func(
             'HGON.HgonDonation',
             'Listing',
             [
-                'Donation' => 'list, newMoney, createMoney, executeSepa'
+                \HGON\HgonDonation\Controller\DonationController::class => 'list, newMoney, createMoney, executeSepa'
             ],
             // non-cacheable actions
             [
-                'Donation' => 'list, newMoney, createMoney, executeSepa'
+                \HGON\HgonDonation\Controller\DonationController::class => 'list, newMoney, createMoney, executeSepa'
             ]
         );
 
@@ -20,12 +20,11 @@ call_user_func(
             'HGON.HgonDonation',
             'Detail',
             [
-                'Donation' => 'show, new, create, perform'
-                //'Donation' => 'list, show, new, create, edit, update, delete'
+                \HGON\HgonDonation\Controller\DonationController::class => 'show, new, create, perform'
             ],
             // non-cacheable actions
             [
-                'Donation' => 'show, new, create, perform'
+                \HGON\HgonDonation\Controller\DonationController::class => 'show, new, create, perform'
             ]
         );
 
@@ -33,11 +32,11 @@ call_user_func(
             'HGON.HgonDonation',
             'BankAccountSidebar',
             [
-                'Donation' => 'bankAccountSidebar'
+                \HGON\HgonDonation\Controller\DonationController::class => 'bankAccountSidebar'
             ],
             // non-cacheable actions
             [
-                'Donation' => ''
+                \HGON\HgonDonation\Controller\DonationController::class => ''
             ]
         );
 
@@ -45,11 +44,11 @@ call_user_func(
             'HGON.HgonDonation',
             'DonationProject',
             [
-                'Donation' => 'donationProject'
+                \HGON\HgonDonation\Controller\DonationController::class => 'donationProject'
             ],
             // non-cacheable actions
             [
-                'Donation' => 'donationProject'
+                \HGON\HgonDonation\Controller\DonationController::class => 'donationProject'
             ]
         );
 
@@ -57,11 +56,11 @@ call_user_func(
             'HGON.HgonDonation',
             'Header',
             [
-                'Donation' => 'header'
+                \HGON\HgonDonation\Controller\DonationController::class => 'header'
             ],
             // non-cacheable actions
             [
-                'Donation' => 'header'
+                \HGON\HgonDonation\Controller\DonationController::class => 'header'
             ]
         );
 
@@ -69,11 +68,11 @@ call_user_func(
             'HGON.HgonDonation',
             'Sidebar',
             [
-                'Donation' => 'sidebar'
+                \HGON\HgonDonation\Controller\DonationController::class => 'sidebar'
             ],
             // non-cacheable actions
             [
-                'Donation' => 'sidebar'
+                \HGON\HgonDonation\Controller\DonationController::class => 'sidebar'
             ]
         );
 
@@ -81,12 +80,11 @@ call_user_func(
 			'HGON.HgonDonation',
 			'Donate',
 			[
-				'Standard' => 'listDonationTime, newDonationTime, createDonationTime'
-				//'Donation' => 'list, show, new, create, edit, update, delete'
+                \HGON\HgonDonation\Controller\StandardController::class => 'listDonationTime, newDonationTime, createDonationTime'
 			],
 			// non-cacheable actions
 			[
-				'Standard' => 'listDonationTime, newDonationTime, createDonationTime'
+                \HGON\HgonDonation\Controller\StandardController::class => 'listDonationTime, newDonationTime, createDonationTime'
 			]
 		);
 
@@ -94,11 +92,11 @@ call_user_func(
             'HGON.HgonDonation',
             'SupportOptions',
             [
-                'Standard' => 'supportOptions'
+                \HGON\HgonDonation\Controller\StandardController::class => 'supportOptions'
             ],
             // non-cacheable actions
             [
-                'Standard' => 'supportOptions'
+                \HGON\HgonDonation\Controller\StandardController::class => 'supportOptions'
             ]
         );
 
@@ -106,14 +104,15 @@ call_user_func(
             'HGON.HgonDonation',
             'SupportOptionsLight',
             [
-                'Standard' => 'supportOptionsLight'
+                \HGON\HgonDonation\Controller\StandardController::class => 'supportOptionsLight'
             ],
             // non-cacheable actions
             [
-                'Standard' => 'supportOptionsLight'
+                \HGON\HgonDonation\Controller\StandardController::class => 'supportOptionsLight'
             ]
         );
 
+        /*
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
             'HGON.HgonDonation',
             'BecomeMemberForm',
@@ -125,18 +124,19 @@ call_user_func(
                 'Form' => 'becomeMember'
             ]
         );
+        */
 
 
 
         // Hook for Geodata and reservation cleanup on copy
-        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][$extKey] = 'HGON\\HgonDonation\\Hooks\\TceMainHooks';
+        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][$extKey] = \HGON\HgonDonation\Hooks\TceMainHooks::class;
 
         // caching
         if( !is_array($GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$extKey] ) ) {
             $GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$extKey] = array();
         }
         if( !isset($GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$extKey]['frontend'] ) ) {
-            $GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$extKey]['frontend'] = 'TYPO3\\CMS\\Core\\Cache\\Frontend\\VariableFrontend';
+            $GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$extKey]['frontend'] = \TYPO3\CMS\Core\Cache\Frontend\VariableFrontend::class;
         }
         if( !isset($GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$extKey]['options'] ) ) {
             $GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$extKey]['options'] = array('defaultLifetime' => 3600);

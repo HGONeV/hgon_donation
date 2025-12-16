@@ -635,10 +635,13 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     {
         /** @var \HGON\HgonTemplate\Domain\Model\Pages $pages */
         $pages = $this->pagesRepository->findByIdentifier(intval($GLOBALS['TSFE']->id));
+
+        /*
         if ($pages->getTxRkwprojectsProjectUid()) {
             $donationList = $this->donationRepository->findByTxRkwprojectProject($pages->getTxRkwprojectsProjectUid());
             $this->view->assign('donationList', $donationList);
         }
+        */
     }
 
 
