@@ -1,6 +1,8 @@
 <?php
 namespace HGON\HgonDonation\Controller;
 
+use HGON\HgonPayment\Session\BasketSessionService;
+
 /***
  *
  * This file is part of the "HGON Donation" Extension for TYPO3 CMS.
@@ -38,7 +40,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     protected $authorsRepository;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Domain\Repository\BackendUserRepository
+     * @var \TYPO3\CMS\Beuser\Domain\Repository\BackendUserRepository
      */
     protected $backendUserRepository;
 
@@ -81,9 +83,9 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Domain\Repository\BackendUserRepository $backendUserRepository
+     * @param \TYPO3\CMS\Beuser\Domain\Repository\BackendUserRepository $backendUserRepository
      */
-    public function injectBackendUserRepository(\TYPO3\CMS\Extbase\Domain\Repository\BackendUserRepository $backendUserRepository): void {
+    public function injectBackendUserRepository(\TYPO3\CMS\Beuser\Domain\Repository\BackendUserRepository $backendUserRepository): void {
         $this->backendUserRepository = $backendUserRepository;
     }
 
@@ -102,21 +104,22 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     }
 
 
-    /**
-     * (ab TYPO3 11 / 12) var \TYPO3\CMS\Core\Session\UserSession
-     *
-     * @var \HGON\HgonPayment\Session\BasketSessionService
-     */
-    protected $session;
+    public function __construct(
+        private readonly BasketSessionService $basketSessionService
+    ) {
 
+    }
 
-    /**
-     * @param \HGON\HgonPayment\Session\BasketSessionService $session
-     */
-    public function injectUserSession(\HGON\HgonPayment\Session\BasketSessionService $session): void {
-        //$this->session = $session;
+    public function addToBasketAction(): void
+    {
+        $basket = $this->basketSessionService->getBasket();
+        // ... basket anpassen ...
+        // $this->basketSessionService->setBasket($basket);
+    }
 
-        $this->session = $session;
+    public function clearBasketAction(): void
+    {
+        $this->basketSessionService->clearBasket();
     }
 
 
@@ -151,8 +154,8 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @param array $filter
      * @param integer $page
      * @param integer $itemType for pager (which type is meant)
-     * @return void
-     */
+     * @return \Psr\Http\Message\ResponseInterface
+         */
     public function listAction($filter = array(), $page = 0, $itemType = 0)
     {
         // initial page increase
@@ -256,6 +259,8 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             exit();
         }
 
+        return $this->htmlResponse();
+
     }
 
 
@@ -264,7 +269,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * action show
      *
      * @param \HGON\HgonDonation\Domain\Model\Donation $donation
-     * @return void
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function showAction(\HGON\HgonDonation\Domain\Model\Donation $donation)
     {
@@ -281,6 +286,8 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
         $this->view->assign('donation', $donation);
         $this->view->assign('similarDonationList', $this->donationRepository->findByDonationTxRkwprojectProject($donation, true));
+
+        return $this->htmlResponse();
     }
 
 
@@ -296,6 +303,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         // https://sitegeist.de/blog/typo3-blog/typo3-form-framework-formulare-in-eigenen-extensions-nutzen.html
 
         $this->forward('show');
+
     }
 
 
@@ -305,11 +313,12 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * initial action. If no donationTypeTime is set, forward to list for choosing one
      *
      * @param \HGON\HgonDonation\Domain\Model\DonationTypeTime $donationTypeTime
-     * @return void
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function newAction(\HGON\HgonDonation\Domain\Model\DonationTypeTime $donationTypeTime)
     {
 
+        return $this->htmlResponse();
     }
 
 
@@ -319,7 +328,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * action for donation money (PayPal)
      *
      * @param \HGON\HgonTemplate\Domain\Model\Projects $project
-     * @return void
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function newMoneyAction(\HGON\HgonTemplate\Domain\Model\Projects $project = null)
     {
@@ -330,6 +339,8 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         }
 
         $this->view->assign('project', $project);
+
+        return $this->htmlResponse();
     }
 
 
@@ -340,7 +351,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      *
      * @param array $moneyAmount
      * @param \HGON\HgonTemplate\Domain\Model\Projects $project
-     * @return void
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function createMoneyAction($moneyAmount, \HGON\HgonTemplate\Domain\Model\Projects $project = null)
     {
@@ -439,7 +450,9 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
         print (string) $jsonHelper;
         exit();
-        //===
+
+        return $this->htmlResponse();
+
     }
 
 
@@ -448,7 +461,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * action preparePaymentAction
      * coming back from paypal with payment authorization
      *
-     * @return void
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function preparePaymentAction()
     {
@@ -463,6 +476,8 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $this->session->set('hgon_payment_basket', $basket);
 
         $this->view->assign('basket', $basket);
+
+        return $this->htmlResponse();
     }
 
 
@@ -593,7 +608,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * action bankAccountSidebar
      * shows bank data in a simple yellow box
      *
-     * @return void
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function bankAccountSidebarAction()
     {
@@ -609,6 +624,8 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             //DebuggerUtility::var_dump($project); exit;
           //  $this->view->assign('project', $project);
         //}
+
+        return $this->htmlResponse();
     }
 
 
@@ -629,7 +646,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     /**
      * action donationProject
      *
-     * @return void
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function donationProjectAction()
     {
@@ -642,6 +659,8 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             $this->view->assign('donationList', $donationList);
         }
         */
+
+        return $this->htmlResponse();
     }
 
 
@@ -650,7 +669,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * action header
      * Template helper
      *
-     * @return void
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function headerAction()
     {
@@ -669,6 +688,8 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             $this->view->assign('donation', $donation);
         }
 
+        return $this->htmlResponse();
+
     }
 
 
@@ -677,7 +698,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * action sidebar
      * Template helper
      *
-     * @return void
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function sidebarAction()
     {
@@ -695,6 +716,8 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
             $this->view->assign('donation', $donation);
         }
+
+        return $this->htmlResponse();
     }
 
 

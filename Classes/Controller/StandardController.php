@@ -91,12 +91,14 @@ class StandardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * action listDonationTime
      * (alternative list for donation time popup in footer)
      *
-     * @return void
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function listDonationTimeAction()
     {
         $this->view->assign('donationTypeTimeList', $this->donationTypeTimeRepository->findAll());
         $this->view->assign('ajaxTypeNum', $this->settings['ajaxTypeNum']);
+
+        return $this->htmlResponse();
     }
 
 
@@ -169,11 +171,13 @@ class StandardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * - donate time
      * -> Options are defined via flexForm
      *
-     * @return void
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function supportOptionsAction()
     {
         // do nothing else
+
+        return $this->htmlResponse();
     }
 
 
@@ -182,10 +186,12 @@ class StandardController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * action supportOptionsLight
      * -> Gives no real forms. Only anchros for opening forms of "supportOptions" plugin, which is used as standard footer element
      *
-     * @return void
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function supportOptionsLightAction()
     {
         // do nothing else
+
+        return $this->htmlResponse();
     }
 }

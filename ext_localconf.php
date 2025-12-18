@@ -1,11 +1,14 @@
 <?php
-defined('TYPO3_MODE') || die('Access denied.');
+
+defined('TYPO3') or die("Access denied.");
+
+use TYPO3\CMS\Core\Cache\Frontend\VariableFrontend;
 
 call_user_func(
 	function($extKey)
 	{
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            'HGON.HgonDonation',
+            $extKey,
             'Listing',
             [
                 \HGON\HgonDonation\Controller\DonationController::class => 'list, newMoney, createMoney, executeSepa'
@@ -17,7 +20,7 @@ call_user_func(
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            'HGON.HgonDonation',
+            $extKey,
             'Detail',
             [
                 \HGON\HgonDonation\Controller\DonationController::class => 'show, new, create, perform'
@@ -29,7 +32,7 @@ call_user_func(
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            'HGON.HgonDonation',
+            $extKey,
             'BankAccountSidebar',
             [
                 \HGON\HgonDonation\Controller\DonationController::class => 'bankAccountSidebar'
@@ -41,7 +44,7 @@ call_user_func(
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            'HGON.HgonDonation',
+            $extKey,
             'DonationProject',
             [
                 \HGON\HgonDonation\Controller\DonationController::class => 'donationProject'
@@ -53,7 +56,7 @@ call_user_func(
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            'HGON.HgonDonation',
+            $extKey,
             'Header',
             [
                 \HGON\HgonDonation\Controller\DonationController::class => 'header'
@@ -65,7 +68,7 @@ call_user_func(
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            'HGON.HgonDonation',
+            $extKey,
             'Sidebar',
             [
                 \HGON\HgonDonation\Controller\DonationController::class => 'sidebar'
@@ -77,7 +80,7 @@ call_user_func(
         );
 
 		\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-			'HGON.HgonDonation',
+			$extKey,
 			'Donate',
 			[
                 \HGON\HgonDonation\Controller\StandardController::class => 'listDonationTime, newDonationTime, createDonationTime'
@@ -89,7 +92,7 @@ call_user_func(
 		);
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            'HGON.HgonDonation',
+            $extKey,
             'SupportOptions',
             [
                 \HGON\HgonDonation\Controller\StandardController::class => 'supportOptions'
@@ -101,7 +104,7 @@ call_user_func(
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            'HGON.HgonDonation',
+            $extKey,
             'SupportOptionsLight',
             [
                 \HGON\HgonDonation\Controller\StandardController::class => 'supportOptionsLight'
@@ -114,7 +117,7 @@ call_user_func(
 
         /*
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            'HGON.HgonDonation',
+            $extKey,
             'BecomeMemberForm',
             [
                 'Form' => 'becomeMember'
@@ -129,21 +132,17 @@ call_user_func(
 
 
         // Hook for Geodata and reservation cleanup on copy
-        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][$extKey] = \HGON\HgonDonation\Hooks\TceMainHooks::class;
+        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = \HGON\HgonDonation\Hooks\TceMainHooks::class;
 
         // caching
-        if( !is_array($GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$extKey] ) ) {
-            $GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$extKey] = array();
+        $cacheConfigurations =& $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'];
+        if (!isset($cacheConfigurations[$extKey]) || !is_array($cacheConfigurations[$extKey])) {
+            $cacheConfigurations[$extKey] = [];
         }
-        if( !isset($GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$extKey]['frontend'] ) ) {
-            $GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$extKey]['frontend'] = \TYPO3\CMS\Core\Cache\Frontend\VariableFrontend::class;
-        }
-        if( !isset($GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$extKey]['options'] ) ) {
-            $GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$extKey]['options'] = array('defaultLifetime' => 3600);
-        }
-        if( !isset($GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$extKey]['groups'] ) ) {
-            $GLOBALS['TYPO3_CONF_VARS'] ['SYS']['caching']['cacheConfigurations'][$extKey]['groups'] = array('pages');
-        }
+        $cacheConfigurations[$extKey]['frontend'] ??= VariableFrontend::class;
+        $cacheConfigurations[$extKey]['options'] ??= ['defaultLifetime' => 3600];
+        $cacheConfigurations[$extKey]['groups'] ??= ['pages'];
+
 	},
 	'hgon_donation'
 );

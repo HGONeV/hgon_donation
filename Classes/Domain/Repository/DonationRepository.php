@@ -11,6 +11,8 @@ namespace HGON\HgonDonation\Domain\Repository;
  *  (c) 2018 Maximilian Fäßler <maximilian@faesslerweb.de>, Fäßler Web UG
  *
  ***/
+
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
@@ -28,70 +30,45 @@ class DonationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param integer $limit
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findByFilter($filter = [], $pageNumber = 1, $limit = 3)
+    public function findByFilter(array $filter = [], int $pageNumber = 1, int $limit = 3)
     {
         $query = $this->createQuery();
-        //$query->getQuerySettings()->setRespectStoragePage(false);
 
         // Offset
-        //$offset = ((intval($pageNumber) - 1) * $limit) + 1;
-        $offset = ((intval($pageNumber) - 1) * $limit);
-        if ($pageNumber <= 1) {
-            $offset = 0;
-        }
+        $offset = max(0, ($pageNumber - 1) * $limit);
 
-        // For offset issue on limit 1
-        if ($pageNumber > 1 && $limit == 1) {
-            $offset -= 1;
+        // For offset issue on limit 1 (dein Spezialfall)
+        if ($pageNumber > 1 && $limit === 1) {
+            $offset = max(0, $offset - 1);
         }
 
         $constraints = [];
 
-        if ($filter['type']) {
-            /*
-            // type 1: time
-            if ($filter['type'] == 1) {
-                $constraints[] = $query->greaterThan('donationTypeTime', 0);
-            }
-            // type 2: money
-            if ($filter['type'] == 2) {
-                $constraints[] = $query->greaterThan('donationTypeMoney', 0);
-            }
-            */
-            $constraints[] = $query->equals('type', $filter['type']);
+        // type
+        if (!empty($filter['type'])) {
+            $constraints[] = $query->equals('type', (int)$filter['type']);
         }
 
-        /*
-        if ($filter['time']) {
-            $constraints[] =
-            $query->logicalAnd(
-                $query->lessThanOrEqual('timeRangeStart', intval($filter['time'])),
-                $query->greaterThan('timeRangeStart', 0)
-            );
+        // always: timeRangeEnd >= now OR timeRangeEnd = 0
+        $constraints[] = $query->logicalOr(
+            $query->greaterThanOrEqual('timeRangeEnd', time()),
+            $query->equals('timeRangeEnd', 0)
+        );
+
+        // build query (WICHTIG: Array entpacken)
+        if ($constraints !== []) {
+            $query->matching($query->logicalAnd(...$constraints));
+            // Alternative wäre: $query->matching($query->logicalAnd(...array_values($constraints)));
         }
-        */
-
-        // always
-        $constraints[] =
-            $query->logicalOr(
-                $query->greaterThanOrEqual('timeRangeEnd', time()),
-                $query->equals('timeRangeEnd', 0)
-            );
-
-        // build query
-        $query->matching($query->logicalAnd($constraints));
 
         $query->setLimit($limit);
         $query->setOffset($offset);
 
-        $query->setOrderings(
-            array(
-                'timeRangeStart' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING,
-            )
-        );
+        $query->setOrderings([
+            'timeRangeStart' => QueryInterface::ORDER_ASCENDING,
+        ]);
 
         return $query->execute();
-        //===
     }
 
 
