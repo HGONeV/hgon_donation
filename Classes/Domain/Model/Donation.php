@@ -1,6 +1,8 @@
 <?php
 namespace HGON\HgonDonation\Domain\Model;
 
+use TYPO3\CMS\Extbase\Annotation\ORM\Cascade;
+
 /***
  *
  * This file is part of the "HGON Donation" Extension for TYPO3 CMS.
@@ -49,8 +51,8 @@ class Donation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 * image
 	 *
 	 * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
-	 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
 	 */
+	#[Cascade(['value' => 'remove'])]
 	protected $image = null;
 
 	/**
@@ -71,16 +73,16 @@ class Donation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 * donationTypeTime
 	 *
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\HGON\HgonDonation\Domain\Model\DonationTypeTime>
-	 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
 	 */
+	#[Cascade(['value' => 'remove'])]
 	protected $donationTypeTime = null;
 
 	/**
 	 * donationTypeMoney
 	 *
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\HGON\HgonDonation\Domain\Model\DonationTypeMoney>
-	 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
 	 */
+	#[Cascade(['value' => 'remove'])]
 	protected $donationTypeMoney = null;
 
     /**
@@ -112,13 +114,6 @@ class Donation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var int
      */
     protected $timeRangeEnd = 0;
-
-    /**
-     * txRkwprojectProject
-     *
-     * @var \HGON\HgonTemplate\Domain\Model\Projects
-     */
-    protected $txRkwprojectProject = null;
 
     /**
      * donationPlace
@@ -461,27 +456,6 @@ class Donation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setTimeRangeEnd($timeRangeEnd)
     {
         $this->timeRangeEnd = $timeRangeEnd;
-    }
-
-    /**
-     * Returns the txRkwprojectProject
-     *
-     * @return \HGON\HgonTemplate\Domain\Model\Projects
-     */
-    public function getTxRkwprojectProject()
-    {
-        return $this->txRkwprojectProject;
-    }
-
-    /**
-     * Sets the txRkwprojectProject
-     *
-     * @param \HGON\HgonTemplate\Domain\Model\Projects $txRkwprojectProject
-     * @return void
-     */
-    public function setTxRkwprojectProject(\HGON\HgonTemplate\Domain\Model\Projects $txRkwprojectProject)
-    {
-        $this->txRkwprojectProject = $txRkwprojectProject;
     }
 
     /**

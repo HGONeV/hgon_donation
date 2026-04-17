@@ -1,19 +1,9 @@
-
-<f:if condition="{project}">
-    <f:then>
-        <p>Unterstützen sie das Projekt <strong>{project.name}</strong> mit ihrem Beitrag!</p>
-    </f:then>
-    <f:else>
-        <p>Unterstützen sie die HGON mit ihrem Beitrag!</p>
-    </f:else>
-</f:if>
-
-<f:comment><i>{project.description}</i></f:comment>
+<p>Unterstützen Sie die HGON mit Ihrem Beitrag.</p>
 <div>
-    <div id="payment-container" class="flex-container space-between gutter">
+        <div id="payment-container" class="flex-container space-between gutter">
         <div class="flex-item c-12">
             <p>Online: <strong>Einfach unkompliziert</strong></p>
-            <f:form class="form" action="createMoney" enctype="multipart/form-data" id="moneyAmount" name="moneyAmount" object="{moneyAmount}" arguments="{project: project}">
+            <f:form class="form" action="createMoney" enctype="multipart/form-data" id="moneyAmount" name="moneyAmount" object="{moneyAmount}">
                 <div id="message-container"></div>
                 <!-- Override typeNum for AJAX -->
                 <input type="hidden" name="type" value="{typeNumClearPage}">
@@ -42,53 +32,6 @@
                         </label>
                     </span>
                 </div>
-
-
-                <div class="option-sepa" style="display: none;">
-                    <p>Zahlen via</p>
-                    <span class="radio-group">
-                    <label class="radio">
-                        <span class="radio__input">
-                            <f:form.radio id="paypal" property="type" value="paypal" checked="checked" />
-                            <label for="paypal"></label>
-                        </span>
-                        <span class="checkbox__label">
-                            PayPal
-                        </span>
-                    </label>
-                    <br />
-                    <label class="radio">
-                        <span class="radio__input">
-                             <f:form.radio id="sepa" property="type" value="sepa" />
-                            <label for="sepa"></label>
-                        </span>
-                        <span class="checkbox__label">
-                            SEPA
-                        </span>
-                    </label>
-                </span>
-                </div>
-                <div class="option-data" style="display: none;">
-                    <p class="form__field">
-                        <label class="control-label" for="donateForm-name">Name
-                            <span class="required">*</span>
-                        </label>
-                        <f:form.textfield id="donateForm-name" property="customer.name" placeholder="Name" />
-                    </p>
-                    <p class="form__field">
-                        <label class="control-label" for="donateForm-email">E-Mail
-                            <span class="required">*</span>
-                        </label>
-                        <f:form.textfield id="donateForm-email" property="customer.email" placeholder="E-Mail" />
-                    </p>
-                    <p class="form__field">
-                        <label class="control-label" for="donateForm-iban">IBAN
-                            <span class="required">*</span>
-                        </label>
-                        <f:form.textfield id="donateForm-iban" property="customer.iban" placeholder="IBAN" />
-                    </p>
-
-                </div>
                 <p>Individueller Wunschbetrag in <strong>€</strong></p>
                 <f:form.textfield property="amount" placeholder="€" value="15" type="number" additionalAttributes="{step: '0.01'}"/>
                 <p>
@@ -108,29 +51,3 @@
         -->
     </div>
 </div>
-
-<script>
-    jQuery("#moneyAmount input[name='tx_hgondonation_listing[moneyAmount][permanent]']").on('click', function(){
-        var radioValue = jQuery(this).val();
-        if (radioValue == 1){
-            jQuery('.option-sepa').show();
-        } else {
-            jQuery('.option-sepa').hide();
-            jQuery('.option-data').hide();
-            jQuery('input[name="tx_hgondonation_listing[moneyAmount][type]"][value="paypal"]').prop('checked', true);
-        }
-    });
-
-    jQuery("#moneyAmount input[name='tx_hgondonation_listing[moneyAmount][type]']").on('click', function(){
-        var radioValue = jQuery(this).val();
-        if (radioValue == 'sepa'){
-            jQuery('.option-data').show();
-        } else {
-            jQuery('.option-data').hide();
-        }
-    });
-</script>
-
-
-
-

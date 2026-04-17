@@ -2,6 +2,7 @@
 namespace HGON\HgonDonation\Controller;
 
 use HGON\HgonPayment\Session\BasketSessionService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***
  *
@@ -19,107 +20,74 @@ use HGON\HgonPayment\Session\BasketSessionService;
  */
 class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
-    /**
-     * @var \HGON\HgonDonation\Domain\Repository\DonationRepository
-     */
-    protected $donationRepository;
+    protected BasketSessionService $basketSessionService;
 
-    /**
-     * @var \HGON\HgonTemplate\Domain\Repository\PagesRepository
-     */
-    protected $pagesRepository;
+    protected \HGON\HgonDonation\Domain\Repository\DonationRepository $donationRepository;
 
-    /**
-     * @var \HGON\HgonTemplate\Domain\Repository\ProjectsRepository
-     */
-    protected $projectsRepository;
+    protected \HGON\HgonTemplate\Domain\Repository\PagesRepository $pagesRepository;
 
-    /**
-     * @var \HGON\HgonTemplate\Domain\Repository\AuthorsRepository
-     */
-    protected $authorsRepository;
+    protected \HGON\HgonTemplate\Domain\Repository\AuthorsRepository $authorsRepository;
 
-    /**
-     * @var \TYPO3\CMS\Beuser\Domain\Repository\BackendUserRepository
-     */
-    protected $backendUserRepository;
+    protected \TYPO3\CMS\Beuser\Domain\Repository\BackendUserRepository $backendUserRepository;
 
-    /**
-     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
-     */
-    protected $contentObjectRenderer;
-
-    /**
-     * @var \TYPO3\CMS\Core\Cache\CacheManager
-     */
-    protected $cacheManager;
-
-    /**
-     * @param \HGON\HgonDonation\Domain\Repository\DonationRepository $donationRepository
-     */
-    public function injectDonationRepository(\HGON\HgonDonation\Domain\Repository\DonationRepository $donationRepository): void {
-        $this->donationRepository = $donationRepository;
-    }
-
-    /**
-     * @param \HGON\HgonTemplate\Domain\Repository\PagesRepository $pagesRepository
-     */
-    public function injectPagesRepository(\HGON\HgonTemplate\Domain\Repository\PagesRepository $pagesRepository): void {
-        $this->pagesRepository = $pagesRepository;
-    }
-
-    /**
-     * @param \HGON\HgonTemplate\Domain\Repository\ProjectsRepository $projectsRepository
-     */
-    public function injectProjectsRepository(\HGON\HgonTemplate\Domain\Repository\ProjectsRepository $projectsRepository): void {
-        $this->projectsRepository = $projectsRepository;
-    }
-
-    /**
-     * @param \HGON\HgonTemplate\Domain\Repository\AuthorsRepository $authorsRepository
-     */
-    public function injectAuthorsRepository(\HGON\HgonTemplate\Domain\Repository\AuthorsRepository $authorsRepository): void {
-        $this->authorsRepository = $authorsRepository;
-    }
-
-    /**
-     * @param \TYPO3\CMS\Beuser\Domain\Repository\BackendUserRepository $backendUserRepository
-     */
-    public function injectBackendUserRepository(\TYPO3\CMS\Beuser\Domain\Repository\BackendUserRepository $backendUserRepository): void {
-        $this->backendUserRepository = $backendUserRepository;
-    }
-
-    /**
-     * @param \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer $contentObjectRenderer
-     */
-    public function injectContentObjectRenderer(\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer $contentObjectRenderer): void {
-        $this->contentObjectRenderer = $contentObjectRenderer;
-    }
-
-    /**
-     * @param \TYPO3\CMS\Core\Cache\CacheManager $cacheManager
-     */
-    public function injectCacheManager(\TYPO3\CMS\Core\Cache\CacheManager $cacheManager): void {
-        $this->cacheManager = $cacheManager;
-    }
+    protected \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer $contentObjectRenderer;
 
 
     public function __construct(
-        private readonly BasketSessionService $basketSessionService
+        ?BasketSessionService $basketSessionService = null,
+        ?\HGON\HgonDonation\Domain\Repository\DonationRepository $donationRepository = null,
+        ?\HGON\HgonTemplate\Domain\Repository\PagesRepository $pagesRepository = null,
+        ?\HGON\HgonTemplate\Domain\Repository\AuthorsRepository $authorsRepository = null,
+        ?\TYPO3\CMS\Beuser\Domain\Repository\BackendUserRepository $backendUserRepository = null,
+        ?\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer $contentObjectRenderer = null
     ) {
-
+        $this->basketSessionService = $basketSessionService ?? GeneralUtility::makeInstance(BasketSessionService::class);
+        $this->donationRepository = $donationRepository ?? GeneralUtility::makeInstance(\HGON\HgonDonation\Domain\Repository\DonationRepository::class);
+        $this->pagesRepository = $pagesRepository ?? GeneralUtility::makeInstance(\HGON\HgonTemplate\Domain\Repository\PagesRepository::class);
+        $this->authorsRepository = $authorsRepository ?? GeneralUtility::makeInstance(\HGON\HgonTemplate\Domain\Repository\AuthorsRepository::class);
+        $this->backendUserRepository = $backendUserRepository ?? GeneralUtility::makeInstance(\TYPO3\CMS\Beuser\Domain\Repository\BackendUserRepository::class);
+        $this->contentObjectRenderer = $contentObjectRenderer ?? GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer::class);
     }
 
-    public function addToBasketAction(): void
+    public function injectDonationRepository(\HGON\HgonDonation\Domain\Repository\DonationRepository $donationRepository): void
+    {
+        $this->donationRepository = $donationRepository;
+    }
+
+    public function injectPagesRepository(\HGON\HgonTemplate\Domain\Repository\PagesRepository $pagesRepository): void
+    {
+        $this->pagesRepository = $pagesRepository;
+    }
+
+    public function injectAuthorsRepository(\HGON\HgonTemplate\Domain\Repository\AuthorsRepository $authorsRepository): void
+    {
+        $this->authorsRepository = $authorsRepository;
+    }
+
+    public function injectBackendUserRepository(\TYPO3\CMS\Beuser\Domain\Repository\BackendUserRepository $backendUserRepository): void
+    {
+        $this->backendUserRepository = $backendUserRepository;
+    }
+
+    public function injectContentObjectRenderer(\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer $contentObjectRenderer): void
+    {
+        $this->contentObjectRenderer = $contentObjectRenderer;
+    }
+
+    public function addToBasketAction(): \Psr\Http\Message\ResponseInterface
     {
         $basket = $this->basketSessionService->getBasket();
         // ... basket anpassen ...
         // $this->basketSessionService->setBasket($basket);
+
+        return $this->htmlResponse();
     }
 
-    public function clearBasketAction(): void
+    public function clearBasketAction(): \Psr\Http\Message\ResponseInterface
     {
         $this->basketSessionService->clearBasket();
+
+        return $this->htmlResponse();
     }
 
 
@@ -161,95 +129,40 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         // initial page increase
         $page++;
 
-        // if it's a filter request for new content (filter is also set in case of "more" functionality)
-        $isFilterRequest = false;
-        if ($filter && $page <= 1) {
-            $isFilterRequest = true;
-        }
+        $isFilterRequest = $filter && $page <= 1;
 
-        // filter the filterArray ;-)
         foreach ($filter as $key => $value) {
-            $filter[$key] = filter_var($value, FILTER_SANITIZE_STRING);
+            $filter[$key] = filter_var($value, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         }
 
-        // for pagination - we set the type manually in the more-link
-        if ($itemType) {
-            $filter['type'] = intval($itemType);
-        }
-        $originalType = $filter['type'];
-        // donation time
-        if (
-            !$filter['type']
-            || $filter['type'] == 1
-        ) {
-            // set filter, if not set (to get only donation time data sets)
-            $filter['type'] = 1;
-            $donationListTotal = $this->donationRepository->findByFilter($filter, 1, PHP_INT_MAX)->count();
-            $maximumReached = ($page * $this->settings['itemsPerPage']) < intval($this->settings['maximumShownResults']) ? false : true;
-            if (
-                ($page * $this->settings['itemsPerPage']) < $donationListTotal
-                && !$maximumReached
-            ) {
-                $replacements['showMoreLinkDonationTime'] = true;
-            }
-            $replacements['donationTypeTimeList'] = $this->donationRepository->findByFilter($filter, $page, intval($this->settings['itemsPerPage']));
-            // reset type to not disturbed code below
-            $filter['type'] = $originalType;
-        }
+        $filter['type'] = 2;
 
-
-        // donation money
-        if (
-            !$filter['type']
-            || $filter['type'] == 2
-        ) {
-            // set filter, if not set (to get only donation time data sets)
-            $filter['type'] = 2;
-            $donationListTotal = $this->donationRepository->findByFilter($filter, 1, PHP_INT_MAX)->count();
-            //$donationListTotal = $this->projectsRepository->findByFilter(1, PHP_INT_MAX)->count();
-            $maximumReached = ($page * $this->settings['itemsPerPage']) < intval($this->settings['maximumShownResults']) ? false : true;
-
-            if (
-                ($page * $this->settings['itemsPerPage']) < $donationListTotal
-                && !$maximumReached
-            ) {
-                $replacements['showMoreLinkDonationMoney'] = true;
-            }
-            //$replacements['donationTypeMoneyList'] = $this->projectsRepository->findByFilter($page, intval($this->settings['itemsPerPage']));
-            $replacements['donationTypeMoneyList'] = $this->donationRepository->findByFilter($filter, $page, intval($this->settings['itemsPerPage']));
+        $donationListTotal = $this->donationRepository->findByFilter($filter, 1, PHP_INT_MAX)->count();
+        $maximumReached = ($page * $this->settings['itemsPerPage']) >= (int)$this->settings['maximumShownResults'];
+        if (($page * $this->settings['itemsPerPage']) < $donationListTotal && !$maximumReached) {
+            $replacements['showMoreLinkDonationMoney'] = true;
         }
+        $replacements['donationTypeMoneyList'] = $this->donationRepository->findByFilter($filter, $page, (int)$this->settings['itemsPerPage']);
 
         $replacements['page'] = $page;
         $replacements['settingsArray'] = $this->settings;
 
-        // deprecated
-        //$replacements['filterDateTimeArray'] = DonationHelper::createDateTimeArray();
+        $ajaxTypeNum = (int)($this->settings['ajaxTypeNum'] ?? 0);
+        $type = (int)($this->request->getQueryParams()['type'] ?? 0);
 
-        if (!\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('type') == intval($this->settings['ajaxTypeNum'])) {
-
-            // standard view (non-ajax)
-            $this->view->assignMultiple($replacements);
-
-        } else {
-
-            // get JSON helper
+        if ($type === $ajaxTypeNum) {
             /** @var \RKW\RkwBasics\Helper\Json $jsonHelper */
             $jsonHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\RKW\RkwBasics\Helper\Json::class);
 
-            // get new list
-            $kindOfRequest = $isFilterRequest ? 'replace' : 'append';
-            $containerIdAdd = $filter['type'] == 1 ? '-time' : '-money';
-            $replacements['requestType'] = $kindOfRequest;
+            $replacements['requestType'] = $isFilterRequest ? 'replace' : 'append';
             $jsonHelper->setHtml(
-                'donation-listing' . $containerIdAdd,
+                'donation-listing-money',
                 $replacements,
-                $kindOfRequest,
+                $replacements['requestType'],
                 'Ajax/Donation/More.html'
             );
-
-            // More link replace
             $jsonHelper->setHtml(
-                'donation-more-link-container' . $containerIdAdd,
+                'donation-more-link-container-money',
                 $replacements,
                 'replace',
                 'Ajax/Donation/MoreLink.html'
@@ -258,6 +171,8 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             print (string)$jsonHelper;
             exit();
         }
+
+        $this->view->assignMultiple($replacements);
 
         return $this->htmlResponse();
 
@@ -285,7 +200,7 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     //    DebuggerUtility::var_dump($this->donationRepository->findByDonationTxRkwprojectProject($donation, true)); exit;
 
         $this->view->assign('donation', $donation);
-        $this->view->assign('similarDonationList', $this->donationRepository->findByDonationTxRkwprojectProject($donation, true));
+        $this->view->assign('similarDonationList', []);
 
         return $this->htmlResponse();
     }
@@ -296,13 +211,13 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * action perform (called after submitting the form)
      *
      * @param \HGON\HgonDonation\Domain\Model\Donation $donation
-     * @return void
+     * @return \TYPO3\CMS\Extbase\Http\ForwardResponse
      */
     public function performAction(\HGON\HgonDonation\Domain\Model\Donation $donation)
     {
         // https://sitegeist.de/blog/typo3-blog/typo3-form-framework-formulare-in-eigenen-extensions-nutzen.html
 
-        $this->forward('show');
+        return new \TYPO3\CMS\Extbase\Http\ForwardResponse('show');
 
     }
 
@@ -327,19 +242,10 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * action newMoney
      * action for donation money (PayPal)
      *
-     * @param \HGON\HgonTemplate\Domain\Model\Projects $project
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function newMoneyAction(\HGON\HgonTemplate\Domain\Model\Projects $project = null)
+    public function newMoneyAction()
     {
-        // workaround - we have some parameter trouble while using ajax
-        if (!$project) {
-            $projectUid = intval(\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('project'));
-            $project = $this->projectsRepository->findByIdentifier($projectUid);
-        }
-
-        $this->view->assign('project', $project);
-
         return $this->htmlResponse();
     }
 
@@ -350,71 +256,32 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * action for donation money (PayPal)
      *
      * @param array $moneyAmount
-     * @param \HGON\HgonTemplate\Domain\Model\Projects $project
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function createMoneyAction($moneyAmount, \HGON\HgonTemplate\Domain\Model\Projects $project = null)
+    public function createMoneyAction($moneyAmount)
     {
         /** @var \HGON\HgonPayment\Domain\Model\Basket $basket */
-        $basket = $this->objectManager->get(\HGON\HgonPayment\Domain\Model\Basket::class);
+        $basket = GeneralUtility::makeInstance(\HGON\HgonPayment\Domain\Model\Basket::class);
 
         /** @var \HGON\HgonPayment\Domain\Model\Article $article */
-        $article = $this->objectManager->get(\HGON\HgonPayment\Domain\Model\Article::class);
+        $article = GeneralUtility::makeInstance(\HGON\HgonPayment\Domain\Model\Article::class);
         $article->setDescription("Mein Beitrag für den Umweltschutz!");
-        $article->setName($project ? $project->getName() : 'Allgemein');
+        $article->setName('Allgemeine Spende');
         $article->setPrice(floatval($moneyAmount['amount']));
-        $article->setSku($project ? $project->getInternalName() : 'allgemein');
+        $article->setSku('allgemein');
         $basket->addArticle($article);
-
-        $this->session->set('hgon_payment_basket', $basket);
+        $this->basketSessionService->setBasket($basket);
 
         /** @var \HGON\HgonPayment\Api\PayPalApi $payPalApi */
-        $payPalApi = $this->objectManager->get(\HGON\HgonPayment\Api\PayPalApi::class);
+        $payPalApi = GeneralUtility::makeInstance(\HGON\HgonPayment\Api\PayPalApi::class);
 
         $isPayPalPlus = true;
-        $isSepa = false;
-        // create subscription
-        if ($moneyAmount['permanent']) {
-
-            if ($moneyAmount['type'] == 'paypal') {
-                // Subscription with PayPal (PayPalPlus does not support recurring payments)
-                $result = $payPalApi->createSubscription($article);
-                $isPayPalPlus = false;
-            } elseif ($moneyAmount['type'] == 'sepa') {
-
-                // @toDo: Check data
-
-
-                // add mollie as payment option
-                /** @var \HGON\HgonPayment\Api\MollieApi $mollieApi */
-                $mollieApi = $this->objectManager->get(\HGON\HgonPayment\Api\MollieApi::class);
-                // create customer
-                $mollieCustomer = $mollieApi->createCustomer($moneyAmount['customer']);
-                // create customer mandate
-                $mollieMandate = $mollieApi->createMandate($mollieCustomer, $moneyAmount['customer']);
-
-                // if false, there is no mandate created. In most case because iban is not valid
-                if (!$mollieMandate) {
-
-                    $this->returnAjaxMessage(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_hgondonation_controller_donation.pleaseCheckData', 'hgon_donation'));
-                }
-
-                $this->cacheManager->set($mollieCustomer->id, $mollieCustomer);
-
-
-
-             //   DebuggerUtility::var_dump($mollieMandate); exit;
-                // create subscription for customer
-            //    $result = $mollieApi->createSubscription($mollieCustomer, $article);
-
-                $isSepa = true;
-                $isPayPalPlus = false;
-            //    DebuggerUtility::var_dump($moneyAmount); exit;
-                $moneyAmount['customer']['customerId'] = $mollieCustomer->id;
-                $result = $moneyAmount;
-            }
+        if (!empty($moneyAmount['permanent'])) {
+            // Subscription with PayPal (PayPalPlus does not support recurring payments)
+            $result = $payPalApi->createSubscription($article);
+            $isPayPalPlus = false;
         } else {
-            // one time payment mit PayPalPlus
+            // one time payment with PayPal Plus
             $result = $payPalApi->createPayment($basket);
         }
 
@@ -436,7 +303,6 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $replacements = array (
             'approvalUrl' => $isPayPalPlus ? $approvalUrl[1]->href : $approvalUrl[0]->href,
             'isPayPalPlus' => $isPayPalPlus,
-            'isSepa' => $isSepa,
             'requestIsInvalid' => $requestIsInvalid,
             'result' => $result
         );
@@ -465,15 +331,15 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function preparePaymentAction()
     {
-        /** @var \HGON\HgonPayment\Domain\Model\Basket $basket */
-        $basket = $this->session->get('hgon_payment_basket');
+        $qp = $this->request->getQueryParams();
+        $basket = $this->basketSessionService->getBasket();
         $basket->setPaymentData([
-            'paymentId' =>  preg_replace('/[^A-Z0-9-]/', '', \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('paymentId')),
-            'token' =>  preg_replace('/[^A-Z0-9-]/', '', \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('token')),
-            'payerId' =>  preg_replace('/[^A-Z0-9-]/', '', \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('PayerID'))
+            'paymentId' => preg_replace('/[^A-Z0-9-]/', '', (string)($qp['paymentId'] ?? '')),
+            'token'     => preg_replace('/[^A-Z0-9-]/', '', (string)($qp['token'] ?? '')),
+            'payerId'   => preg_replace('/[^A-Z0-9-]/', '', (string)($qp['PayerID'] ?? '')),
         ]);
 
-        $this->session->set('hgon_payment_basket', $basket);
+        $this->basketSessionService->setBasket($basket);
 
         $this->view->assign('basket', $basket);
 
@@ -486,120 +352,21 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * action executePaymentAction
      * action for executing donation money (PayPal)
      *
-     * @return void
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function executePaymentAction()
     {
-        $paymentId = preg_replace('/[^A-Z0-9-]/', '', \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('paymentId'));
-        $token = preg_replace('/[^A-Z0-9-]/', '', \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('token'));
-        $payerId = preg_replace('/[^A-Z0-9-]/', '', \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('PayerID'));
+        $qp = $this->request->getQueryParams();
+
+        $paymentId = preg_replace('/[^A-Z0-9-]/', '', (string)($qp['paymentId'] ?? ''));
+        $token     = preg_replace('/[^A-Z0-9-]/', '', (string)($qp['token'] ?? ''));
+        $payerId   = preg_replace('/[^A-Z0-9-]/', '', (string)($qp['PayerID'] ?? ''));
 
         /** @var \HGON\HgonPayment\Api\PayPalApi $payPalApi */
-        $payPalApi = $this->objectManager->get(\HGON\HgonPayment\Api\PayPalApi::class);
+        $payPalApi = GeneralUtility::makeInstance(\HGON\HgonPayment\Api\PayPalApi::class);
         $result = $payPalApi->executePayment($paymentId, $token, $payerId);
-    }
 
-
-
-    /**
-     * action executeSepa
-     *
-     * @param array $customer
-     * @return void
-     */
-    public function executeSepaAction($customer)
-    {
-        /** @var \HGON\HgonPayment\Domain\Model\Basket $basket */
-        $basket = $this->session->get('hgon_payment_basket');
-        foreach ($basket->getArticle() as $articleSingle) {
-            $article = $articleSingle;
-            break;
-        }
-
-        $isPayed = false;
-
-        /** @var \HGON\HgonPayment\Api\MollieApi $mollieApi */
-        $mollieApi = $this->objectManager->get(\HGON\HgonPayment\Api\MollieApi::class);
-        if ($this->cacheManager->has($customer['customerId'])) {
-            $customer = $this->cacheManager->get($customer['customerId']);
-            $result = $mollieApi->createSubscription($customer, $article);
-
-            if ($result instanceof \Mollie\Api\Resources\Subscription) {
-                if ($result->status == "active") {
-                    $isPayed = true;
-
-                    // @todo: throws currently errors on stage
-                    //if (false) {
-                    // @toDo: Send a mail to customer
-                    /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
-                    $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class);
-
-                    /** \RKW\RkwRegistration\Domain\Model\FrontendUser $frontendUser */
-                    //$frontendUser = $objectManager->get(\RKW\RkwRegistration\Domain\Model\FrontendUser::class);
-/*
-                    $frontendUser->setEmail($customer->email);
-                    // We do not have first and lastname separately
-                    $frontendUser->setLastName($customer->name);
-                    $frontendUser->setTxRkwregistrationLanguageKey('de');
-
-                    /** @var \HGON\HgonPayment\Helper\DataConverter $dataConverter */
-                    $dataConverter = $objectManager->get(\HGON\HgonPayment\Helper\DataConverter::class);
-                    $subscriptionData = $dataConverter->subscriptionMollie($result, $customer);
-
-                    /** @var \HGON\HgonDonation\Service\RkwMailService $rkwMailService */
-                    $rkwMailService = $objectManager->get(\HGON\HgonDonation\Service\RkwMailService::class);
- //                   $rkwMailService->confirmMollieUser($frontendUser, $subscriptionData);
-
-                    if (intval($this->settings['rkwAuthorContactPerson'])) {
-                        $author = $this->authorsRepository->findByIdentifier(intval($this->settings['rkwAuthorContactPerson']));
-                        if ($author instanceof \RKW\HgonTemplate\Domain\Model\Authors) {
-
-                            /** @var \RKW\RkwRegistration\Domain\Model\BackendUser $backendUser */
-                            $backendUser = $objectManager->get(\RKW\RkwRegistration\Domain\Model\BackendUser::class);
-                            $backendUser->setEmail($author->getEmail());
-                            $backendUser->setRealName($author->getFirstName() . ' ' . $author->getLastName());
-                            $backendUser->setLang('de');
-
-                            $rkwMailService->confirmMollieAdmin($backendUser, $subscriptionData, $frontendUser);
-                        }
-                    }
-
-                    if (intval($this->settings['backendUserContactPerson'])) {
-                        $backendUser = $this->backendUserRepository->findByIdentifier(intval($this->settings['backendUserContactPerson']));
-                        if ($backendUser instanceof \RKW\RkwRegistration\Domain\Model\BackendUser) {
-
-                            $rkwMailService->confirmMollieAdmin($backendUser, $subscriptionData, $frontendUser);
-                        }
-                    }
-
-
-                    // remove Session data
-                    $this->session->remove('hgon_payment_basket');
-                    //}
-
-                }
-            }
-        } else {
-            // @toDo: error log?
-        }
-
-        // get JSON helper
-        /** @var \RKW\RkwBasics\Helper\Json $jsonHelper */
-        $jsonHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\RKW\RkwBasics\Helper\Json::class);
-        // get new list
-        $replacements = array (
-            'isPayed' => $isPayed
-        );
-
-        $jsonHelper->setHtml(
-            'payment-container',
-            $replacements,
-            'replace',
-            'Ajax/Donation/SepaThankYou.html'
-        );
-
-        print (string) $jsonHelper;
-        exit();
+        return $this->htmlResponse();
     }
 
 
@@ -616,7 +383,8 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         // @toDo: txRkwprojectsProjectUid does not longer exists
 
         // special case: If this page has a project: Show specific project bank account
-        $pages = $this->pagesRepository->findByIdentifier(intval($GLOBALS['TSFE']->id));
+        $pageId = (int)($this->request->getAttribute('frontend.page.information')?->getId() ?? 0);
+        $pages = $this->pagesRepository->findByIdentifier($pageId);
         //if ($pages->getTxRkwprojectsProjectUid()) {
             // get HGON project type for correct getter and setter
 
@@ -634,36 +402,12 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * action create
 	 *
 	 * @param array $formFields
-	 * @return void
+	 * @return \Psr\Http\Message\ResponseInterface
 	 */
 	public function createAction($formFields)
 	{
-
-	}
-
-
-
-    /**
-     * action donationProject
-     *
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function donationProjectAction()
-    {
-        /** @var \HGON\HgonTemplate\Domain\Model\Pages $pages */
-        $pages = $this->pagesRepository->findByIdentifier(intval($GLOBALS['TSFE']->id));
-
-        /*
-        if ($pages->getTxRkwprojectsProjectUid()) {
-            $donationList = $this->donationRepository->findByTxRkwprojectProject($pages->getTxRkwprojectsProjectUid());
-            $this->view->assign('donationList', $donationList);
-        }
-        */
-
         return $this->htmlResponse();
-    }
-
-
+	}
 
     /**
      * action header
@@ -674,7 +418,8 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     public function headerAction()
     {
 
-        $getParams = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('tx_hgondonation_detail');
+        $getParams = $this->request->getQueryParams()['tx_hgondonation_detail']
+            ?? ($this->request->getParsedBody()['tx_hgondonation_detail'] ?? null);
 
         if ($getParams) {
             if (key_exists('donation', $getParams)) {
@@ -703,7 +448,8 @@ class DonationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     public function sidebarAction()
     {
 
-        $getParams = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('tx_hgondonation_detail');
+        $getParams = $this->request->getQueryParams()['tx_hgondonation_detail']
+            ?? ($this->request->getParsedBody()['tx_hgondonation_detail'] ?? null);
 
         if ($getParams) {
             if (key_exists('donation', $getParams)) {

@@ -11,24 +11,26 @@ call_user_func(
             $extKey,
             'Listing',
             [
-                \HGON\HgonDonation\Controller\DonationController::class => 'list, newMoney, createMoney, executeSepa'
+                \HGON\HgonDonation\Controller\DonationController::class => 'list, newMoney, createMoney'
             ],
             // non-cacheable actions
             [
-                \HGON\HgonDonation\Controller\DonationController::class => 'list, newMoney, createMoney, executeSepa'
-            ]
+                \HGON\HgonDonation\Controller\DonationController::class => 'list, newMoney, createMoney'
+            ],
+            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
             $extKey,
             'Detail',
             [
-                \HGON\HgonDonation\Controller\DonationController::class => 'show, new, create, perform'
+                \HGON\HgonDonation\Controller\DonationController::class => 'show'
             ],
             // non-cacheable actions
             [
-                \HGON\HgonDonation\Controller\DonationController::class => 'show, new, create, perform'
-            ]
+                \HGON\HgonDonation\Controller\DonationController::class => 'show'
+            ],
+            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
@@ -40,19 +42,8 @@ call_user_func(
             // non-cacheable actions
             [
                 \HGON\HgonDonation\Controller\DonationController::class => ''
-            ]
-        );
-
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            $extKey,
-            'DonationProject',
-            [
-                \HGON\HgonDonation\Controller\DonationController::class => 'donationProject'
             ],
-            // non-cacheable actions
-            [
-                \HGON\HgonDonation\Controller\DonationController::class => 'donationProject'
-            ]
+            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
@@ -64,7 +55,8 @@ call_user_func(
             // non-cacheable actions
             [
                 \HGON\HgonDonation\Controller\DonationController::class => 'header'
-            ]
+            ],
+            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
@@ -76,43 +68,8 @@ call_user_func(
             // non-cacheable actions
             [
                 \HGON\HgonDonation\Controller\DonationController::class => 'sidebar'
-            ]
-        );
-
-		\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-			$extKey,
-			'Donate',
-			[
-                \HGON\HgonDonation\Controller\StandardController::class => 'listDonationTime, newDonationTime, createDonationTime'
-			],
-			// non-cacheable actions
-			[
-                \HGON\HgonDonation\Controller\StandardController::class => 'listDonationTime, newDonationTime, createDonationTime'
-			]
-		);
-
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            $extKey,
-            'SupportOptions',
-            [
-                \HGON\HgonDonation\Controller\StandardController::class => 'supportOptions'
             ],
-            // non-cacheable actions
-            [
-                \HGON\HgonDonation\Controller\StandardController::class => 'supportOptions'
-            ]
-        );
-
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            $extKey,
-            'SupportOptionsLight',
-            [
-                \HGON\HgonDonation\Controller\StandardController::class => 'supportOptionsLight'
-            ],
-            // non-cacheable actions
-            [
-                \HGON\HgonDonation\Controller\StandardController::class => 'supportOptionsLight'
-            ]
+            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
 
         /*
@@ -125,14 +82,15 @@ call_user_func(
             // non-cacheable actions
             [
                 'Form' => 'becomeMember'
-            ]
+            ],
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
         */
 
 
 
         // Hook for Geodata and reservation cleanup on copy
-        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = \HGON\HgonDonation\Hooks\TceMainHooks::class;
+        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][\TYPO3\CMS\Core\DataHandling\DataHandler::class]['processDatamapClass'][] = \HGON\HgonDonation\Hooks\TceMainHooks::class;
 
         // caching
         $cacheConfigurations =& $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'];

@@ -40,8 +40,10 @@ plugin.tx_hgondonation {
 		partialRootPaths.0 = EXT:hgon_donation/Resources/Private/Partials/
 		partialRootPaths.1 = {$plugin.tx_hgondonation.view.partialRootPath}
         partialRootPaths.2 = EXT:hgon_payment/Resources/Private/Partials/
+        partialRootPaths.1727540190 = EXT:hgon_template/Resources/Private/Extension/HgonTemplate/Partials/
 		layoutRootPaths.0 = EXT:hgon_donation/Resources/Private/Layouts/
 		layoutRootPaths.1 = {$plugin.tx_hgondonation.view.layoutRootPath}
+        layoutRootPaths.1727540190 = EXT:hgon_template/Resources/Private/Extension/HgonTemplate/Layouts/
 	}
 	persistence {
 		storagePid = {$plugin.tx_hgondonation.persistence.storagePid}
@@ -56,14 +58,12 @@ plugin.tx_hgondonation {
     settings {
         ajaxTypeNum = {$plugin.tx_hgondonation.settings.ajaxTypeNum}
         ajaxTypeNumDonationMoney = {$plugin.tx_hgondonation.settings.ajaxTypeNumDonationMoney}
-        ajaxTypeNumDonationTime = {$plugin.tx_hgondonation.settings.ajaxTypeNumDonationTime}
         typeNumBecomeMember = {$plugin.tx_hgondonation.settings.typeNumBecomeMember}
         typeNumClearPage = {$plugin.tx_hgondonation.settings.typeNumClearPage}
         typeNumPageWithCss = {$plugin.tx_hgondonation.settings.typeNumPageWithCss}
         listPid = {$plugin.tx_hgondonation.settings.listPid}
         showPid = {$plugin.tx_hgondonation.settings.showPid}
         donationFormPid = {$plugin.tx_hgondonation.settings.donationFormPid}
-        donationTimeFormPid = {$plugin.tx_hgondonation.settings.donationTimeFormPid}
         becomeMemberFormPid = {$plugin.tx_hgondonation.settings.becomeMemberFormPid}
         itemsPerPage = {$plugin.tx_hgondonation.settings.itemsPerPage}
         maximumShownResults = {$plugin.tx_hgondonation.settings.maximumShownResults}
@@ -79,56 +79,19 @@ plugin.tx_hgondonation {
 
 
 plugin.tx_hgondonation_listing < plugin.tx_hgondonation
-plugin.tx_hgondonation_donate < plugin.tx_hgondonation
+
+# Legacy list_type fallback (pre-migration)
+tt_content.list.20 {
+    hgondonation_listing < tt_content.hgondonation_listing
+    hgondonation_detail < tt_content.hgondonation_detail
+    hgondonation_bankaccountsidebar < tt_content.hgondonation_bankaccountsidebar
+    hgondonation_donationproject < tt_content.hgondonation_donationproject
+    hgondonation_header < tt_content.hgondonation_header
+    hgondonation_sidebar < tt_content.hgondonation_sidebar
+}
 
 
 page.includeJSFooter.txHgonDonation = EXT:hgon_donation/Resources/Public/Scripts/hgondonation.js
-
-
-#===============================================================
-# Ajax
-#===============================================================
-txHgondonationAjax = PAGE
-txHgondonationAjax {
-
-    typeNum = {$plugin.tx_hgondonation.settings.ajaxTypeNum}
-
-    config {
-        disableAllHeaderCode = 1
-        xhtml_cleaning = 0
-        admPanel = 0
-        additionalHeaders = Content-type: text/plain
-        no_cache = 0
-    }
-
-    10 = USER_INT
-    10 {
-        userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
-        extensionName = HgonDonation
-        pluginName = Listing
-        vendorName = HGON
-        switchableControllerActions {
-
-            # Again: Controller-Name and Action
-            Donation {
-                10 = list
-            }
-
-            /*
-            Standard {
-                10 = newDonationTime
-                20 = listDonationTime
-                30 = createDonationTime
-            }
-            */
-        }
-
-        view < plugin.tx_hgondonation.view
-        persistence < plugin.tx_hgondonation.persistence
-        settings < plugin.tx_hgondonation.settings
-    }
-}
-
 
 
 txHgondonationDonateMoney = PAGE
@@ -145,76 +108,24 @@ txHgondonationDonateMoney {
         no_cache = 1
     }
 
-    10 = USER_INT
+    10 = COA_INT
     10 {
-        userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
-        extensionName = HgonDonation
-        pluginName = Listing
-        vendorName = HGON
-        switchableControllerActions {
-            # Again: Controller-Name and Action
-            Donation {
-                10 = newMoney
-                20 = createMoney
-                30 = executeSepa
+        10 = EXTBASEPLUGIN
+        10 {
+            extensionName = HgonDonation
+            pluginName = Listing
+            vendorName = HGON
+            switchableControllerActions {
+                # Again: Controller-Name and Action
+                Donation {
+                    10 = newMoney
+                    20 = createMoney
+                }
             }
-        }
 
-        view < plugin.tx_hgondonation.view
-        persistence < plugin.tx_hgondonation.persistence
-        settings < plugin.tx_hgondonation.settings
-    }
-}
-
-/*
-txHgondonationBecomeMember = PAGE
-txHgondonationBecomeMember {
-
-    typeNum = {$plugin.tx_hgondonation.settings.typeNumBecomeMember}
-    config {
-        disableAllHeaderCode = 1
-        xhtml_cleaning = 0
-        admPanel = 0
-        additionalHeaders = Content-type: text/html
-        no_cache = 1
-    }
-
-    10 = CONTENT
-    10 {
-        table = tt_content
-        select {
-            pidInList = 78
-            uidInList = 192
+            view < plugin.tx_hgondonation.view
+            persistence < plugin.tx_hgondonation.persistence
+            settings < plugin.tx_hgondonation.settings
         }
     }
 }
-
-
-txHgondonationDonationTime = PAGE
-txHgondonationDonationTime {
-
-    includeCSS.file10 = typo3conf/ext/hgon_template/Resources/Public/Styles/styles.css
-
-    typeNum = {$plugin.tx_hgondonation.settings.ajaxTypeNumDonationTime}
-    config {
-        disableAllHeaderCode = 1
-        xhtml_cleaning = 0
-        admPanel = 0
-        additionalHeaders = Content-type: text/html
-        no_cache = 1
-    }
-
-    10 = CONTENT
-    10 {
-        table = tt_content
-        select {
-            #pidInList = 272
-            #uidInList = 539
-            pidInList = 100
-            uidInList = 222
-        }
-
-    }
-}
-
-*/

@@ -12,6 +12,7 @@ namespace HGON\HgonDonation\Domain\Repository;
  *
  ***/
 
+use HGON\HgonDonation\Domain\Model\Donation;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
@@ -70,33 +71,6 @@ class DonationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
         return $query->execute();
     }
-
-
-
-    /**
-     * Find by DonationTxRkwprojectProject
-     *
-     * @param \HGON\HgonDonation\Domain\Model\Donation $donation
-     * @param boolean $excludeGiven
-     * @return array
-     */
-    public function findByDonationTxRkwprojectProject($donation, $excludeGiven = false)
-    {
-        $query = $this->createQuery();
-
-        $constraints[] = $query->equals('txRkwprojectProject', $donation->getTxRkwprojectProject());
-
-        if ($excludeGiven) {
-            $constraints[] = $query->logicalNot($query->equals('uid', $donation));
-        }
-
-        $query->matching($query->logicalAnd($constraints));
-
-        return $query->execute();
-        //===
-    }
-
-
 
     /**
      * find last created for newsletter

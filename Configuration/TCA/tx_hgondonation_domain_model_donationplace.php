@@ -3,9 +3,9 @@ return [
 	'ctrl' => [
 		'title'	=> 'LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_donationplace',
 		'label' => 'title',
+        'rootLevel' => 0,
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
-		'cruser_id' => 'cruser_id',
 		'versioningWS' => true,
 		'languageField' => 'sys_language_uid',
 		'transOrigPointerField' => 'l10n_parent',
@@ -23,32 +23,25 @@ return [
 		'1' => ['showitem' => 'sys_language_uid, l10n_diffsource, hidden, title, description, address, zip, city, longitude, latitude, country, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
 	],
 	'columns' => [
-		'sys_language_uid' => [
-			'exclude' => true,
-			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.language',
-			'config' => [
-				'type' => 'select',
-				'renderType' => 'selectSingle',
-				'special' => 'languages',
-				'items' => [
-					[
-						'LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages',
-						-1,
-						'flags-multiple'
-					]
-				],
-				'default' => 0,
-			],
-		],
+        'sys_language_uid' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
+            'config' => [
+                'type' => 'language',
+            ],
+        ],
 		'l10n_parent' => [
 			'displayCond' => 'FIELD:sys_language_uid:>:0',
 			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.l18n_parent',
 			'config' => [
 				'type' => 'select',
 				'renderType' => 'selectSingle',
-				'items' => [
-					['', 0],
-				],
+                'items' => [
+                    [
+                        'label' => '',
+                        'value' => 0,
+                    ],
+                ],
 				'foreign_table' => 'tx_hgondonation_domain_model_donationplace',
 				'foreign_table_where' => 'AND tx_hgondonation_domain_model_donationplace.pid=###CURRENT_PID### AND tx_hgondonation_domain_model_donationplace.sys_language_uid IN (-1,0)',
 			],
@@ -71,41 +64,36 @@ return [
 			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
 			'config' => [
 				'type' => 'check',
-				'items' => [
-					'1' => [
-						'0' => 'LLL:EXT:lang/locallang_core.xlf:labels.enabled'
-					]
-				],
+                'items' => [
+                    [
+                        'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled',
+                        'value' => 1,
+                    ],
+                ],
 			],
 		],
-		'starttime' => [
-			'exclude' => true,
-			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.starttime',
+        'starttime' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
-                'size' => 13,
-                'eval' => 'datetime',
+                'type' => 'datetime',
                 'default' => 0,
                 'behaviour' => [
                     'allowLanguageSynchronization' => true,
                 ],
             ],
-		],
-		'endtime' => [
-			'exclude' => true,
-			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.endtime',
+        ],
+        'endtime' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
-                'size' => 13,
-                'eval' => 'datetime',
+                'type' => 'datetime',
                 'default' => 0,
                 'behaviour' => [
                     'allowLanguageSynchronization' => true,
                 ],
             ],
-		],
+        ],
 		'title' => [
 			'exclude' => true,
 			'label' => 'LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_donationplace.title',
@@ -138,9 +126,8 @@ return [
 			'exclude' => true,
 			'label' => 'LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_donationplace.zip',
 			'config' => [
-				'type' => 'input',
+				'type' => 'number',
 				'size' => 4,
-				'eval' => 'int'
 			]
 		],
 		'city' => [
@@ -156,7 +143,7 @@ return [
 			'exclude' => true,
 			'label' => 'LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_donationplace.longitude',
 			'config' => [
-				'type' => 'input',
+				'type' => 'number',
 				'size' => 30,
 				'eval' => 'double2',
                 'readOnly' => true
@@ -166,7 +153,7 @@ return [
 			'exclude' => true,
 			'label' => 'LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_donationplace.latitude',
 			'config' => [
-				'type' => 'input',
+				'type' => 'number',
 				'size' => 30,
 				'eval' => 'double2',
                 'readOnly' => true

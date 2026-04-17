@@ -1,5 +1,7 @@
 <?php
 namespace HGON\HgonDonation\Domain\Model;
+
+use TYPO3\CMS\Extbase\Annotation\ORM\Cascade;
 /***
  *
  * This file is part of the "HGON Donation" Extension for TYPO3 CMS.
@@ -62,8 +64,8 @@ class DonationTypeTime extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 * image
 	 *
 	 * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
-	 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
 	 */
+	#[Cascade(['value' => 'remove'])]
 	protected $image = null;
 
 	/**
@@ -91,8 +93,8 @@ class DonationTypeTime extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 * helpersImage
 	 *
 	 * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
-	 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
 	 */
+	#[Cascade(['value' => 'remove'])]
 	protected $helpersImage = null;
 
 	/**

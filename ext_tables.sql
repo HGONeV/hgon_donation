@@ -18,7 +18,6 @@ CREATE TABLE tx_hgondonation_domain_model_donation (
 	pages int(11) unsigned DEFAULT '0',
 	time_range_start int(11) DEFAULT '0' NOT NULL,
 	time_range_end int(11) DEFAULT '0' NOT NULL,
-	tx_rkwproject_project int(11) unsigned DEFAULT '0',
 	time_requirement varchar(255) DEFAULT '' NOT NULL,
 	donation_place varchar(255) DEFAULT '' NOT NULL,
 
@@ -202,4 +201,3 @@ CREATE TABLE tx_hgondonation_domain_model_donationplace (
 	KEY language (l10n_parent,sys_language_uid)
 
 );
-

@@ -6,4 +6,3 @@ services:
 
   HGON\HgonDonation\:
     resource: '../Classes/*'
-

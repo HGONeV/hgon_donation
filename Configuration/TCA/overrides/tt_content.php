@@ -7,7 +7,7 @@ call_user_func(
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
             $extKey,
             'Listing',
-            'HGON Donation: Liste (Zeit & Geldspenden)'
+            'HGON Donation: Liste (Geldspenden)'
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
@@ -24,18 +24,6 @@ call_user_func(
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
             $extKey,
-            'SupportOptions',
-            'HGON Donation: Zeige Spenden-Optionen'
-        );
-
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            $extKey,
-            'SupportOptionsLight',
-            'HGON Donation: Zeige Spenden-Optionen (Mitglied & Geld)'
-        );
-
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            $extKey,
             'Header',
             'HGON Donation: Header'
         );
@@ -47,37 +35,33 @@ call_user_func(
         );
 
         //=================================================================
-        // Add Flexform
+        // Add Flexform (CType)
         //=================================================================
         $extensionName = strtolower(\TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($extKey));
-
-        $pluginName = strtolower('SupportOptions');
-        $pluginSignature = $extensionName.'_'.$pluginName;
-        $TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
-        $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:'.$extKey . '/Configuration/FlexForms/SupportOptions.xml');
-
-        $pluginName = strtolower('SupportOptionsLight');
-        $pluginSignature = $extensionName.'_'.$pluginName;
-        $TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
-        $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:'.$extKey . '/Configuration/FlexForms/SupportOptionsLight.xml');
+        $addFlexForm = static function (string $pluginSignature, string $flexFormFile): void {
+            \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
+                $pluginSignature,
+                $flexFormFile,
+                $pluginSignature
+            );
+            \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+                'tt_content',
+                'pi_flexform',
+                $pluginSignature,
+                'after:header'
+            );
+        };
 
         $pluginName = strtolower('BankAccountSidebar');
         $pluginSignature = $extensionName.'_'.$pluginName;
-        $TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
-        $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:'.$extKey . '/Configuration/FlexForms/BankAccountSidebar.xml');
+        $addFlexForm($pluginSignature, 'FILE:EXT:'.$extKey . '/Configuration/FlexForms/BankAccountSidebar.xml');
 
         $pluginName = strtolower('Listing');
         $pluginSignature = $extensionName.'_'.$pluginName;
-        $TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
-        $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:'.$extKey . '/Configuration/FlexForms/Listing.xml');
+        $addFlexForm($pluginSignature, 'FILE:EXT:'.$extKey . '/Configuration/FlexForms/Listing.xml');
 
 
 
     },
     'hgon_donation'
 );
-
