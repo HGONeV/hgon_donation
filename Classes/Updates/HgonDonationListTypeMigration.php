@@ -92,13 +92,7 @@ final class HgonDonationListTypeMigration implements UpgradeWizardInterface
         $extensionName = str_replace(' ', '', ucwords(str_replace('_', ' ', self::EXT_KEY)));
         $pluginNames = [
             'Listing',
-            'Detail',
             'BankAccountSidebar',
-            'Header',
-            'Sidebar',
-            'Donate',
-            'SupportOptions',
-            'SupportOptionsLight',
         ];
 
         return array_map(

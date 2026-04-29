@@ -7,31 +7,13 @@ call_user_func(
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
             $extKey,
             'Listing',
-            'HGON Donation: Liste (Geldspenden)'
-        );
-
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            $extKey,
-            'Detail',
-            'HGON Donation: Detailansicht'
+            'HGON Donation: Allgemeine Geldspende'
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
             $extKey,
             'BankAccountSidebar',
-            'HGON Donation: Bankdaten (Sidebar)'
-        );
-
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            $extKey,
-            'Header',
-            'HGON Donation: Header'
-        );
-
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            $extKey,
-            'Sidebar',
-            'HGON Donation: Sidebar'
+            'HGON Donation: Bankdaten'
         );
 
         //=================================================================
@@ -52,15 +34,10 @@ call_user_func(
             );
         };
 
-        $pluginName = strtolower('BankAccountSidebar');
-        $pluginSignature = $extensionName.'_'.$pluginName;
-        $addFlexForm($pluginSignature, 'FILE:EXT:'.$extKey . '/Configuration/FlexForms/BankAccountSidebar.xml');
-
-        $pluginName = strtolower('Listing');
-        $pluginSignature = $extensionName.'_'.$pluginName;
-        $addFlexForm($pluginSignature, 'FILE:EXT:'.$extKey . '/Configuration/FlexForms/Listing.xml');
-
-
+        $addFlexForm(
+            $extensionName . '_bankaccountsidebar',
+            'FILE:EXT:hgon_donation/Configuration/FlexForms/BankAccountSidebar.xml'
+        );
 
     },
     'hgon_donation'

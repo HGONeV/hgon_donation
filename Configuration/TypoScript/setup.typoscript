@@ -1,38 +1,3 @@
-/*
-config.tx_extbase{
-    persistence{
-        classes{
-            HGON\HgonDonation\Domain\Model\Pages {
-                mapping {
-                    tableName = pages
-
-                    # on pages tables it's the doktype
-                    # if we set an value, we filter by it
-                    # if we do not set anything, all pages are found
-                    recordType =
-
-                    # mapping to properties of class
-                    columns {
-                        uid.mapOnProperty = uid
-                        pid.mapOnProperty = pid
-                        sorting.mapOnProperty = sorting
-                        title.mapOnProperty = title
-                        subtitle.mapOnProperty = subtitle
-                        no_search.mapOnProperty = noSearch
-                        crdate.mapOnProperty = crdate
-                        tstamp.mapOnProperty = tstamp
-                        hidden.mapOnProperty = hidden
-                        deleted.mapOnProperty = deleted
-                        lastUpdated.mapOnProperty = lastUpdated
-                        //tx_rkwprojects_project_uid.mapOnProperty = txRkwprojectsProject
-                    }
-                }
-            }
-        }
-    }
-}
-*/
-
 plugin.tx_hgondonation {
 	view {
 		templateRootPaths.0 = EXT:hgon_donation/Resources/Private/Templates/
@@ -56,19 +21,11 @@ plugin.tx_hgondonation {
 		#callDefaultActionIfActionCantBeResolved = 1
 	}
     settings {
-        ajaxTypeNum = {$plugin.tx_hgondonation.settings.ajaxTypeNum}
-        ajaxTypeNumDonationMoney = {$plugin.tx_hgondonation.settings.ajaxTypeNumDonationMoney}
         typeNumBecomeMember = {$plugin.tx_hgondonation.settings.typeNumBecomeMember}
         typeNumClearPage = {$plugin.tx_hgondonation.settings.typeNumClearPage}
         typeNumPageWithCss = {$plugin.tx_hgondonation.settings.typeNumPageWithCss}
-        listPid = {$plugin.tx_hgondonation.settings.listPid}
-        showPid = {$plugin.tx_hgondonation.settings.showPid}
         donationFormPid = {$plugin.tx_hgondonation.settings.donationFormPid}
         becomeMemberFormPid = {$plugin.tx_hgondonation.settings.becomeMemberFormPid}
-        itemsPerPage = {$plugin.tx_hgondonation.settings.itemsPerPage}
-        maximumShownResults = {$plugin.tx_hgondonation.settings.maximumShownResults}
-        rkwAuthorContactPerson = {$plugin.tx_hgondonation.settings.rkwAuthorContactPerson}
-        backendUserContactPerson = {$plugin.tx_hgondonation.settings.backendUserContactPerson}
         bankAccount {
             iban = {$plugin.tx_hgondonation.settings.bankAccount.iban}
             bic = {$plugin.tx_hgondonation.settings.bankAccount.bic}
@@ -80,24 +37,11 @@ plugin.tx_hgondonation {
 
 plugin.tx_hgondonation_listing < plugin.tx_hgondonation
 
-# Legacy list_type fallback (pre-migration)
-tt_content.list.20 {
-    hgondonation_listing < tt_content.hgondonation_listing
-    hgondonation_detail < tt_content.hgondonation_detail
-    hgondonation_bankaccountsidebar < tt_content.hgondonation_bankaccountsidebar
-    hgondonation_donationproject < tt_content.hgondonation_donationproject
-    hgondonation_header < tt_content.hgondonation_header
-    hgondonation_sidebar < tt_content.hgondonation_sidebar
-}
-
-
 page.includeJSFooter.txHgonDonation = EXT:hgon_donation/Resources/Public/Scripts/hgondonation.js
 
 
 txHgondonationDonateMoney = PAGE
 txHgondonationDonateMoney {
-
-    #includeJSFooterlibs.file35 = https://www.paypalobjects.com/webstatic/ppplus/ppplus.min.js
 
     typeNum = {$plugin.tx_hgondonation.settings.typeNumClearPage}
     config {
@@ -116,7 +60,6 @@ txHgondonationDonateMoney {
             pluginName = Listing
             vendorName = HGON
             switchableControllerActions {
-                # Again: Controller-Name and Action
                 Donation {
                     10 = newMoney
                     20 = createMoney

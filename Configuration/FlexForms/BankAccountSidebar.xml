@@ -12,8 +12,7 @@
                             <label>LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:flexform.bankAccountSidebar.bank.institute</label>
                             <config>
                                 <type>input</type>
-                                <size>20</size>
-                                <max>50</max>
+                                <size>30</size>
                                 <eval>trim</eval>
                             </config>
                         </TCEforms>
@@ -23,8 +22,7 @@
                             <label>LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:flexform.bankAccountSidebar.bank.iban</label>
                             <config>
                                 <type>input</type>
-                                <size>20</size>
-                                <max>50</max>
+                                <size>30</size>
                                 <eval>trim</eval>
                             </config>
                         </TCEforms>
@@ -34,8 +32,7 @@
                             <label>LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:flexform.bankAccountSidebar.bank.bic</label>
                             <config>
                                 <type>input</type>
-                                <size>20</size>
-                                <max>50</max>
+                                <size>30</size>
                                 <eval>trim</eval>
                             </config>
                         </TCEforms>
@@ -43,6 +40,5 @@
                 </el>
             </ROOT>
         </sDEF>
-
     </sheets>
 </T3DataStructure>

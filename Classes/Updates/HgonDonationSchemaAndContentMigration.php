@@ -28,7 +28,7 @@ final class HgonDonationSchemaAndContentMigration implements UpgradeWizardInterf
 
     public function getDescription(): string
     {
-        return 'Aktualisiert das Extension-Schema aus ext_tables.sql und migriert tt_content von list_type auf CType.';
+        return 'Aktualisiert das Extension-Schema aus ext_tables.sql und migriert die verbliebenen Donation-Plugins von list_type auf CType.';
     }
 
     public function executeUpdate(): bool
@@ -76,8 +76,13 @@ final class HgonDonationSchemaAndContentMigration implements UpgradeWizardInterf
             return [];
         }
 
+        $sql = (string)file_get_contents($sqlFile);
+        if (trim($sql) === '') {
+            return [];
+        }
+
         $sqlReader = GeneralUtility::makeInstance(SqlReader::class);
-        return $sqlReader->getCreateTableStatementArray((string)file_get_contents($sqlFile));
+        return $sqlReader->getCreateTableStatementArray($sql);
     }
 
     private function migrateListTypeToCType(): void
@@ -131,13 +136,7 @@ final class HgonDonationSchemaAndContentMigration implements UpgradeWizardInterf
         $extensionName = str_replace(' ', '', ucwords(str_replace('_', ' ', self::EXT_KEY)));
         $pluginNames = [
             'Listing',
-            'Detail',
             'BankAccountSidebar',
-            'Header',
-            'Sidebar',
-            'Donate',
-            'SupportOptions',
-            'SupportOptionsLight',
         ];
 
         return array_map(

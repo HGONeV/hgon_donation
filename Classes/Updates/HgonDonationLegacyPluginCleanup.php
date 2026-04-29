@@ -19,12 +19,12 @@ final class HgonDonationLegacyPluginCleanup implements UpgradeWizardInterface, R
 
     public function getTitle(): string
     {
-        return 'HGON Donation: alte Zeitspenden-/Support-Plugins loeschen';
+        return 'HGON Donation: Zeit-, Projekt- und Detail-Plugins loeschen';
     }
 
     public function getDescription(): string
     {
-        return 'Entfernt veraltete Donation-Inhaltselemente fuer Zeitspenden und Support-Optionen aus tt_content.';
+        return 'Entfernt veraltete Donation-Inhaltselemente fuer Zeitspenden, Projektspenden, Detailansichten und Template-Helfer aus tt_content.';
     }
 
     public function executeUpdate(): bool
@@ -94,6 +94,9 @@ final class HgonDonationLegacyPluginCleanup implements UpgradeWizardInterface, R
     {
         $extensionName = str_replace(' ', '', ucwords(str_replace('_', ' ', self::EXT_KEY)));
         $pluginNames = [
+            'Detail',
+            'Header',
+            'Sidebar',
             'Donate',
             'SupportOptions',
             'SupportOptionsLight',

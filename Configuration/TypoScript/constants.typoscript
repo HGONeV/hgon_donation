@@ -11,12 +11,8 @@ plugin.tx_hgondonation {
 	persistence {
 		# cat=plugin.tx_hgondonation//a; type=string; label=Default storage PID
 		storagePid =
-	}
+    }
     settings {
-        # cat=plugin.tx_hgondonation//a; type=int; label=Ajax TypeNum
-        ajaxTypeNum = 1560941246
-        # cat=plugin.tx_hgondonation//a; type=int; label=Ajax TypeNum donation money
-        ajaxTypeNumDonationMoney = 1570023206
         # cat=plugin.tx_hgondonation//a; type=int; label=TypeNum for page with content and css (see hgon_template)
         # The number 1590761711 is copied from hgon_template. Do not change!
         typeNumPageWithCss = 1590761711
@@ -24,22 +20,10 @@ plugin.tx_hgondonation {
         typeNumClearPage = 1568798050
         # cat=plugin.tx_hgondonation//a; type=int; label=TypeNum become member
         typeNumBecomeMember = 1585916609
-        # cat=plugin.tx_hgondonation//a; type=int; label=PID of list page
-        listPid =
-        # cat=plugin.tx_hgondonation//a; type=int; label=PID of detail page
-        showPid =
         # cat=plugin.tx_hgondonation//a; type=int; label=PID of donation plugin (shows content for lightbox)
         donationFormPid =
         # cat=plugin.tx_hgondonation//a; type=int; label=PID of become member form (shows content for lightbox)
         becomeMemberFormPid =
-        # cat=plugin.tx_hgondonation//a; type=int; label=items per page
-        itemsPerPage = 5
-        # cat=plugin.tx_hgondonation//a; type=int; label=maximum shown results
-        maximumShownResults = 9999
-        # cat=plugin.tx_hgondonation//a; type=int; label=the RkwAuthor which is contact person in email etc
-        rkwAuthorContactPerson =
-        # cat=plugin.tx_hgondonation//a; type=int; label=the backendUser which is contact person in email etc
-        backendUserContactPerson =
         bankAccount {
             # cat=plugin.tx_hgondonation//a; type=string; label=IBAN
             iban =
