@@ -1,0 +1,123 @@
+<f:if condition="{projects}">
+    <f:then>
+        <f:if condition="{filterCategories}">
+            <nav class="main__nav donation-project-filter" aria-label="Projektfilter">
+                <ul class="menu menu-sub">
+                    <li>
+                        <a href="#" class="is-active js-donation-project-filter" data-category="all">
+                            Übersicht
+                        </a>
+                    </li>
+                    <f:for each="{filterCategories}" as="category">
+                        <li>
+                            <a href="#" class="js-donation-project-filter" data-category="{category.uid}">
+                                {category.title}
+                            </a>
+                        </li>
+                    </f:for>
+                </ul>
+            </nav>
+        </f:if>
+
+        <div class="flex-container gutter valign-stretch donation-project-list">
+            <f:for each="{projects}" as="projectItem">
+                <f:alias map="{project: projectItem.project, projectCategories: projectItem.categories}">
+                <div class="flex-item c-4 donation-project-list__item">
+                    <f:for each="{projectCategories}" as="category">
+                        <span class="is-hidden js-donation-project-category" data-category="{category.uid}"></span>
+                    </f:for>
+                    <f:if condition="{project.image}">
+                        <f:then>
+                            <article class="card card--border card--fixed-footer donation-project-card">
+                                <picture class="card__image">
+                                    <f:if condition="{settings.project.detailPid}">
+                                        <f:then>
+                                            <f:link.action action="show" controller="Project" extensionName="HgonDonation" pluginName="ProjectDetail" pageUid="{settings.project.detailPid}" arguments="{project: project}" title="{project.title}">
+                                                <f:image image="{project.image}" alt="{project.title}" width="395c" height="300c" />
+                                            </f:link.action>
+                                        </f:then>
+                                        <f:else>
+                                            <f:image image="{project.image}" alt="{project.title}" width="395c" height="300c" />
+                                        </f:else>
+                                    </f:if>
+                                </picture>
+                        </f:then>
+                        <f:else>
+                            <article class="card card-plain card--border donation-project-card">
+                        </f:else>
+                    </f:if>
+                        <div class="card__inner">
+                            <header class="card__header">
+                                <f:if condition="{projectCategories}">
+                                    <f:then>
+                                        <f:for each="{projectCategories}" as="category">
+                                            <span class="badge badge--secondary">{category.title}<span class="is-hidden">: </span></span>
+                                        </f:for>
+                                    </f:then>
+                                    <f:else>
+                                        <span class="badge badge--secondary">Spendenprojekt<span class="is-hidden">: </span></span>
+                                    </f:else>
+                                </f:if>
+                                <h3 class="headline">
+                                    <f:if condition="{settings.project.detailPid}">
+                                        <f:then>
+                                            <f:link.action action="show" controller="Project" extensionName="HgonDonation" pluginName="ProjectDetail" pageUid="{settings.project.detailPid}" arguments="{project: project}" title="{project.title}">
+                                                {project.title}
+                                            </f:link.action>
+                                        </f:then>
+                                        <f:else>
+                                            {project.title}
+                                        </f:else>
+                                    </f:if>
+                                </h3>
+                            </header>
+
+                            <div class="card__content">
+                                <f:if condition="{project.shortDescription}">
+                                    <f:then>
+                                        <f:format.crop maxCharacters="250" respectWordBoundaries="1">
+                                            <f:format.html>{project.shortDescription}</f:format.html>
+                                        </f:format.crop>
+                                    </f:then>
+                                    <f:else>
+                                        <f:format.crop maxCharacters="250" respectWordBoundaries="1">
+                                            <f:format.html>{project.description}</f:format.html>
+                                        </f:format.crop>
+                                    </f:else>
+                                </f:if>
+                            </div>
+
+                            <footer class="card__footer">
+                                <f:if condition="{settings.project.detailPid}">
+                                    <f:then>
+                                        <f:link.action class="btn btn--rounded btn--tertiary" action="show" controller="Project" extensionName="HgonDonation" pluginName="ProjectDetail" pageUid="{settings.project.detailPid}" arguments="{project: project}" title="{project.title}">
+                                            Mehr erfahren
+                                        </f:link.action>
+                                    </f:then>
+                                </f:if>
+                            </footer>
+                        </div>
+                    </article>
+                </div>
+                </f:alias>
+            </f:for>
+        </div>
+    </f:then>
+    <f:else>
+        <div class="flex-container space-between gutter valign-stretch">
+            <div class="flex-item c-12">
+                <article class="card card-plainfull">
+                    <div class="card__inner">
+                        <div class="flex-container">
+                            <div class="flex-item c-4">
+                                <header class="card__header">
+                                    <h3 class="headline">Keine Spendenprojekte gefunden.</h3>
+                                </header>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </f:else>
+</f:if>

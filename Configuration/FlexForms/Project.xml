@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3DataStructure>
+    <sheets>
+        <sDEF>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:flexform.project.sheetTitle</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <settings.project>
+                        <TCEforms>
+                            <label>LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:flexform.project.project</label>
+                            <config>
+                                <type>select</type>
+                                <renderType>selectSingle</renderType>
+                                <foreign_table>tx_hgondonation_domain_model_project</foreign_table>
+                                <foreign_table_where>AND tx_hgondonation_domain_model_project.sys_language_uid IN (-1,0) ORDER BY tx_hgondonation_domain_model_project.title ASC</foreign_table_where>
+                                <minitems>0</minitems>
+                                <maxitems>1</maxitems>
+                                <items type="array">
+                                    <numIndex index="0" type="array">
+                                        <label></label>
+                                        <value>0</value>
+                                    </numIndex>
+                                </items>
+                            </config>
+                        </TCEforms>
+                    </settings.project>
+                </el>
+            </ROOT>
+        </sDEF>
+    </sheets>
+</T3DataStructure>

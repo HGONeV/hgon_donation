@@ -1,0 +1,16 @@
+<f:if condition="{project}">
+    <article class="donation-project-teaser">
+        <f:if condition="{project.image}">
+            <f:image image="{project.image}" class="donation-project-teaser__image" alt="{project.title}" />
+        </f:if>
+        <div class="donation-project-teaser__content">
+            <h3 class="donation-project-teaser__title">{project.title}</h3>
+            <f:if condition="{project.shortDescription}">
+                <p class="donation-project-teaser__text">{project.shortDescription}</p>
+            </f:if>
+            <a class="btn btn--cta btn--rounded donation-project-teaser__button" href="{donationUrl}" target="_blank" rel="noopener">
+                {buttonText}
+            </a>
+        </div>
+    </article>
+</f:if>

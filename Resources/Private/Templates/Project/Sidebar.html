@@ -1,0 +1,196 @@
+<f:if condition="{project}">
+    <f:if condition="{settings.project.listPid}">
+        <f:link.page class="link link--icon / float-right" pageUid="{settings.project.listPid}" title="Zurück zur Übersicht">
+            <svg class="icon icon--btn-left" width="18" height="18"><use xlink:href="#ui-arrow-left"></use></svg>
+            Zurück zur Übersicht
+        </f:link.page>
+    </f:if>
+
+    <aside class="aside aside--border color-bg-white">
+        <header class="aside__header">
+            <h6>Spenden</h6>
+        </header>
+        <div class="aside__content">
+            <p>Unterstützen Sie dieses Projekt direkt per PayPal.</p>
+            <p>
+                <a class="btn btn--cta btn--rounded donation-project-detail__button" href="{donationUrl}" target="_blank" rel="noopener">
+                    {buttonText}
+                </a>
+            </p>
+        </div>
+    </aside>
+
+    <f:if condition="{project.locationTitle} || {project.locationDescription} || {project.hasCoordinates}">
+        <aside class="aside aside--border color-bg-white">
+            <header class="aside__header">
+                <h6>Ort</h6>
+            </header>
+            <div class="aside__content">
+                <f:if condition="{project.locationTitle}">
+                    <p><strong>{project.locationTitle}</strong></p>
+                </f:if>
+                <f:if condition="{project.locationDescription}">
+                    <p>{project.locationDescription -> f:format.nl2br()}</p>
+                </f:if>
+                <f:if condition="{project.hasCoordinates}">
+                    <p>
+                        <a
+                            href="https://www.google.com/maps?q={project.latitude},{project.longitude}&amp;output=embed"
+                            data-featherlight="iframe"
+                            data-featherlight-iframe-width="900"
+                            data-featherlight-iframe-height="600"
+                        >
+                            <i class="fa fa-map-marker"></i>&nbsp;
+                            Auf Karte anzeigen
+                        </a>
+                    </p>
+                </f:if>
+            </div>
+        </aside>
+    </f:if>
+
+    <f:if condition="{project.contactPerson}">
+        <aside class="aside aside--border color-bg-white">
+            <header class="aside__header">
+                <h6>Ansprechpartner</h6>
+            </header>
+            <div class="aside__content">
+                <f:if condition="{project.contactPerson.image}">
+                    <p>
+                        <f:image image="{project.contactPerson.image}" alt="{project.contactPerson.firstname} {project.contactPerson.lastname}" width="160c" height="160c" />
+                    </p>
+                </f:if>
+                <p>
+                    <strong>{project.contactPerson.firstname} {project.contactPerson.lastname}</strong>
+                    <f:if condition="{project.contactPerson.position}">
+                        <br />{project.contactPerson.position}
+                    </f:if>
+                </p>
+                <f:if condition="{project.contactPerson.phone}">
+                    <p>{project.contactPerson.phone}</p>
+                </f:if>
+                <f:if condition="{project.contactPerson.email}">
+                    <p><f:link.email email="{project.contactPerson.email}" /></p>
+                </f:if>
+                <f:if condition="{project.contactPerson.www}">
+                    <p><f:link.typolink parameter="{project.contactPerson.www}">Weitere Informationen</f:link.typolink></p>
+                </f:if>
+            </div>
+        </aside>
+    </f:if>
+
+    <f:if condition="{project.downloads}">
+        <aside class="aside aside--border color-bg-white">
+            <header class="aside__header">
+                <h6>Downloads</h6>
+            </header>
+            <div class="aside__content">
+                <ul class="news-downloads">
+                    <f:for each="{project.downloads}" as="download">
+                        <li>
+                            <i class="fa fa-download"></i>&nbsp;
+                            <span class="news-related-files-link">
+                                <a href="{download.originalResource.publicUrl -> f:format.htmlspecialchars()}" target="_blank" rel="noopener">
+                                    {f:if(condition: download.originalResource.title, then: download.originalResource.title, else: download.originalResource.name)}
+                                </a>
+                            </span>
+                            <span class="news-related-files-size">
+                                {download.originalResource.size -> f:format.bytes()}
+                            </span>
+                        </li>
+                    </f:for>
+                </ul>
+            </div>
+        </aside>
+    </f:if>
+
+    <f:if condition="{relatedRecords.news}">
+        <aside class="aside aside--border aside--has-btn aside-timeline color-bg-white">
+            <header class="aside__header">
+                <h6>Meldungen</h6>
+            </header>
+            <div class="aside__content">
+                <f:for each="{relatedRecords.news}" as="news">
+                    <div class="aside-timeline__item aside-timeline__item--first">
+                        <span class="aside-timeline__date">
+                            <time itemprop="datePublished" datetime="{f:format.date(date: news.datetime, format: 'Y-m-d')}">
+                                <f:format.date date="{news.datetime}" format="Y-m-d" />
+                            </time>
+                        </span>
+                        <p>
+                            <f:link.page pageUid="{settings.news.detailPid}" additionalParams="{tx_news_pi1: {news: news.uid, controller: 'News', action: 'detail'}}">
+                                {news.title}
+                            </f:link.page>
+                        </p>
+                    </div>
+                </f:for>
+            </div>
+            <br><br>
+            <f:link.page pageUid="{settings.news.listPid}" class="aside__btn">
+                Weitere anzeigen
+            </f:link.page>
+        </aside>
+    </f:if>
+
+    <f:if condition="{relatedRecords.events}">
+        <aside class="aside aside--border aside--has-btn aside-timeline color-bg-white">
+            <header class="aside__header">
+                <h6>Veranstaltungen</h6>
+            </header>
+            <div class="aside__content">
+                <f:for each="{relatedRecords.events}" as="event">
+                    <div class="aside-timeline__item aside-timeline__item--first">
+                        <span class="aside-timeline__date">
+                            <time itemprop="startDate" datetime="{f:format.date(date: event.startdate, format: 'Y-m-d')}">
+                                <f:format.date date="{event.startdate}" format="d.m.Y" />
+                            </time>
+                        </span>
+                        <p>
+                            <f:link.action
+                                action="detail"
+                                controller="Event"
+                                extensionName="SfEventMgt"
+                                pluginName="Pieventdetail"
+                                pageUid="{settings.events.detailPid}"
+                                arguments="{event: event.uid}"
+                            >
+                                {event.title}
+                            </f:link.action>
+                        </p>
+                    </div>
+                </f:for>
+            </div>
+            <br><br>
+            <f:link.page pageUid="{settings.events.listPid}" class="aside__btn">
+                Weitere anzeigen
+            </f:link.page>
+        </aside>
+    </f:if>
+
+    <f:if condition="{relatedRecords.pages} || {relatedRecords.species}">
+        <aside class="aside aside--border color-bg-white">
+            <header class="aside__header">
+                <h6>Zugehörige Inhalte</h6>
+            </header>
+            <div class="aside__content">
+                <f:if condition="{relatedRecords.pages}">
+                    <p><strong>Gebiete und Seiten</strong></p>
+                    <ul class="news-downloads">
+                        <f:for each="{relatedRecords.pages}" as="page">
+                            <li>{page.title}</li>
+                        </f:for>
+                    </ul>
+                </f:if>
+
+                <f:if condition="{relatedRecords.species}">
+                    <p><strong>Arten</strong></p>
+                    <ul class="news-downloads">
+                        <f:for each="{relatedRecords.species}" as="species">
+                            <li>{species.name}</li>
+                        </f:for>
+                    </ul>
+                </f:if>
+            </div>
+        </aside>
+    </f:if>
+</f:if>

@@ -29,6 +29,104 @@
             <trans-unit id="flexform.listing.removePadding">
                 <source>Remove padding</source>
             </trans-unit>
+
+            <trans-unit id="flexform.project.sheetTitle">
+                <source>Donation project</source>
+            </trans-unit>
+            <trans-unit id="flexform.project.project">
+                <source>Donation project</source>
+            </trans-unit>
+            <trans-unit id="tab.donation">
+                <source>Donation</source>
+            </trans-unit>
+            <trans-unit id="tab.hgon">
+                <source>HGON</source>
+            </trans-unit>
+            <trans-unit id="field.tx_hgondonation_project">
+                <source>Donation project</source>
+            </trans-unit>
+            <trans-unit id="field.tx_hgondonation_project.description">
+                <source>Assigns this record to a donation project.</source>
+            </trans-unit>
+
+            <trans-unit id="tx_hgondonation_domain_model_project">
+                <source>Donation project</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.tab.paypal">
+                <source>PayPal</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.tab.media">
+                <source>Media</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.tab.location">
+                <source>Location</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.tab.contact">
+                <source>Contact</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.slug">
+                <source>Slug</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.project_code">
+                <source>Project code</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.project_code.description">
+                <source>Stable code for PayPal reports, for example rotmilan or allgemein.</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.short_description">
+                <source>Short description</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.description">
+                <source>Description</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.categories">
+                <source>Categories</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.button_text">
+                <source>Button text</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.hosted_button_id">
+                <source>PayPal hosted button ID</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.paypal_business">
+                <source>PayPal business account</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.paypal_item_name">
+                <source>PayPal item name</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.paypal_item_number">
+                <source>PayPal item number</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.suggested_amount">
+                <source>Suggested amount</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.location_title">
+                <source>Location title</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.location_description">
+                <source>Location description</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.latitude">
+                <source>Latitude</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.longitude">
+                <source>Longitude</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.contact_person">
+                <source>Contact person</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.image">
+                <source>Image</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.gallery_images">
+                <source>Gallery images</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.downloads">
+                <source>Downloads</source>
+            </trans-unit>
 		</body>
 	</file>
 </xliff>

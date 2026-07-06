@@ -8,4 +8,3 @@ call_user_func(
 	},
     'hgon_donation'
 );
-

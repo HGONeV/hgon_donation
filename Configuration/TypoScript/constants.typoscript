@@ -24,6 +24,24 @@ plugin.tx_hgondonation {
         donationFormPid =
         # cat=plugin.tx_hgondonation//a; type=int; label=PID of become member form (shows content for lightbox)
         becomeMemberFormPid =
+        project {
+            # cat=plugin.tx_hgondonation//a; type=int; label=PID of project list page
+            listPid =
+            # cat=plugin.tx_hgondonation//a; type=int; label=PID of project detail page
+            detailPid =
+        }
+        news {
+            # cat=plugin.tx_hgondonation//a; type=int; label=PID of news detail page
+            detailPid = 62
+            # cat=plugin.tx_hgondonation//a; type=int; label=PID of news list page
+            listPid = 10
+        }
+        events {
+            # cat=plugin.tx_hgondonation//a; type=int; label=PID of event detail page
+            detailPid = 40
+            # cat=plugin.tx_hgondonation//a; type=int; label=PID of event list page
+            listPid = 3
+        }
         bankAccount {
             # cat=plugin.tx_hgondonation//a; type=string; label=IBAN
             iban =

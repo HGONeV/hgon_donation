@@ -35,6 +35,136 @@
                 <target>Entferne CSS Abstandshalter (diese Option ist je nach Layout zu nutzen)</target>
             </trans-unit>
 
+            <trans-unit id="flexform.project.sheetTitle">
+                <source>Donation project</source>
+                <target>Spendenprojekt</target>
+            </trans-unit>
+            <trans-unit id="flexform.project.project">
+                <source>Donation project</source>
+                <target>Spendenprojekt</target>
+            </trans-unit>
+            <trans-unit id="tab.donation">
+                <source>Donation</source>
+                <target>Spenden</target>
+            </trans-unit>
+            <trans-unit id="tab.hgon">
+                <source>HGON</source>
+                <target>HGON</target>
+            </trans-unit>
+            <trans-unit id="field.tx_hgondonation_project">
+                <source>Donation project</source>
+                <target>Spendenprojekt</target>
+            </trans-unit>
+            <trans-unit id="field.tx_hgondonation_project.description">
+                <source>Assigns this record to a donation project.</source>
+                <target>Ordnet diesen Datensatz einem Spendenprojekt zu.</target>
+            </trans-unit>
+
+            <trans-unit id="tx_hgondonation_domain_model_project">
+                <source>Donation project</source>
+                <target>Spendenprojekt</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.tab.paypal">
+                <source>PayPal</source>
+                <target>PayPal</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.tab.media">
+                <source>Media</source>
+                <target>Medien</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.tab.location">
+                <source>Location</source>
+                <target>Ort / Karte</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.tab.contact">
+                <source>Contact</source>
+                <target>Ansprechpartner</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.title">
+                <source>Title</source>
+                <target>Titel</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.slug">
+                <source>Slug</source>
+                <target>URL-Segment</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.project_code">
+                <source>Project code</source>
+                <target>Projektcode</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.project_code.description">
+                <source>Stable code for PayPal reports, for example rotmilan or allgemein.</source>
+                <target>Stabiler Code für PayPal-Auswertungen, zum Beispiel rotmilan oder allgemein.</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.short_description">
+                <source>Short description</source>
+                <target>Kurzbeschreibung</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.description">
+                <source>Description</source>
+                <target>Beschreibung</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.categories">
+                <source>Categories</source>
+                <target>Kategorien</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.button_text">
+                <source>Button text</source>
+                <target>Button-Text</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.hosted_button_id">
+                <source>PayPal hosted button ID</source>
+                <target>PayPal Hosted Button ID</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.paypal_business">
+                <source>PayPal business account</source>
+                <target>PayPal Business-Konto</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.paypal_item_name">
+                <source>PayPal item name</source>
+                <target>PayPal item_name</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.paypal_item_number">
+                <source>PayPal item number</source>
+                <target>PayPal item_number</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.suggested_amount">
+                <source>Suggested amount</source>
+                <target>Vorgeschlagener Betrag</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.location_title">
+                <source>Location title</source>
+                <target>Ortstitel</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.location_description">
+                <source>Location description</source>
+                <target>Ortsbeschreibung</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.latitude">
+                <source>Latitude</source>
+                <target>Breitengrad</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.longitude">
+                <source>Longitude</source>
+                <target>Längengrad</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.contact_person">
+                <source>Contact person</source>
+                <target>Ansprechpartner</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.image">
+                <source>Image</source>
+                <target>Bild</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.gallery_images">
+                <source>Gallery images</source>
+                <target>Bilderstrecke</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.downloads">
+                <source>Downloads</source>
+                <target>Downloads</target>
+            </trans-unit>
+
         </body>
 	</file>
 </xliff>

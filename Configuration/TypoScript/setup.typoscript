@@ -26,6 +26,18 @@ plugin.tx_hgondonation {
         typeNumPageWithCss = {$plugin.tx_hgondonation.settings.typeNumPageWithCss}
         donationFormPid = {$plugin.tx_hgondonation.settings.donationFormPid}
         becomeMemberFormPid = {$plugin.tx_hgondonation.settings.becomeMemberFormPid}
+        project {
+            listPid = {$plugin.tx_hgondonation.settings.project.listPid}
+            detailPid = {$plugin.tx_hgondonation.settings.project.detailPid}
+        }
+        news {
+            detailPid = {$plugin.tx_hgondonation.settings.news.detailPid}
+            listPid = {$plugin.tx_hgondonation.settings.news.listPid}
+        }
+        events {
+            detailPid = {$plugin.tx_hgondonation.settings.events.detailPid}
+            listPid = {$plugin.tx_hgondonation.settings.events.listPid}
+        }
         bankAccount {
             iban = {$plugin.tx_hgondonation.settings.bankAccount.iban}
             bic = {$plugin.tx_hgondonation.settings.bankAccount.bic}
@@ -36,6 +48,12 @@ plugin.tx_hgondonation {
 
 
 plugin.tx_hgondonation_listing < plugin.tx_hgondonation
+# ProjectList is intentionally kept dormant until the project overview concept is approved.
+# plugin.tx_hgondonation_projectlist < plugin.tx_hgondonation
+# ProjectDetail is intentionally kept dormant until the project overview concept is approved.
+# plugin.tx_hgondonation_projectdetail < plugin.tx_hgondonation
+plugin.tx_hgondonation_projectheader < plugin.tx_hgondonation
+plugin.tx_hgondonation_projectsidebar < plugin.tx_hgondonation
 
 page.includeJSFooter.txHgonDonation = EXT:hgon_donation/Resources/Public/Scripts/hgondonation.js
 

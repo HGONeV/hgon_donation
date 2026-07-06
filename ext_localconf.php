@@ -30,6 +30,72 @@ call_user_func(
             \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
 
+        // ProjectList is intentionally kept dormant until the project overview concept is approved.
+        /*
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            $extKey,
+            'ProjectList',
+            [
+                \HGON\HgonDonation\Controller\ProjectController::class => 'list'
+            ],
+            [],
+            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+        );
+        */
+
+        // ProjectDetail is intentionally kept dormant until the project overview concept is approved.
+        /*
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            $extKey,
+            'ProjectDetail',
+            [
+                \HGON\HgonDonation\Controller\ProjectController::class => 'show'
+            ],
+            [],
+            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+        );
+        */
+
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            $extKey,
+            'ProjectHeader',
+            [
+                \HGON\HgonDonation\Controller\ProjectController::class => 'header'
+            ],
+            [],
+            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+        );
+
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            $extKey,
+            'ProjectSidebar',
+            [
+                \HGON\HgonDonation\Controller\ProjectController::class => 'sidebar'
+            ],
+            [],
+            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+        );
+
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            $extKey,
+            'ProjectButton',
+            [
+                \HGON\HgonDonation\Controller\ProjectController::class => 'button'
+            ],
+            [],
+            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+        );
+
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            $extKey,
+            'ProjectTeaser',
+            [
+                \HGON\HgonDonation\Controller\ProjectController::class => 'teaser'
+            ],
+            [],
+            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+        );
+
         /*
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
             $extKey,
