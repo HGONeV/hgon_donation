@@ -116,21 +116,41 @@
                 <source>PayPal hosted button ID</source>
                 <target>PayPal Hosted Button ID</target>
             </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.hosted_button_id.description">
+                <source>Preferred setting for PayPal donations. Create a donation button in the PayPal account and paste its hosted_button_id here. If this field is filled, the public donation button uses this PayPal button.</source>
+                <target>Nur für Sonderfälle ausfüllen. Normalerweise wird der zentrale PayPal-Empfänger aus der Website-Konfiguration verwendet. Wenn hier eine Hosted Button ID steht, nutzt dieses Projekt stattdessen genau diesen PayPal-Button.</target>
+            </trans-unit>
             <trans-unit id="tx_hgondonation_domain_model_project.paypal_business">
                 <source>PayPal business account</source>
                 <target>PayPal Business-Konto</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.paypal_business.description">
+                <source>Fallback if no hosted button ID is used. Enter the merchant ID or PayPal email address that receives the donation. Without hosted button ID or business account, no donation button is shown.</source>
+                <target>Nur für Sonderfälle ausfüllen. Normalerweise wird das zentrale PayPal-Konto aus der Website-Konfiguration verwendet. Hier kann ein abweichendes empfangendes Konto für dieses Projekt eingetragen werden.</target>
             </trans-unit>
             <trans-unit id="tx_hgondonation_domain_model_project.paypal_item_name">
                 <source>PayPal item name</source>
                 <target>PayPal item_name</target>
             </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.paypal_item_name.description">
+                <source>Optional label for PayPal reports. If empty, the project title is sent.</source>
+                <target>Optionale Bezeichnung für spätere PayPal-Auswertungen. Beim zentralen Hosted-Button-Link wird diese Information aktuell nicht zuverlässig an PayPal übergeben.</target>
+            </trans-unit>
             <trans-unit id="tx_hgondonation_domain_model_project.paypal_item_number">
                 <source>PayPal item number</source>
                 <target>PayPal item_number</target>
             </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.paypal_item_number.description">
+                <source>Optional code for PayPal reports. If empty, the project code is sent.</source>
+                <target>Optionaler Code für spätere PayPal-Auswertungen. Beim zentralen Hosted-Button-Link wird diese Information aktuell nicht zuverlässig an PayPal übergeben.</target>
+            </trans-unit>
             <trans-unit id="tx_hgondonation_domain_model_project.suggested_amount">
                 <source>Suggested amount</source>
                 <target>Vorgeschlagener Betrag</target>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.suggested_amount.description">
+                <source>Optional suggested amount in EUR. Set to 0 if PayPal should not receive a prefilled amount.</source>
+                <target>Optionaler Vorschlagsbetrag in EUR. Auf 0 setzen, wenn PayPal keinen vorausgefüllten Betrag erhalten soll.</target>
             </trans-unit>
             <trans-unit id="tx_hgondonation_domain_model_project.location_title">
                 <source>Location title</source>

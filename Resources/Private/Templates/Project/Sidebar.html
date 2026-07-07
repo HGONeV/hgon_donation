@@ -6,19 +6,21 @@
         </f:link.page>
     </f:if>
 
-    <aside class="aside aside--border color-bg-white">
-        <header class="aside__header">
-            <h6>Spenden</h6>
-        </header>
-        <div class="aside__content">
-            <p>Unterstützen Sie dieses Projekt direkt per PayPal.</p>
-            <p>
-                <a class="btn btn--cta btn--rounded donation-project-detail__button" href="{donationUrl}" target="_blank" rel="noopener">
-                    {buttonText}
-                </a>
-            </p>
-        </div>
-    </aside>
+    <f:if condition="{donationUrl}">
+        <aside class="aside aside--border color-bg-white">
+            <header class="aside__header">
+                <h6>Spenden</h6>
+            </header>
+            <div class="aside__content">
+                <p>Unterstützen Sie dieses Projekt direkt per PayPal.</p>
+                <p>
+                    <a class="btn btn--cta btn--rounded donation-project-detail__button" href="{donationUrl}" target="_blank" rel="noopener">
+                        {buttonText}
+                    </a>
+                </p>
+            </div>
+        </aside>
+    </f:if>
 
     <f:if condition="{project.locationTitle} || {project.locationDescription} || {project.hasCoordinates}">
         <aside class="aside aside--border color-bg-white">

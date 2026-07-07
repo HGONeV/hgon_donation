@@ -58,7 +58,7 @@ class ProjectController extends ActionController
 
         $this->view->assignMultiple([
             'project' => $project,
-            'donationUrl' => $this->projectLinkService->buildPayPalDonateUrl($project),
+            'donationUrl' => $this->projectLinkService->buildPayPalDonateUrl($project, $this->getPaymentSettings()),
             'buttonText' => $this->projectLinkService->getButtonText($project),
             'relatedRecords' => $this->projectRelationService->findRelatedRecords($project),
         ]);
@@ -99,7 +99,7 @@ class ProjectController extends ActionController
 
         $this->view->assignMultiple([
             'project' => $project,
-            'donationUrl' => $this->projectLinkService->buildPayPalDonateUrl($project),
+            'donationUrl' => $this->projectLinkService->buildPayPalDonateUrl($project, $this->getPaymentSettings()),
             'buttonText' => $this->projectLinkService->getButtonText($project),
             'relatedRecords' => $this->projectRelationService->findRelatedRecords($project),
         ]);
@@ -117,7 +117,7 @@ class ProjectController extends ActionController
 
         $this->view->assignMultiple([
             'project' => $project,
-            'donationUrl' => $this->projectLinkService->buildPayPalDonateUrl($project),
+            'donationUrl' => $this->projectLinkService->buildPayPalDonateUrl($project, $this->getPaymentSettings()),
             'buttonText' => $this->projectLinkService->getButtonText($project),
         ]);
 
@@ -191,6 +191,16 @@ class ProjectController extends ActionController
 
         $project = $this->projectRepository->findByUid($projectUid);
         return $project instanceof Project ? $project : null;
+    }
+
+    private function getPaymentSettings(): array
+    {
+        $settings = $this->configurationManager->getConfiguration(
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+            'HgonPayment'
+        );
+
+        return is_array($settings) ? $settings : [];
     }
 
 }

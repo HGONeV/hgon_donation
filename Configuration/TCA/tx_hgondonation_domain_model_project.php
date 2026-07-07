@@ -43,7 +43,7 @@ return [
                 --div--;LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_project.tab.media,
                 image, gallery_images, downloads,
                 --div--;LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_project.tab.paypal,
-                button_text, hosted_button_id, paypal_business, paypal_item_name, paypal_item_number, suggested_amount,
+                button_text,
                 --div--;LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_project.tab.location,
                 location_title, location_description, latitude, longitude,
                 --div--;LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_project.tab.contact,
@@ -51,6 +51,8 @@ return [
                 --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,
                 starttime, endtime
             ',
+            // PayPal detail fields are kept as TCA fields, but hidden from editors
+            // while the central hosted PayPal donation link is used.
         ],
     ],
     'palettes' => [
@@ -192,6 +194,7 @@ return [
         'hosted_button_id' => [
             'exclude' => true,
             'label' => 'LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_project.hosted_button_id',
+            'description' => 'LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_project.hosted_button_id.description',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -201,6 +204,7 @@ return [
         'paypal_business' => [
             'exclude' => true,
             'label' => 'LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_project.paypal_business',
+            'description' => 'LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_project.paypal_business.description',
             'config' => [
                 'type' => 'input',
                 'size' => 40,
@@ -210,6 +214,7 @@ return [
         'paypal_item_name' => [
             'exclude' => true,
             'label' => 'LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_project.paypal_item_name',
+            'description' => 'LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_project.paypal_item_name.description',
             'config' => [
                 'type' => 'input',
                 'size' => 40,
@@ -219,6 +224,7 @@ return [
         'paypal_item_number' => [
             'exclude' => true,
             'label' => 'LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_project.paypal_item_number',
+            'description' => 'LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_project.paypal_item_number.description',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -228,6 +234,7 @@ return [
         'suggested_amount' => [
             'exclude' => true,
             'label' => 'LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_project.suggested_amount',
+            'description' => 'LLL:EXT:hgon_donation/Resources/Private/Language/locallang_db.xlf:tx_hgondonation_domain_model_project.suggested_amount.description',
             'config' => [
                 'type' => 'number',
                 'format' => 'decimal',

@@ -8,9 +8,11 @@
             <f:if condition="{project.shortDescription}">
                 <p class="donation-project-teaser__text">{project.shortDescription}</p>
             </f:if>
-            <a class="btn btn--cta btn--rounded donation-project-teaser__button" href="{donationUrl}" target="_blank" rel="noopener">
-                {buttonText}
-            </a>
+            <f:if condition="{donationUrl}">
+                <a class="btn btn--cta btn--rounded donation-project-teaser__button" href="{donationUrl}" target="_blank" rel="noopener">
+                    {buttonText}
+                </a>
+            </f:if>
         </div>
     </article>
 </f:if>

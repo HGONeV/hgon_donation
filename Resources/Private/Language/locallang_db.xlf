@@ -91,17 +91,32 @@
             <trans-unit id="tx_hgondonation_domain_model_project.hosted_button_id">
                 <source>PayPal hosted button ID</source>
             </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.hosted_button_id.description">
+                <source>Only fill this for special cases. Usually the central PayPal receiver from the website configuration is used. If this field is filled, this project uses exactly this PayPal button instead.</source>
+            </trans-unit>
             <trans-unit id="tx_hgondonation_domain_model_project.paypal_business">
                 <source>PayPal business account</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.paypal_business.description">
+                <source>Only fill this for special cases. Usually the central PayPal account from the website configuration is used. Enter a different receiving account here only if this project needs one.</source>
             </trans-unit>
             <trans-unit id="tx_hgondonation_domain_model_project.paypal_item_name">
                 <source>PayPal item name</source>
             </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.paypal_item_name.description">
+                <source>Optional label for future PayPal reports. With the central hosted button link this information is currently not reliably passed to PayPal.</source>
+            </trans-unit>
             <trans-unit id="tx_hgondonation_domain_model_project.paypal_item_number">
                 <source>PayPal item number</source>
             </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.paypal_item_number.description">
+                <source>Optional code for future PayPal reports. With the central hosted button link this information is currently not reliably passed to PayPal.</source>
+            </trans-unit>
             <trans-unit id="tx_hgondonation_domain_model_project.suggested_amount">
                 <source>Suggested amount</source>
+            </trans-unit>
+            <trans-unit id="tx_hgondonation_domain_model_project.suggested_amount.description">
+                <source>Optional suggested amount in EUR. Set to 0 if PayPal should not receive a prefilled amount.</source>
             </trans-unit>
             <trans-unit id="tx_hgondonation_domain_model_project.location_title">
                 <source>Location title</source>

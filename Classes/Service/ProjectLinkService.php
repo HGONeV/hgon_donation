@@ -8,36 +8,54 @@ use HGON\HgonDonation\Domain\Model\Project;
 
 class ProjectLinkService
 {
-    private const PAYPAL_DONATE_URL = 'https://www.paypal.com/donate';
+    private const PAYPAL_DONATE_URL = 'https://www.paypal.com/donate/';
+    private const PAYPAL_WEBSCR_URL = 'https://www.paypal.com/cgi-bin/webscr';
 
-    public function buildPayPalDonateUrl(Project $project): string
+    public function buildPayPalDonateUrl(Project $project, array $paymentSettings = []): string
     {
-        $parameters = [];
+        $hostedButtonId = (string)($paymentSettings['api']['paypal']['hostedButtonId'] ?? '');
+        $business = (string)($paymentSettings['api']['paypal']['business'] ?? '');
 
-        if ($project->getHostedButtonId() !== '') {
-            $parameters['hosted_button_id'] = $project->getHostedButtonId();
+        if ($hostedButtonId !== '') {
+            return self::PAYPAL_DONATE_URL . '?' . http_build_query(
+                [
+                    'hosted_button_id' => $hostedButtonId,
+                    'locale.x' => 'de_DE',
+                ],
+                '',
+                '&',
+                PHP_QUERY_RFC3986
+            );
         }
 
-        if ($project->getPaypalBusiness() !== '') {
-            $parameters['business'] = $project->getPaypalBusiness();
-            $parameters['cmd'] = '_donations';
+        if ($business === '') {
+            return '';
         }
 
-        $parameters['item_name'] = $project->getPaypalItemName() ?: $project->getTitle();
-        $parameters['item_number'] = $project->getPaypalItemNumber() ?: $project->getProjectCode();
-        $parameters['currency_code'] = 'EUR';
-        $parameters['no_recurring'] = '0';
+        $parameters = [
+            'cmd' => '_donations',
+            'business' => $business,
+            'item_name' => $project->getPaypalItemName() ?: $project->getTitle(),
+            'item_number' => $project->getPaypalItemNumber() ?: $project->getProjectCode(),
+            'currency_code' => 'EUR',
+            'no_recurring' => '0',
+        ];
 
         if ($project->getSuggestedAmount() > 0) {
             $parameters['amount'] = number_format($project->getSuggestedAmount(), 2, '.', '');
         }
 
-        return self::PAYPAL_DONATE_URL . '?' . http_build_query(
+        return self::PAYPAL_WEBSCR_URL . '?' . http_build_query(
             array_filter($parameters, static fn ($value): bool => $value !== ''),
             '',
             '&',
             PHP_QUERY_RFC3986
         );
+    }
+
+    public function hasPayPalDonateUrl(Project $project, array $paymentSettings = []): bool
+    {
+        return $this->buildPayPalDonateUrl($project, $paymentSettings) !== '';
     }
 
     public function getButtonText(Project $project): string
