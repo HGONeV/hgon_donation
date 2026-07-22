@@ -60,6 +60,6 @@ class ProjectLinkService
 
     public function getButtonText(Project $project): string
     {
-        return $project->getButtonText() ?: 'Jetzt spenden';
+        return $project->getButtonText() ?: 'Jetzt spenden mit PayPal';
     }
 }

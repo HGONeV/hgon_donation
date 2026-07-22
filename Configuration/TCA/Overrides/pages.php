@@ -26,10 +26,4 @@ defined('TYPO3') or die('Access denied.');
         ],
     ];
 
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
-        'pages',
-        $field,
-        '',
-        'before:tx_hgontemplate_contactperson'
-    );
 })();

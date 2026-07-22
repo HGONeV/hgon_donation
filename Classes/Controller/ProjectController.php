@@ -11,6 +11,7 @@ use HGON\HgonDonation\Service\ProjectRelationService;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Frontend\Page\PageInformation;
 
 class ProjectController extends ActionController
 {
@@ -126,7 +127,22 @@ class ProjectController extends ActionController
 
     private function resolveSelectedProject(): ?Project
     {
-        return $this->findProjectByUid((int)($this->settings['project'] ?? 0));
+        $configuredProject = $this->settings['project'] ?? null;
+        $selectedProject = $this->findProjectByUid(
+            is_scalar($configuredProject) ? (int)$configuredProject : 0
+        );
+        if ($selectedProject instanceof Project) {
+            return $selectedProject;
+        }
+
+        $pageInformation = $this->request->getAttribute('frontend.page.information');
+        if (!$pageInformation instanceof PageInformation) {
+            return null;
+        }
+
+        return $this->findProjectByUid(
+            (int)($pageInformation->getPageRecord()['tx_hgondonation_project'] ?? 0)
+        );
     }
 
     private function resolveRequestedProject(): ?Project

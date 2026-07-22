@@ -188,7 +188,7 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim',
-                'placeholder' => 'Jetzt spenden',
+                'placeholder' => 'Jetzt spenden mit PayPal',
             ],
         ],
         'hosted_button_id' => [
